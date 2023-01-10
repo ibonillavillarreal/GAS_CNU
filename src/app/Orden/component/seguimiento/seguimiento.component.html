@@ -1,0 +1,125 @@
+
+
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title"><span class="lstick"></span>ORDEN DE TRABAJO - TRACKING :Numero Orden {{num_orden}}</h4>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <mat-stepper labelPosition="bottom" #stepper>
+            <mat-step state="generales">
+                <ng-template matStepLabel>Diseño</ng-template>
+                <mat-list>
+                    <div mat-subheader>Detalles</div>
+                    <div style="overflow-y: auto; overflow-x: hidden; height:350px; ">
+                        <mat-list-item *ngFor="let item of list_Diseno">
+                            <mat-icon mat-list-icon>miscellaneous_services</mat-icon>
+                            <div mat-line>{{item.estacion}}</div>
+                            <div mat-line> <span class="small">Entrada : {{item.fecha_entrada | date:'dd/MM/yyyy'}} ,
+                                    {{item.usr_entrega}}</span> </div>
+                            <div mat-line> <span class="small">Salida : {{item.fecha_salida | date:'dd/MM/yyyy'}} ,
+                                    {{item.usr_recibe}}</span> </div>
+                            
+                        </mat-list-item>
+                    </div>
+                </mat-list>
+            </mat-step>
+            <mat-step>
+                <ng-template matStepLabel>Impresion</ng-template>
+                <mat-list>
+                    <div mat-subheader>Detalles</div>
+                    <div style="overflow-y: auto; overflow-x: hidden; height:350px; ">
+                        <mat-list-item *ngFor="let item of list_Impresion">
+                            <mat-icon mat-list-icon>miscellaneous_services</mat-icon>
+                            <div mat-line>{{item.estacion}}</div>
+                            <div mat-line> <span class="small">Entrada : {{item.fecha_entrada | date:'dd/MM/yyyy'}} ,
+                                    {{item.usr_entrega}}</span> </div>
+                            <div mat-line> <span class="small">Salida : {{item.fecha_salida | date:'dd/MM/yyyy'}} ,
+                                    {{item.usr_recibe}}</span> </div>
+                        </mat-list-item>
+                    </div>
+                </mat-list>
+            </mat-step>
+            <mat-step>
+                <ng-template matStepLabel>Area de Corte </ng-template>
+                <mat-list>
+                    <div mat-subheader>Detalles</div>
+                    <div style="overflow-y: auto; overflow-x: hidden; height:350px; ">
+                        <mat-list-item *ngFor="let item of list_CorteArmado">
+                            <mat-icon mat-list-icon>trip_origin</mat-icon>
+                            <div mat-line>{{item.estacion}}</div>
+                            <div mat-line> <span class="small">Entrada : {{item.fecha_entrada | date:'dd/MM/yyyy'}} ,
+                                    {{item.usr_entrega}}</span> </div>
+                            <div mat-line> <span class="small">Salida : {{item.fecha_salida | date:'dd/MM/yyyy'}} ,
+                                    {{item.usr_recibe}}</span> </div>
+                        </mat-list-item>
+                    </div>
+                </mat-list>
+            </mat-step>
+
+            <mat-step>
+                <ng-template matStepLabel> Armado y Supervizado</ng-template>
+                <mat-list>
+                    <div mat-subheader>Detalles</div>
+                    <div style="overflow-y: auto; overflow-x: hidden; height:350px; ">
+                        <mat-list-item *ngFor="let item of list_Supervizado">
+                            <mat-icon mat-list-icon>miscellaneous_services</mat-icon>
+                            <div mat-line>{{item.estacion}}</div>
+                            <div mat-line> <span class="small">Entrada : {{item.fecha_entrada | date:'dd/MM/yyyy'}} ,
+                                    {{item.usr_entrega}}</span> </div>
+                            <div mat-line> <span class="small">Salida : {{item.fecha_salida | date:'dd/MM/yyyy'}} ,
+                                    {{item.usr_recibe}}</span> </div>
+                        </mat-list-item>
+                    </div>
+                </mat-list>
+            </mat-step>
+
+            <mat-step>
+                <ng-template matStepLabel>Facturacion</ng-template>
+                <mat-list>
+                    <div mat-subheader>Detalles</div>
+                    <div style="overflow-y: auto;  height:350px; ">
+                        <mat-list-item *ngFor="let item of list_Facturacion">
+                            <mat-icon mat-list-icon>my_library_books</mat-icon>
+                            <div mat-line>{{item.estacion}}</div>
+                            <div mat-line> <span class="small">Entrada : {{item.fecha_entrada | date:'dd/MM/yyyy'}} ,
+                                    {{item.usr_entrega}}</span> </div>
+                            <div mat-line> <span class="small">Salida : {{item.fecha_salida | date:'dd/MM/yyyy'}} ,
+                                    {{item.usr_recibe}}</span> </div>
+                        </mat-list-item>
+                    </div>
+                </mat-list>
+            </mat-step>
+          
+                 <ng-template matStepperIcon="generales">
+                      <mat-icon>my_library_books</mat-icon>
+                 </ng-template>
+                 
+                 <ng-template matStepperIcon="phone">
+                      <mat-icon>call_end</mat-icon>
+                 </ng-template>
+        
+                 <ng-template matStepperIcon="chat">
+                        <mat-icon>forum</mat-icon>
+                 </ng-template>
+                 
+                 <ng-template matStepperIcon="lente">
+                        <mat-icon>visibility</mat-icon>
+                 </ng-template>
+        
+                 <ng-template matStepperIcon="aro">
+                        <mat-icon>voicemail</mat-icon>
+                 </ng-template>
+        
+                 <ng-template matStepperIcon="servicio">
+                        <mat-icon>miscellaneous_services</mat-icon>
+                 </ng-template>
+        
+                 <ng-template matStepperIcon="camera">
+                        <mat-icon>camera</mat-icon>
+                 </ng-template>
+        </mat-stepper>        
+    </div>
+</div>

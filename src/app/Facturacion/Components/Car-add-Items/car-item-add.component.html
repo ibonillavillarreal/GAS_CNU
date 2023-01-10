@@ -1,0 +1,155 @@
+<div class="row" class="mat-elevation-z3">
+
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title accordion-item">
+                    <div class="col-10">
+                        <mat-icon>add_shopping_cart</mat-icon>Agregar Articulos 
+                    </div>
+                    <div class="col-2">
+                        <br>
+                        <mat-label style="text-align: center; font-size: 14px;"> Tasa de Cambio {{' : '}} <strong>
+                                {{this.tsCambio}} </strong> </mat-label>
+                        <mat-label style="text-align: center; font-size: 14px;"> Facturación en {{' : '}} <strong>
+                                {{this.MonedaFactura}} </strong> </mat-label>
+
+                    </div>
+                </h4>
+
+
+                <br>
+                <div class="card">
+                    <br>
+                    <div class="row col-12">
+                        <div class="col-3">
+                            <mat-label>
+                                <mat-label style="margin-bottom: 10px;font-size: 14px;">Razon Social </mat-label>
+                                <br> <b>{{razonSocial}}</b>
+                            </mat-label>
+                        </div>                        
+                            <div class="col-2">
+                                <section appearance="legacy" style="padding-top: 1%;">
+                                    <mat-label >                                
+                                     <p style="width: 14px; padding-top: 8%;font-size: 14px; color: maroon;">
+                                        <mat-checkbox (change)="articulo_Change($event)">VENTA DIRECTA </mat-checkbox>
+                                    </p>
+                                    </mat-label>
+                                </section>
+                            </div>                        
+                        <br>                        
+                        <div class="col-7" *ngIf="modoCotizacion">
+                            <mat-form-field appearance="legacy" style="width: 100%;">
+                                <mat-label style="font-size: 14px; color:maroon;"> CARGAR COTIZACIÓN </mat-label>
+                                <mat-select>
+                                    <mat-option *ngFor="let item of list_ClienteCotizaciones"
+                                        [value]="item.idCotizacion"
+                                        (click)="cotizacion_click(item.idCotizacion,item.idMoneda)">
+                                        {{item.NumeroCotizacion}} {{' -- '}} {{item.DescripcionCotizacion}} {{' -- '}}
+                                        {{item.idMoneda}} {{' -- '}} {{item.TipoDesc}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-7" *ngIf="modoArtDirecto">
+                            <mat-form-field appearance="legacy" style="width: 100%;">
+                                <mat-label style="font-size: 14px; color:maroon;"> CARGAR ARTICULOS </mat-label>
+                                <mat-select>
+                                    <mat-option *ngFor="let item2 of list_ArticulosTerminados"
+                                        [value]="item2.idProducto"
+                                        (click)="terminado_click(item2.idProducto)"
+                                    >
+                                    {{item2.idProducto}} {{' - '}} {{item2.Nombre}} 
+                                    {{' - Precio: '}} {{item2.Precio}} {{'- Moneda: '}} {{item2.Moneda}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                       
+                        <!-- <div class="col-1">
+                            <span class="btn btn-liosa" (click)="Emitir_Articulos_click()"> <i
+                                    class="bi bi-plus-lg"></i> </span>
+                        </div> -->
+                    </div>
+
+                </div>
+
+
+
+                <br>
+                <br>
+
+
+                <table mat-table #table [dataSource]="dataSourceFacturaItems" matSort class="card">
+
+                    <ng-container matColumnDef="NumeroCotizacion">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> NumeroCotizacion</th>
+                        <td mat-cell *matCellDef="let element"> {{element.NumeroCotizacion}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="ARTICULO">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> ARTICULO </th>
+                        <td mat-cell *matCellDef="let element"> {{element.ARTICULO}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Descripcion">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Descripcion </th>
+                        <td mat-cell *matCellDef="let element"> {{element.Descripcion}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Cantidad">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Cantidad </th>
+                        <td mat-cell *matCellDef="let element"> {{element.Cantidad}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Precio">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Precio </th>
+                        <td mat-cell *matCellDef="let element"> {{element.Precio.toFixed(2)}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="iva">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> iva </th>
+                        <td mat-cell *matCellDef="let element"> {{element.iva.toFixed(2)}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="subTotal">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> subTotal </th>
+                        <td mat-cell *matCellDef="let element"> {{element.subTotal.toFixed(2)}} </td>
+                    </ng-container>
+
+
+                    <ng-container matColumnDef="acciones">                        
+                        <th mat-header-cell *matHeaderCellDef
+                            matTooltip="AGREGAR ELEMENTOS A FACTURA "
+                            matTooltipClass="tooltip-red"
+                            aria-label="Tooltip..."
+                            class="button-Toolstip" >
+
+                            <span class="btn btn-liosa" (click)="Emitir_Articulos_click()" style="margin-left: 15px !important;"> 
+                                <i class="bi bi-plus-lg"></i> 
+                            </span>
+                        </th>
+                        
+                        <td mat-cell *matCellDef="let element, let i = index" style="text-align: right;">
+                            <span class="pointer" style="color: #dc3545;" matTooltip="Agregar">
+                                <mat-icon (click)="add_Articulo_click(element.ARTICULO)">add</mat-icon>
+                            </span>
+                            <span class="pointer" style="color:  green;" matTooltip="Editar">
+                                <mat-icon (click)="Cantidad_click(i)"> edit </mat-icon>
+                            </span>
+                        </td>
+                       
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+                <mat-paginator [pageSizeOptions]="[10, 25, 100]" aria-label="Items por pagina"></mat-paginator>
+
+
+            </div>
+
+        </div>
+    </div>
+</div>

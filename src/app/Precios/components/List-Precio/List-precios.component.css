@@ -1,0 +1,33 @@
+@import url("../../../template.css"); 
+@import url("../../../style/Generales.css"); 
+
+a { color: inherit; } 
+
+  .mat-column-Nivel{
+    width: 10% !important;
+  }
+
+  .mat-column-Articulo{
+      width: 10% !important;
+  }
+
+  .mat-column-Descripcion{
+    width: 20% !important;
+    text-align:left;
+  }
+
+  .mat-column-Precio{
+    width: 8% !important;
+  }
+
+  .mat-column-MonedaDesc{
+    width: 8% !important;
+  }
+
+  .mat-column-acciones{
+    width: 3% !important;
+  }
+  
+  input{
+    color: #000;
+  }

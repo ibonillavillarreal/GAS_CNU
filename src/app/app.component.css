@@ -1,0 +1,112 @@
+  @import url("template.css");  
+
+mat-toolbar{
+    background-color: #C21437;
+    color: #fff;
+}
+mat-sidenav{
+    margin: 10px;
+    width: 250px;
+    height: calc(100vh - 15px);
+    border-right: none;
+    background: #C21437;  
+    color: #fff;
+    border-radius: 8px;
+    padding: 16px;
+    text-align: center;
+}
+mat-sidenav-container{
+    height: calc(100vh);
+}
+.content{
+    height: calc(100vh );
+    width: 95%;
+    /***COMPONER CUANDO SE CAMBIA DE RESOLUCION***/
+    margin:16px;
+    margin-left: 32px;
+    /*******/
+    align-items: center;
+    justify-content: center;
+    color: lightgray;
+    border-radius: 10px;
+}
+.menu-button{
+    margin-left: 40px;
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    text-align: center;
+    font-size: 1rem;
+    cursor: pointer;
+}
+mat-icon{
+    margin-right: 8px;
+}
+
+.name {
+    margin-top: 8px;
+    font-weight: normal;
+}
+
+.designation {
+    margin-top: 2px;
+    font-size: 0.7rem;
+    color: lightgrey;
+}
+
+mat-divider {
+    margin-top: 16px;
+    margin-bottom: 16px;
+    background-color: rgba(255, 255, 255, 0.5);
+}
+.avatar {
+    margin-top: 16px;
+    width: 100px;
+    height: 100px;
+    border-radius: 10%;
+}
+
+
+.example-action-buttons {
+    padding-bottom: 20px;
+  }
+  
+  .example-headers-align .mat-expansion-panel-header-title,
+  .example-headers-align .mat-expansion-panel-header-description {
+    flex-basis: 0;
+  }
+  
+  .example-headers-align .mat-expansion-panel-header-description {
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .example-headers-align .mat-form-field + .mat-form-field {
+    margin-left: 8px;
+  }
+  mat-accordion{
+      background: #C21437 !important;
+      margin-top: 20px !important;
+  }
+  .accordion-item{
+    cursor: pointer; 
+    display: flex; 
+    align-items: center;
+    border: none;
+    background-color: #C21437;
+    color: #fff;
+    margin-top: 10px;
+  }
+  .blue-snackbar {
+    background: #2196F3;
+  }
+  .mat-expansion-panel-body {
+    background-color: #C21437;
+  }
+ .mat-expansion-indicator::before{
+    color: #fff;
+  }
+  /* mat-sidenav-content{
+    background-color: rgb(245, 245, 245);
+  } */

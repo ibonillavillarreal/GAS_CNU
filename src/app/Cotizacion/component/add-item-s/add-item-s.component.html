@@ -1,0 +1,93 @@
+<div>
+    <h4 class="card-title accordion-item">
+        <mat-icon>add_shopping_cart</mat-icon>AGREGAR ARTICULO
+    </h4>
+
+
+    <div [hidden]="tools.getisLoadingDetails()">
+        <div class="row">
+            <div class="col-5">
+                <mat-form-field appearance="legacy">
+                    <mat-label>Buscar Articulo</mat-label>
+                    <input matInput (keyup)="applyFilter($event)" placeholder="Palabras Claves para buscar un Articulo"
+                        #input>
+                </mat-form-field>
+            </div>
+        </div>
+        <table mat-table [dataSource]="dataSource" matSort>
+
+            <ng-container matColumnDef="Descripcion">
+                <th mat-header-cell *matHeaderCellDef> ARTICULO </th>
+                <td mat-cell *matCellDef="let producto"> {{producto.DESCRIPCION}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Cantidad">
+                <th mat-header-cell *matHeaderCellDef> Cantidad | Und </th>
+                <td mat-cell *matCellDef="let producto">
+                    <mat-form-field appearance="legacy">
+                        <mat-label>Cantidad | Und</mat-label>
+                <td mat-cell *matCellDef="let productoId"></td>
+                <input matInput placeholder="Cantidad en Mts2" (change)="valCantidad(producto.ARTICULO)"
+                    (keyup.enter)="add(producto.ARTICULO)" name="frmCantidad" id="{{producto.ARTICULO}}" type="number">
+                </mat-form-field>
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="Precio">
+                <th mat-header-cell *matHeaderCellDef> Precio | Mts2 </th>
+                <td mat-cell *matCellDef="let producto">
+                    <mat-form-field appearance="legacy">
+                        <mat-label>Precio | Mts2</mat-label>
+                        <input matInput placeholder="Precio en Mts2" name="precio" id="{{producto.ARTICULO}}P" type="number" 
+                            [value]="producto.Precio">
+                    </mat-form-field>
+                </td>
+            </ng-container>
+            <ng-container *ngIf="IsProject" matColumnDef="DescripcionUso">
+                <th mat-header-cell *matHeaderCellDef>Descripcion de uso</th>
+                <td mat-cell *matCellDef="let producto">
+                    <mat-form-field *ngIf="IsProject" appearance="legacy">
+                        <mat-label>Descripcion de uso</mat-label>
+                <td mat-cell *matCellDef="let productoId"></td>
+                <input matInput placeholder="Descripcion de uso" (keyup.enter)="add(producto.ARTICULO)"
+                    id="{{producto.ARTICULO}}D">
+                </mat-form-field>
+                </td>
+            </ng-container>
+            <ng-container *ngIf="!IsProject" matColumnDef="Base" >
+                <th mat-header-cell *matHeaderCellDef >Base</th>
+                <td mat-cell *matCellDef="let producto" >
+                    <mat-form-field appearance="legacy">
+                        <mat-label  >Base</mat-label>
+                        <input matInput placeholder="Base" (keyup.enter)="add(producto.ARTICULO)"
+                            id="{{producto.ARTICULO}}B" type="number" min=0  [disabled]="!producto.UsaArea" >
+                    </mat-form-field>
+                </td>
+            </ng-container>
+            <ng-container *ngIf="!IsProject" matColumnDef="Altura">
+                <th mat-header-cell *matHeaderCellDef>Altura</th>
+                <td mat-cell *matCellDef="let producto">
+                    <mat-form-field appearance="legacy">
+                        <mat-label>Altura</mat-label>
+                        <input matInput placeholder="Altura" (keyup.enter)="add(producto.ARTICULO)"
+                            id="{{producto.ARTICULO}}A" type="number" min=0  [disabled]="!producto.UsaArea">
+                    </mat-form-field>
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="acciones">
+                <th mat-header-cell *matHeaderCellDef class="alinearMaxIcon"></th>
+                <td mat-cell *matCellDef="let producto" style="text-align:right;">
+
+                    <span class="pointer accordion-item" style="color: #dc3545;" matTooltip="Agregar">
+                        <mat-icon (click)="add(producto.ARTICULO)">add</mat-icon>
+                    </span>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]" aria-label="Items por pagina" (page)="getPaginatorData($event)">
+        </mat-paginator>
+
+    </div>
+
+
+</div>

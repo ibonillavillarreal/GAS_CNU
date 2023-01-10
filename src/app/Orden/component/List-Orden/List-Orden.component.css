@@ -1,0 +1,23 @@
+@import url("../../../template.css"); 
+@import url("../../../style/Generales.css"); 
+
+h1, input{
+    color: black;
+}
+
+.mat-column-Cliente{
+    width: 15% !important;
+}
+
+.mat-column-Fecha{
+    width: 10% !important;
+}
+
+.mat-column-Descripcion{
+    width: 25% !important;
+}
+
+
+.ancho{
+    width: 90% !important;  
+  }

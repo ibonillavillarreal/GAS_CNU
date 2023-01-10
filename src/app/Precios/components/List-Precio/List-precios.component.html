@@ -1,0 +1,97 @@
+
+<div *ngIf="!isAllowed()">
+    <div class="alert alert-danger">ACCESO DENEGADO</div>
+</div>
+
+<div *ngIf="isAllowed()">
+
+    <div class="row" class="mat-elevation-z3">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title"><span class="lstick"></span>NIVELES DE PRECIO </h4>
+                    <div class="d-flex flex-row-reverse bd-highlight">
+                        <div class="p-2 bd-highlight">
+                            <a class="btn btn-liosa" href="Precio/add"> 
+                            <i class="bi bi-person-plus-fill"></i>Agregar Precios por Clientes                             
+                            </a>                                     
+                        </div>
+                    </div>
+
+                    <div class="div-center uploader-status" *ngIf="tools.getisLoadingDetails()">
+                        <br>
+                        <mat-spinner [diameter]="50"></mat-spinner>
+                    </div>
+
+
+                    <div [hidden]="tools.getisLoadingDetails()">
+                        <mat-form-field appearance="standard">
+                            <mat-label>Buscar</mat-label>
+                            <input matInput (keyup)="applyFilter($event)" placeholder="Introduzca una palabra clave" #input>                            
+                        </mat-form-field>                        
+
+                        <table mat-table #table [dataSource]="dataSourceArticuloPrecio" matSort>
+
+                            <ng-container matColumnDef="Nivel">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Nivel. </th>
+                                <td mat-cell *matCellDef="let element"> {{element.Nivel}} </td>
+                            </ng-container>
+                                                          
+                            <ng-container matColumnDef="Articulo">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Articulo  </th>
+                                <td mat-cell *matCellDef="let element"> {{element.Articulo}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="Descripcion">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Descripción </th>
+                                <td mat-cell *matCellDef="let element"> {{element.Descripcion}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="MonedaDesc">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Moneda  </th>
+                                <td mat-cell *matCellDef="let element"> {{element.MonedaDesc}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="Precio">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Precio </th>
+                                <td mat-cell *matCellDef="let element"> {{element.Precio.toFixed(2)}} </td>
+                            </ng-container>
+                                            
+                            <ng-container matColumnDef="acciones">
+                                <th mat-header-cell *matHeaderCellDef>
+                                    
+                                        <!-- <span class="pointer" style="color: #198754;" matTooltip="Agregar">
+                                            <a   >Precio Base <mat-icon >add_circle_outline</mat-icon></a>  
+                                        </span>                                                                              
+                                     -->
+
+                                </th>
+                                <td mat-cell *matCellDef="let element" style="text-align: right;">
+
+                                    <!-- <span class="pointer" style="color: #0a46c7;" matTooltip="Detalles">                                        
+                                      <a (click)="openForm(1,element.Nivel)"  ><mat-icon>remove_red_eye</mat-icon></a>  
+                                    </span> -->
+
+                                    <span  class="pointer" style="color:#198754;" matTooltip="Editar">
+                                     <!-- <a (click)="openForm(2,element.Nivel)"><mat-icon>edit</mat-icon></a> -->
+                                     <a  (click)="openDialog_ClientePrecio(element.id_cliente,element.razon_social,element.Articulo,'2')"  ><mat-icon>edit</mat-icon></a>
+                                    </span>
+
+                                    <!-- <span class="pointer" style="color:#dc3545;" matTooltip="Eliminar">
+                                       <a (click)="openForm(3,element.Nivel)"><mat-icon>delete</mat-icon></a>
+                                    </span> -->
+                                </td>
+                            </ng-container>
+
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                        </table>
+                        <mat-paginator [pageSizeOptions]="[10, 25, 100]" aria-label="Items por pagina" (page)="getPaginatorData($event)"> </mat-paginator>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+</div>

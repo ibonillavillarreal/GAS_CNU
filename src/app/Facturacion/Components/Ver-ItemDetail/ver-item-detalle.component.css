@@ -1,0 +1,26 @@
+
+@import url("../../../template.css"); 
+@import url("../../../style/Generales.css"); 
+
+a { color: inherit; } 
+.mat-column-CODIGO{
+    width: 25% !important;
+    
+}
+
+  .mat-column-DESCRIPCION{
+      width: 50% !important;
+  }
+
+  .mat-column-CANTIDAD{
+    width: 10% !important;
+    text-align:left;
+  }
+
+  .mat-column-MONTO{
+    width: 14% !important;
+  }
+
+  .mat-column-Acciones{
+    width: 1% !important;
+  }

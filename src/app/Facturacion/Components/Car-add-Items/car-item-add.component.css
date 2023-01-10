@@ -1,0 +1,56 @@
+@import url("../../../template.css"); 
+@import url("../../../style/Generales.css"); 
+
+a { color: inherit; } 
+
+
+.mat-column-NumeroCotizacion{       
+  color: black;
+  width: 13% !important;
+  
+  }
+  .mat-column-ARTICULO{    
+    color: black;
+    width: 16% !important;
+  }
+  .mat-column-Descripcion{      
+      color: black;
+      width: 18% !important;
+  }
+  .mat-column-Cantidad{
+    color: black;
+    width: 15% !important;
+    text-align:center;
+    
+  }  
+  .mat-column-Precio{
+    color: black;
+    width: 10% !important;
+  }  
+  .mat-column-iva{
+    color: black;
+    width: 10% !important;
+  }
+  .mat-column-subTotal{
+    color: black;
+    width: 10% !important;
+  }  
+  .mat-column-acciones {
+    color: black;
+    width:  12% !important;
+    text-align:left;
+  }
+  
+  mat-form-field{
+    width: 85%;
+    color: black;
+}
+
+
+.button-Toolstip {
+  margin-top: 16px;
+}
+
+.tooltip-red {
+  background: #b71c1c;
+}

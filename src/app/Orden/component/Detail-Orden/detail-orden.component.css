@@ -1,0 +1,37 @@
+@import url("../../../template.css"); 
+@import url("../../../style/Generales.css"); 
+
+mat-form-field{
+    width: 100%;
+}
+
+.card-title{
+    color: #000;
+    font-weight: bold;
+    font-size: 20px;
+}
+.campo{
+    color: #000;
+    font-size: medium;
+}
+.valor{
+    
+    color: rgb(134, 130, 130);
+}
+
+.mat-button{
+      width: 100% !important;
+      text-align: justify;
+      text-justify: auto;
+}
+.text-right{
+      text-align: right;
+}
+
+.table{
+    margin-top: 0 !important;
+}
+
+.mat-column-Articulo{
+    width: 25% !important;
+}

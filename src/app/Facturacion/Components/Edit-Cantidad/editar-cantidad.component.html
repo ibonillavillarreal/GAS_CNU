@@ -1,0 +1,40 @@
+
+
+
+<h2>Edite la Cantidad </h2>
+
+<form [formGroup]="form" #formDirective="ngForm">
+        <div class="row">
+            <div class="col">
+                <mat-form-field appearance="legacy">
+                    <mat-label>Cantidad (*)</mat-label>
+                    <input matInput placeholder="Cantidad" formControlName="Cantidad" type="number">
+                  </mat-form-field>
+            </div>
+        </div>
+       <div class="row">
+            <div class="col">
+                <mat-form-field appearance="legacy">
+                    <mat-label>Descripción(*)</mat-label>
+                    <input matInput placeholder="Descripción de Uso" formControlName="DescripUso" readonly="true">
+                    <!-- <mat-hint>Hint</mat-hint> -->
+                  </mat-form-field>
+            </div>
+       </div>
+       <div class="row">
+        <div class="col">
+            <mat-form-field appearance="legacy">
+                <mat-label>Precio(*)</mat-label>
+                <input matInput placeholder="Descripción de Uso" formControlName="Precio" readonly="true">
+                <!-- <mat-hint>Hint</mat-hint> -->
+            </mat-form-field>
+        </div>
+   </div>
+      
+  
+  <div class="modal-footer">
+    <button type="button"  class="btn btn-outline-danger" (click)="edit(form.value)">Guardar</button>
+    <button type="button"  class="btn btn-outline-secondary" (click)="Cerrarfrm" >Cerrar</button>
+  </div>
+</form>
+

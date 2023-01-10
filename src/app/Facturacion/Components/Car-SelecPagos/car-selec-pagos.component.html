@@ -1,0 +1,81 @@
+<div class="row" class="mat-elevation-z2">
+
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title accordion-item">
+                    <mat-icon>add_shopping_cart</mat-icon>Seleccione el Tipo de Pago
+                </h4>
+            </div>
+        </div>
+    </div>
+    <br>
+    <form [formGroup]="frmSelecPagos" #formDirective="ngForm">
+
+        <mat-form-field appearance="fill">
+            <mat-label>Formas de Pago</mat-label>
+            <mat-select formControlName="idformaPagos">
+                <mat-option *ngFor="let item of list_formas_dePagos" (click)="tipos_pagos_click(item.id)"
+                    [value]=item.id>{{item.Descripcion}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <br>
+        <mat-form-field appearance="fill" *ngIf="flag_monedas">
+            <mat-label>La Moneda</mat-label>
+            <mat-select formControlName="idMoneda">
+                <mat-option *ngFor="let item of list_monedas" [value]="item.id">{{item.Descripcion}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <br>
+        <mat-form-field appearance="fill" *ngIf="flag_bancos">
+            <mat-label>El Banco</mat-label>
+            <mat-select formControlName="idBancos">
+                <mat-option *ngFor="let item of list_bancos" [value]="item.id">{{item.Descripcion}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <br>
+        <mat-form-field appearance="fill" *ngIf="flag_tipo_cuentas">
+            <mat-label>Tipo Cuenta</mat-label>
+            <mat-select formControlName="idTipoCuentas">
+                <mat-option *ngFor="let item of list_tipo_cuentas" [value]="item.id">{{item.Descripcion}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <br>
+        <mat-form-field appearance="fill" *ngIf="flag_tipo_retencion">
+            <mat-label>Tipo Retención</mat-label>
+            <mat-select formControlName="idTipoRetencion">
+                <mat-option *ngFor="let item of list_tipo_retencion" [value]="item.id">{{item.Descripcion}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <br>
+        <mat-form-field appearance="legacy" *ngIf="flag_nro_referencia">
+            <mat-label># Doc. de Referencia </mat-label>
+            <input matInput placeholder="Alto" type="number" formControlName="idDocReferencia">
+        </mat-form-field>
+
+        <mat-form-field appearance="legacy">
+            <mat-label>Monto </mat-label>
+            <input matInput placeholder="Alto" type="number" formControlName="idMonto">
+        </mat-form-field>
+        <br>
+
+    </form>
+
+    <div class="row col-12">
+        <div class="col-10">
+
+        </div>
+        <div class="col-1">
+            <span>
+                <i class="btn btn-danger" (click)="enviar_formaPago_click(frmSelecPagos.value)"> Agregar </i>
+            </span>
+        </div>
+    </div>
+
+</div>

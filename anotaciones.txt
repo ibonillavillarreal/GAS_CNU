@@ -1,0 +1,3 @@
+-->RECARGA PARCIAL DE COMPONENTE
+--ng m "ruta de componente/nombre del componente" --routing
+

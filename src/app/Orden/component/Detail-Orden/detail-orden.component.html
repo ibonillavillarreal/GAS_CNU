@@ -1,0 +1,106 @@
+<div class="row">
+    <div class="col-lg-3 col-md-12">
+        <div class="card">
+            <div class="card-body mat-elevation-z3">
+                <h4 class="card-title"><span class="lstick"></span>DATOS GENERALES</h4>
+                <hr>
+                <table class="table vm font-14">
+                    <tr>
+                        
+                        <div col="12">
+                            <button class="mat-button" mat-raised-button (click)="openDialogTracking()">
+                                <mat-icon>follow_the_signs</mat-icon> Tracking
+                            </button>
+                        </div>
+                        <div col="12">
+                            <button class="mat-button" mat-raised-button (click)="openDialogSeguimiento()">
+                                <mat-icon>follow_the_signs</mat-icon> Seguimiento
+                            </button>
+                        </div>
+                        <hr>
+                        <div *ngIf="!tools.getisLoadingDetails()">
+
+                            <div col="12">
+                                Estado : <span style="color: rgb(13, 158, 49); "> {{orden.estado}}</span>
+                            </div>
+                            <div col="12">
+                                Entrega : <span style="color: rgb(17, 98, 122);">{{orden.fechaEntrega}}</span>
+                            </div>
+                            <div col="12">
+                                Cliente : <span style="color: rgb(17, 98, 122);">{{orden.razon_social}}</span>
+                            </div>
+                            <div col="12">
+                                Num Cotizacion : <span style="color: rgb(17, 98, 122);">{{orden.NumeroCotizacion}}</span>
+                            </div>
+                            <div col="12">
+                                Codigo : <span style="color: rgb(17, 98, 122);">{{orden.codigo}}</span>
+                            </div>
+                        </div>
+                    </tr>
+
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-9 col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title"><span class="lstick"></span>DETALLE DE ORDEN</h4>
+                <div class="div-center uploader-status" *ngIf="tools.getisLoadingDetails()">
+                    <br>
+                    <mat-spinner [diameter]="50"></mat-spinner>
+                </div>
+                <div *ngIf="!tools.getisLoadingDetails()">
+
+                    <table mat-table #table [dataSource]="dataSource" matSort>
+                        <ng-container matColumnDef="Articulo">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Articulo </th>
+                            <td mat-cell *matCellDef="let element"> {{element.articulo}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="Descripcion">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Descripcion </th>
+                            <td mat-cell *matCellDef="let element"> {{element.descripcion}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="Altura">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Altura </th>
+                            <td mat-cell *matCellDef="let element"> {{element.altura}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="Base">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Base </th>
+                            <td mat-cell *matCellDef="let element"> {{element.base}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="Cantidad">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Cantidad </th>
+                            <td mat-cell *matCellDef="let element"> {{element.cantidad}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="UndMedida">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Und. medida</th>
+                            <td mat-cell *matCellDef="let element"> {{element.und_medida}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="acciones">
+                            <th mat-header-cell *matHeaderCellDef> </th>
+                            <td mat-cell *matCellDef="let element" style="text-align: right;">
+                                <span (click)="openDialogConsumo(element.id_orden_trabajo_detalle)" class="pointer" style="color: #198754;"
+                                    matTooltip="Editar">
+                                    <mat-icon>edit</mat-icon>
+                                </span>
+                            </td>
+                        </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    </table>
+                    <mat-paginator [pageSizeOptions]="[10, 25, 100]" aria-label="Items por pagina" ></mat-paginator>
+                </div>
+
+            </div>
+        </div>
+    </div>
+   
+</div>

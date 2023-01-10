@@ -1,0 +1,84 @@
+
+/****BTN LIOSA***/
+.btn-liosa {
+    color: #fff;
+    background-color: #D30F30;
+    border-color: #D30F30;
+  }
+  .btn-liosa:hover {
+    color: #fff;
+    background-color: #D30F30;
+    border-color: #D30F30;
+  }
+  .btn-check:focus + .btn-liosa, .btn-liosa:focus {
+    color: #fff;
+    background-color: #920920;
+    border-color: #920920;
+    box-shadow: 0 0 0 0.25rem rgba(225, 83, 97, 0.5);
+  }
+  .btn-check:checked + .btn-liosa, .btn-check:active + .btn-liosa, .btn-liosa:active, .btn-liosa.active, .show > .btn-liosa.dropdown-toggle {
+    color: #fff;
+    background-color: #740618;
+    border-color: #740618;
+    
+  }
+  .btn-check:checked + .btn-liosa:focus, .btn-check:active + .btn-liosa:focus, .btn-liosa:active:focus, .btn-liosa.active:focus, .show > .btn-liosa.dropdown-toggle:focus {
+    box-shadow: 0 0 0 0.25rem rgba(225, 83, 97, 0.5);
+  }
+  .btn-liosa:disabled, .btn-liosa.disabled {
+    color: #fff;
+    background-color: #C21437;
+    border-color: #C21437;
+  }
+  .card-title{
+    color: #000;
+    font-weight: bold;
+    font-size: 20px;
+  }
+  .div-center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color:#C21437;
+  }
+    /*****/
+  table {
+    width: 100%;
+    margin-top: 0.5%;
+  }
+  
+  th{
+    width:20%;
+  }
+  .pointer{
+    cursor: pointer;
+  }
+  .accordion-item{
+    cursor: pointer; 
+    display: flex; 
+    align-items: center;
+    border:none;
+  }
+  .lstick::before{
+    content: '|';
+    color: #D30F30;
+    font-size: x-large;
+    margin-right: 0.5%;
+  }
+  /***COLOR SPINER**/
+  .uploader-status ::ng-deep .mat-progress-spinner circle, .mat-spinner circle {
+    stroke: #D30F30;
+  }
+  /**OPACIDAD AL 100 LA TAB SELECCIONADA**/
+  ::ng-deep.mat-tab-label-active{
+    opacity: 1.0!important;
+  }
+/**CHECKBOX COLOR**/
+  ::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-ripple .mat-ripple-element {
+    opacity: 0.03 !important;
+    background-color: #D30F30!important;
+  }
+
+::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background,.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+    background-color: #D30F30;
+  }

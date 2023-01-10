@@ -1,0 +1,172 @@
+
+@import url("../../../template.css"); 
+@import url("../../../style/Generales.css"); 
+
+.myfondo{
+  background-color: #ffff;
+}
+  
+.mat-form-field + .mat-form-field {
+  margin-left: 8px;
+}
+
+
+  .bg-liosa{
+    background-color: #006666; 
+}
+/****BTN LIOSA***/
+.btn-liosa {
+    color: #fff;
+    background-color: #006666;
+    border-color: #006666;
+  }
+  .btn-liosa:hover {
+    color: #fff;
+    background-color: #044646;
+    border-color: #044646;
+  }
+  .btn-check:focus + .btn-liosa, .btn-liosa:focus {
+    color: #fff;
+    background-color: #044646;
+    border-color: #044646;
+    box-shadow: 0 0 0 0.25rem rgba(225, 83, 97, 0.5);
+  }
+  .btn-check:checked + .btn-liosa, .btn-check:active + .btn-liosa, .btn-liosa:active, .btn-liosa.active, .show > .btn-liosa.dropdown-toggle {
+    color: #fff;
+    background-color: #D30F30;
+    border-color: #D30F30;
+  }
+  .btn-check:checked + .btn-liosa:focus, .btn-check:active + .btn-liosa:focus, .btn-liosa:active:focus, .btn-liosa.active:focus, .show > .btn-liosa.dropdown-toggle:focus {
+    box-shadow: 0 0 0 0.25rem rgba(225, 83, 97, 0.5);
+  }
+  .btn-liosa:disabled, .btn-liosa.disabled {
+    color: #fff;
+    background-color: #D30F30;
+    border-color: #D30F30;
+  }
+  /*****/
+  .btn-cerrar{
+      color: #fff !important;
+  }
+   /*****/
+   mat-form-field {
+    width: 100%;
+
+  }
+
+  .mat-accordion{
+    background: #C21437 !important;
+    margin-top: 20px !important;
+}
+.accordion-item{
+  cursor: pointer; 
+  display: flex; 
+  align-items: center;
+  border: none;
+  background-color: #C21437;
+  color: #fff;
+  margin-top: 10px;
+}
+.blue-snackbar {
+  background: #2196F3;
+}
+ .mat-expansion-panel-body {
+  background-color: #fff;
+  color:#C21437;
+}
+ .mat-expansion-indicator::after{
+  color: #fff;
+  width: 0%;
+  
+}
+.mat-expansion-panel-hader{
+  color:red;
+  width: 0%;
+  
+}
+  
+
+/* La tabla  - estilo*/
+
+.example-container {
+  height: 280px;
+  overflow: auto;
+  
+}
+
+table {
+  width: 100%;
+  
+}
+
+tr.mat-footer-row {
+  font-weight: bold;
+}
+
+.mat-table-sticky {
+  border-top: 1px solid #e0e0e0;
+  
+}
+
+.mat-icon{
+  
+    display: contents;  
+  
+}
+
+.alinearMaxIcon{
+  display:contents;
+  background-color: chartreuse;
+  
+}
+
+.example-right-align {
+  text-align: right;
+}
+
+input.example-right-align::-webkit-outer-spin-button,
+input.example-right-align::-webkit-inner-spin-button {
+  display: none;
+}
+
+input.example-right-align {
+  -moz-appearance: textfield;
+}
+
+.mat-column-Descripcion{
+  width: 40% !important;
+  text-align: left;
+  padding-right: 5%;
+  color: black;
+}
+.mat-column-Cantidad{
+  width: 10% !important;
+  text-align: left;
+  color: black;
+}
+.mat-column-Precio{
+  width: 10% !important;
+  text-align: left;
+  color: black;
+}
+
+.mat-column-Total{
+  width: 10% !important;
+  text-align: left;
+  color: black;
+}
+
+.mat-column-Acciones{
+  width: 20% !important;
+  color: black;
+  
+}
+
+input, h1{
+color: black;
+}
+.mat-form-field, mat-label{
+color:black;
+
+}
+

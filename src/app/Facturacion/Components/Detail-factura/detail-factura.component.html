@@ -1,0 +1,143 @@
+<div class="row">
+    <br>
+
+    <div class="col-3">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title accordion-item">
+                    <div>
+                        <mat-icon>add_shopping_cart</mat-icon> Factura
+                    </div>
+                </h4>
+
+                <div col="12">
+                    <button class="mat-button" mat-raised-button (click)="openDialogTracking()">
+                        <mat-icon>follow_the_signs</mat-icon> Tracking
+                    </button>
+                </div>
+                <div col="12">
+                    <button class="mat-button" mat-raised-button (click)="openDialogSeguimiento()">
+                        <mat-icon>follow_the_signs</mat-icon> Seguimiento
+                    </button>
+                </div>
+                <hr>
+
+                <table class="table">
+
+                    <tr>
+                        <td class="b-0">Codigo Cliente</td>
+                        <td class="text-right"> {{facturaMaestro.Codigo}} </td>
+
+                    </tr>
+                    <tr>
+                        <td class="b-0">Cliente</td>
+                        <td class="text-right"> {{facturaMaestro.Razon_Social}} </td>
+
+                    </tr>
+                    <tr>
+                        <td class="b-0">No. Factura</td>
+                        <td class="text-right">{{facturaMaestro.Factura}}</td>
+                    </tr>
+
+                    <tr>
+                        <td class="b-0">Tipo Factura</td>
+                        <td class="text-right">{{facturaMaestro.Tipo}}</td>
+                    </tr>
+
+                    <tr>
+                        <td class="b-0">Monto</td>
+                        <td class="text-right">{{facturaMaestro.Monto}}</td>
+                    </tr>
+                    <tr>
+                        <td class="b-0">Moneda</td>
+                        <td class="text-right" *ngIf="facturaMaestro.Moneda==='NIO'">{{'Córdobas'}}</td>
+                        <td class="text-right" *ngIf="facturaMaestro.Moneda==='USD'">{{'Dolar'}}</td>
+                    </tr>
+
+                    <tr>
+                        <td class="b-0">Tasa de Cambio</td>
+                        <td class="text-right">{{facturaMaestro.tasa_cambio}}</td>
+                    </tr>
+                    <tr>
+                        <td class="b-0">Fecha</td>
+                        <td class="text-right">{{facturaMaestro.fecha_registro | date:'dd-MM-yyyy'}} </td>
+                    </tr>
+                    <tr>
+                        <td class="b-0">Estado </td>
+                        <td class="text-right">{{facturaMaestro.Estado}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-9">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title accordion-item">
+                    <div>
+                        <mat-icon>add_shopping_cart</mat-icon> Detalle de Factura
+                    </div>
+                </h4>
+                <table mat-table #table [dataSource]="dataSourceDetFactura" matSort class="card">
+
+                    <ng-container matColumnDef="Cotizacion">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Cotización</th>
+                        <td mat-cell *matCellDef="let element"> {{element.NumeroCotizacion}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="ARTICULO">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> ARTICULO </th>
+                        <td mat-cell *matCellDef="let element"> {{element.ARTICULO}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Descripcion">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Descripcion </th>
+                        <td mat-cell *matCellDef="let element"> {{element.Descripcion}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Cantidad">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Cantidad </th>
+                        <td mat-cell *matCellDef="let element"> {{element.Cantidad}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Precio">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Precio </th>
+                        <td mat-cell *matCellDef="let element"> {{element.Precio.toFixed(2)}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="iva">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> iva </th>
+                        <td mat-cell *matCellDef="let element"> {{element.iva.toFixed(2)}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="subTotal">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> subTotal </th>
+                        <td mat-cell *matCellDef="let element"> {{element.subTotal.toFixed(2)}} </td>
+                    </ng-container>
+
+
+                    <ng-container matColumnDef="acciones">
+                        <th mat-header-cell *matHeaderCellDef></th>
+                        <td mat-cell *matCellDef="let element" style="text-align: right;">
+
+                            <span class="pointer accordion-item" style="color: #dc3545;" matTooltip="Agregar">
+                                <mat-icon (click)="openForm(1,element.idCotizacion,element.Descripcion)">remove_red_eye</mat-icon>
+                            </span>
+                        </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+                <mat-paginator [pageSizeOptions]="[5,10,15,20,25,50,100]" aria-label="Items por pagina"></mat-paginator>
+                <div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline-danger" (click)="Cerrar()">Salir</button>
+        </div>
+    </div>

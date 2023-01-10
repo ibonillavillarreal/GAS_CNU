@@ -1,0 +1,31 @@
+
+<div class="card">
+    <div class="card-body">
+        
+        <div *ngIf="isShown">
+            <h4 class="card-title"><span class="lstick"></span><b>AVANZAR TRACKING FACTURA : </b>{{list_tracking.id_factura}}</h4>
+            <hr>
+            <table class="table vm font-14">
+                <tr>
+                    <div col="12" class="mb-3">
+                        Estado : <span style="color: rgb(13, 158, 49); "> {{list_tracking.estado}}</span>
+                    </div>
+                    <div col="12" class="mb-3">
+                        Estacion Actual : <span style="color: rgb(17, 98, 122);">{{list_tracking.estacion_actual}}</span>
+                    </div>
+                    <div col="12" class="mb-3">
+                        Estacion Anterior : <span style="color: rgb(17, 98, 122);">{{list_tracking.estacion_anterior}}</span>
+                    </div>
+                    <div col="12"  class="mb-3">
+                        Estacion Siguiente : <span style="color: rgb(17, 98, 122);">{{list_tracking.estacion_siguiente}}</span>
+                    </div>
+                    
+                    <span class="btn btn-danger" mat-button (click)="changeEstacion()">Siguiente estacion</span>
+                    
+                </tr>
+        
+            </table>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,23 @@
+@import url("../../../template.css"); 
+@import url("../../../style/Generales.css"); 
+
+h1, input{
+    color: black;
+}
+
+.inputWidth{
+    width: 100%;
+}
+
+.mat-column-Cantidad{
+    width: 10% !important;
+}
+
+.mat-column-Subtotal{
+    width: 15% !important;
+}  
+
+.selected{
+    background-color: rgb(250, 157, 141);
+}
+

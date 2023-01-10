@@ -1,0 +1,37 @@
+@import url("../../../template.css"); 
+@import url("../../../style/Generales.css"); 
+
+a { color: inherit; } 
+
+  .mat-column-Codigo{
+    width: 6% !important;
+  }
+  .mat-column-Cliente{
+      width: 5% !important;
+  }
+  .mat-column-Factura{
+    width: 6% !important;
+    text-align:left;
+  }  
+  .mat-column-Tipo{
+    width: 6% !important;
+  }  
+  .mat-column-Monto{
+    width: 5% !important;
+  }
+  .mat-column-Moneda{
+    width: 5% !important;
+  }  
+  .mat-column-Estado{
+    width: 5% !important;
+  }  
+
+  .mat-column-acciones {
+    width: 4% !important;
+    text-align:left;
+  }
+
+  
+.ancho{
+  width: 90% !important;  
+}

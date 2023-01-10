@@ -1,0 +1,48 @@
+
+@import url("../../../template.css"); 
+@import url("../../../style/Generales.css"); 
+tr{
+  border-bottom: rgb(202, 200, 200) 1px solid ;  
+}
+td{
+  padding: 10px;
+}
+
+/* a{
+  text-decoration: none;
+} */
+
+a { color: inherit; } 
+
+
+.mat-column-Cotizacion{     
+  width: 20% !important;
+  text-align:left;
+ 
+  }
+  .mat-column-ARTICULO{
+    width: 25% !important;
+    text-align:left;
+  }
+  .mat-column-Descripcion{
+      width: 35% !important;
+      text-align:left;
+  }
+  .mat-column-Cantidad{
+    width: 10% !important;
+    text-align:left;
+  }  
+  .mat-column-Precio{
+    width: 9% !important;
+    text-align:left;
+  }  
+    
+  .mat-column-acciones {
+    width: 1% !important;
+    text-align:left;
+  }
+
+  
+  mat-form-field{
+    width: 85%;
+}

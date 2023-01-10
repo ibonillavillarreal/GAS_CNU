@@ -1,0 +1,230 @@
+<div *ngIf="!isAllowed()">
+    <div class="alert alert-danger">ACCESO DENEGADO</div>
+</div>
+
+<br>
+
+<div *ngIf="isAllowed()">
+
+    <div class="row" class="mat-elevation-z3">
+
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-8" ><h4 class="card-title"><span class="lstick"></span>Nueva Factura </h4></div>
+                        <div class="col-4"> 
+                            <table class="table">
+                                <!--Z8-TABLA TOTALES -->
+                                <thead>
+                                    <th></th>                                    
+                                </thead>
+                                <tbody>
+                                  <tr class="table-default">
+                                        <td colspan="5"></td>
+                                        <td class="alinear_derecha"><strong>Tasa-Fecha</strong> </td>
+                                        <td class="alinear_izquierda"> {{tsCambio.toFixed(4)}} </td>
+                                        <td class="alinear_izquierda"> {{fechaDia | date:'yyyy-MM-dd'}} </td>
+                                   </tr>   
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="row col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div>
+                                    <form [formGroup]="frmClienteCotizacion" #formDirective="ngForm">
+                                        <div class="row col-12">
+                                            <div class="col-3">
+                                                <mat-form-field appearance="legacy">
+                                                    <mat-label>Cliente</mat-label>
+                                                    <mat-select formControlName="id_cliente">
+                                                        <mat-option *ngFor="let item of list_cliente"
+                                                            [value]="item.id_cliente"
+                                                            (click)="Cliente_change(item.id_cliente,item.razon_social)">
+                                                            {{item.razon_social}}
+                                                        </mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="col-3">
+                                                <mat-form-field appearance="legacy">
+                                                    <mat-label>TipoFactura</mat-label>
+                                                    <mat-select formControlName="TipoFactura">
+                                                        <mat-option *ngFor="let item of list_tipoFactura"
+                                                            [value]="item.id_tipo_factura"
+                                                            (click)="tipoFactura_change(item.id_tipo_factura,item.Tipo)">
+                                                            {{item.Tipo}}</mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>
+                                            </div>
+                                            <!-- matInput type="date"   [matDatepicker]="picker_FechaFactura" -->
+                                            <div class="col-2">     
+                                                <mat-form-field appearance="legacy">
+                                                    <mat-label>Fecha de Factura </mat-label>
+                                                    <input matInput type="date" 
+                                                     formControlName="FechaFactura" 
+                                                     (change)="FechaFactura_change($event)"    
+                                                    >                                                    
+                                                    <mat-datepicker #picker_FechaFactura></mat-datepicker>
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="col-3">
+                                                <mat-form-field appearance="legacy">
+                                                    <mat-label>Moneda a Facturar </mat-label>
+                                                    <mat-select formControlName="id_moneda">
+                                                        <mat-option *ngFor="let item of Lista_Monedas"
+                                                            [value]="item.MONEDA"
+                                                            (click)="moneda_change(item.MONEDA,item.NOMBRE)">
+                                                            {{item.NOMBRE}}
+                                                        </mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="col-1">
+                                                <span> 
+                                                    <i class="btn btn-liosa" (click)="openForm(1,0)"> Cargar </i> 
+                                                </span>
+                                        
+                                                
+                                                <br>
+                                            </div>
+                                            <div class="row col-7" *ngIf="itsCredit">
+                                                <mat-form-field appearance="legacy">
+                                                    <mat-label>Plazos (*)</mat-label>
+                                                    <mat-select formControlName="id_plazo_interes">
+                                                        <mat-option *ngFor="let item of list_plazos" [value]="item.id_plazo_interes"
+                                                        (click)="plazoFactura_change(item.id_plazo_interes)"
+                                                        >
+                                                            {{item.descripcion}}
+                                                        </mat-option>
+                                                    </mat-select>                                                
+                                                </mat-form-field>
+                                            </div>
+
+                                        </div>
+
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+                    <table mat-table #table [dataSource]="dataSourceFacturaItems" matSort>
+
+                        <ng-container matColumnDef="NumeroCotizacion">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> NumeroCotizacion </th>
+                            <td mat-cell *matCellDef="let element"> {{element.NumeroCotizacion}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="ARTICULO">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> ARTICULO </th>
+                            <td mat-cell *matCellDef="let element"> {{element.ARTICULO}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="Descripcion">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Descripcion </th>
+                            <td mat-cell *matCellDef="let element"> {{element.Descripcion}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="Cantidad">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Cantidad </th>
+                            <td mat-cell *matCellDef="let element"> {{element.Cantidad}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="Precio">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Precio </th>
+                            <td mat-cell *matCellDef="let element"> {{element.Precio.toFixed(2)}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="iva">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> iva </th>
+                            <td mat-cell *matCellDef="let element"> {{element.iva.toFixed(2)}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="subTotal">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> subTotal </th>
+                            <td mat-cell *matCellDef="let element"> {{element.subTotal.toFixed(2)}} </td>
+                        </ng-container>
+
+
+                        <ng-container matColumnDef="acciones">
+                            <th mat-header-cell *matHeaderCellDef></th>
+                            <td mat-cell *matCellDef="let element" style="text-align: right;">
+                                <span class="pointer" style="color: #dc3545;" matTooltip="Eliminar">
+                                    <a (click)="openForm(3,element.id_cliente)">
+                                        <mat-icon>delete</mat-icon>
+                                    </a>
+                                </span>
+                            </td>
+                        </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    </table>
+                    <mat-paginator [pageSizeOptions]="[10, 25, 100]" aria-label="Items por pagina"
+                        (page)="getPaginatorData($event)"></mat-paginator>
+
+
+                </div>
+            </div>
+
+        </div>
+
+
+
+        <div class="row">
+
+            <div class="col-12">
+                <table class="table">
+                    <!--Z8-TABLA TOTALES -->
+                    <thead>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        
+
+
+                    </thead>
+                    <tbody>
+                        <tr class="table">
+                            <td colspan="3"></td>
+                            <td class="alinear_derecha"> <strong>Sub Total</strong> </td>
+                            <td class="alinear_izquierda"> USD {{Sub_Total_USD.toFixed(2)}} </td>
+                            <td class="alinear_izquierda"> NIO {{Sub_Total_NIO.toFixed(2)}} </td>
+
+                        </tr>
+                        <tr class="table-default">
+                            <td colspan="3"></td>
+                            <td class="alinear_derecha"><strong>IVA</strong> </td>
+                            <td class="alinear_izquierda">USD {{IVA_USD.toFixed(2)}} </td>
+                            <td class="alinear_izquierda">NIO {{IVA_NIO.toFixed(2)}} </td>
+                        </tr>
+                        <tr class="table-default">
+                            <td colspan="3"></td>
+                            <td class="alinear_derecha"><strong>TOTAL</strong> </td>
+                            <td class="alinear_izquierda">USD {{TOTAL_USD.toFixed(2)}} </td>
+                            <td class="alinear_izquierda">NIO {{TOTAL_NIO.toFixed(2)}} </td>
+                        </tr>
+                        
+
+                    </tbody>
+                </table>
+
+            </div>
+
+        </div>
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-danger" (click)="openForm(2,0)">Facturar</button>
+        </div>
+    </div>
+
+
+</div>

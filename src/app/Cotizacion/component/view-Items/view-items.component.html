@@ -1,0 +1,105 @@
+
+<div>
+
+        <h2 style="font-family:Arial, Helvetica, sans-serif ;"> VISTA DETALLES  </h2>
+
+        <form [formGroup]="frmAddItem" #formDirective="ngForm"
+                                        >
+                <div class="row">
+                    <div class="col-1">
+                        <mat-form-field appearance="legacy">
+                            <mat-label>UND</mat-label>
+                            <input matInput placeholder="Cantidad" formControlName="Cantidad" type="number" >
+                        </mat-form-field>
+                    </div>
+                    <div class="col">
+                        <mat-form-field appearance="legacy">
+                            <mat-label>DESCRIPCION DE PROYECTO </mat-label>
+                            <input matInput placeholder="Descripción del Proyecto" formControlName="DESCRIPCION" type="text" >
+                        </mat-form-field>
+                    </div>
+                    <div class="col-2">
+                        <mat-form-field appearance="legacy">
+                            <mat-label>PRECIO</mat-label>
+                            <input matInput placeholder="Precio" formControlName="Precio" type="number" >
+                        </mat-form-field>
+                    </div>
+                </div>          
+        </form>
+
+
+        <div class="row ">
+            <table mat-table [dataSource]="dataSourceItemProyecto">
+
+            <ng-container matColumnDef="Descripcion">
+                <th mat-header-cell *matHeaderCellDef> Descripción </th>
+                <td mat-cell *matCellDef="let transaction"> {{transaction.DESCRIPCION}} </td>
+                <td mat-footer-cell *matFooterCellDef></td>
+            </ng-container>
+
+            <ng-container matColumnDef="Cantidad">
+                <th mat-header-cell *matHeaderCellDef> Cantidad </th>
+                <td mat-cell *matCellDef="let transaction">
+                    {{transaction.Cantidad}}
+                </td>
+
+                <td mat-footer-cell *matFooterCellDef></td>
+            </ng-container>
+
+            <ng-container  matColumnDef="Precio">
+                <th mat-header-cell *matHeaderCellDef> Precio </th>
+                <td mat-cell *matCellDef="let producto"> {{producto.Precio}} </td>
+                <td mat-footer-cell *matFooterCellDef></td>
+            </ng-container>
+            <ng-container  matColumnDef="PrecioDollar">
+                <th mat-header-cell *matHeaderCellDef> Precio $ </th>
+                <td mat-cell *matCellDef="let producto"> {{producto.Precio$}} </td>
+                <td mat-footer-cell *matFooterCellDef></td>
+            </ng-container>
+
+            <ng-container matColumnDef="Iva">
+                <th mat-header-cell *matHeaderCellDef> Iva </th>
+                <td mat-cell *matCellDef="let producto"> {{producto.Iva}} </td>
+                <td mat-footer-cell *matFooterCellDef></td>
+            </ng-container>
+
+            
+            <ng-container matColumnDef="DescripcionDeUso">
+                <th mat-header-cell *matHeaderCellDef> DESCRIPCION DE USO </th>
+                <td  matInput placeholder="DESCRIPCION DE USO" *matCellDef="let transaction">{{transaction.DescripcionDeUso}}
+                </td>
+                <td mat-footer-cell *matFooterCellDef></td>
+            </ng-container>
+            
+                <div class="col-10">
+                    <ng-container matColumnDef="acciones">
+                        <th mat-header-cell  *matHeaderCellDef ="let producto">
+                            <span class="btn btn-outline-danger" (click)="openFrmItems(1,0)">
+                                <i class="bi bi-plus-lg"></i> PRODUCTO</span>
+                            
+                        </th>
+
+                        <th mat-header-cell *matHeaderCellDef class="alinearMaxIcon"></th>
+                        <td mat-cell *matCellDef="let transaction" style="text-align:right;">
+    
+                <span class="pointer accordion-item" style="color: #198754" matTooltip="Editar">
+                                <!-- <mat-icon (click)="delete(producto.ARTICULO)">delete</mat-icon> -->
+                                 <mat-icon (click)="openFormEditDetalle(transaction.ARTICULO,transaction.Cantidad,transaction.DescripcionDeUso)">edit</mat-icon>
+                            </span>
+                    </ng-container>
+                </div>
+
+
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+            <div class="modal-footer">
+                <button type="submit" (click)="enviaraPadre(frmAddItem.value)" class="btn btn-liosa">GUARDAR</button>
+            </div>
+        </div>
+
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]"> </mat-paginator>
+
+</div>
+

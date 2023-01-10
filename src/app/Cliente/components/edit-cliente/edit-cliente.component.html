@@ -1,0 +1,247 @@
+<!-- Button trigger modal -->
+<!-- Modal -->
+
+<!-- <div class="modal fade" id="edtmodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header bg-liosa">
+          <h2 class="modal-title text-light" id="exampleModalLabel">Editar Cliente</h2>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div> -->
+<h2>EDITAR CLIENTE</h2>
+
+<form [formGroup]="editar" #formDirective="ngForm" (ngSubmit)="enviar(editar.value,formDirective)">
+  <mat-tab-group>
+
+    <mat-tab label="Generales">
+      <br>
+      <mat-form-field appearance="legacy">
+        <mat-label>Tipo cliente (*)</mat-label>
+        <mat-select formControlName="id_tipo_cliente" (selectionChange)="setParticular($event.value)">
+          <mat-option *ngFor="let item of list_tipos_cliente" [value]="item.id">{{item.descripcion}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="legacy">
+        <mat-label>Tipo contribuyente</mat-label>
+        <mat-select formControlName="id_tipo_contribuyente">
+          <mat-option *ngFor="let item of list_contribuyentes" [value]="item.id">{{item.descripcion}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="legacy">
+        <mat-label>Nombre(*)</mat-label>
+        <input matInput placeholder="Nombre comercial" formControlName="nombre">
+        <!-- <mat-hint>Hint</mat-hint> -->
+      </mat-form-field>
+
+      <mat-form-field appearance="legacy">
+        <mat-label>Razon social(*)</mat-label>
+        <input matInput placeholder="Razon social" formControlName="razon_social">
+        <!-- <mat-hint>Hint</mat-hint> -->
+      </mat-form-field>
+
+      <mat-form-field appearance="legacy">
+        <mat-label>RUC</mat-label>
+        <input matInput placeholder="RUC" formControlName="ruc">
+        <!-- <mat-hint>Hint</mat-hint> -->
+      </mat-form-field>
+
+      <div *ngIf="isParticular">
+        <mat-form-field appearance="legacy">
+          <mat-label>Cedula</mat-label>
+          <input matInput placeholder="Cedula" formControlName="cedula">
+          <!-- <mat-hint>Hint</mat-hint> -->
+        </mat-form-field>
+      </div>
+
+      <mat-form-field appearance="legacy">
+        <mat-label>Condicion de Pago - Plazo</mat-label>
+        <input matInput placeholder="Condicion Pago Plazo" type="number" formControlName="CondicionPagoPlazo"
+        min="0" max="365">
+      </mat-form-field>
+
+      <mat-form-field appearance="legacy">
+        <mat-label>Pais (*)</mat-label>
+        <mat-select #selectpais (selectionChange)="setDepartamentosList(1,$event.value)" formControlName="paisId">
+          <mat-option *ngFor="let item of list_paises" [value]="item.id">{{item.nombre}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="legacy">
+        <mat-label>Departamento (*)</mat-label>
+        <mat-select #selectpais (selectionChange)="setMunicipiosList(1,$event.value)" formControlName="departamentoId">
+          <mat-option *ngFor="let item of list_departamento" [value]="item.id">{{item.nombre}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="legacy">
+        <mat-label>Municipio (*)</mat-label>
+        <mat-select formControlName="municipioId">
+          <mat-option *ngFor="let item of list_municipio" [value]="item.id">{{item.nombre}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="legacy">
+        <mat-label>Dirección (*)</mat-label>
+        <input matInput placeholder="Direccion" formControlName="direccion">
+        <!-- <mat-hint>Hint</mat-hint> -->
+      </mat-form-field>
+
+      <mat-form-field appearance="legacy">
+        <mat-label>Correo electrónico (*)</mat-label>
+        <input matInput placeholder="Correo electrónico" formControlName="correo">
+      </mat-form-field>
+
+      <mat-form-field appearance="legacy">
+        <mat-label>Teléfono 1 (*)</mat-label>
+        <input matInput placeholder="telefono 1" type="number" formControlName="telefono1">
+        <!-- <mat-hint>Hint</mat-hint> -->
+      </mat-form-field>
+
+      <mat-form-field appearance="legacy">
+        <mat-label>Teléfono 2</mat-label>
+        <input matInput placeholder="telefono 2" type="number" formControlName="telefono2">
+        <!-- <mat-hint>Hint</mat-hint> -->
+      </mat-form-field>
+
+    </mat-tab>
+
+
+    <mat-tab label="Representante legal">
+
+      <mat-form-field appearance="legacy">
+        <mat-label>Nombres (*)</mat-label>
+        <input matInput placeholder="Nombres" formControlName="nombre_rep_legal">
+        <!-- <mat-hint>Hint</mat-hint> -->
+      </mat-form-field>
+
+      <mat-form-field appearance="legacy">
+        <mat-label>Apellidos (*)</mat-label>
+        <input matInput placeholder="Apellidos" formControlName="apellido_rep_legal">
+        <!-- <mat-hint>Hint</mat-hint> -->
+      </mat-form-field>
+
+      <mat-form-field appearance="legacy">
+        <mat-label>Cedula (*)</mat-label>
+        <input matInput placeholder="Cedula" formControlName="cedula_rep_legal">
+        <!-- <mat-hint>Hint</mat-hint> -->
+      </mat-form-field>
+
+      <mat-form-field appearance="legacy">
+        <mat-label>Pais (*)</mat-label>
+        <mat-select #selectpais_repL (selectionChange)="setDepartamentosList(2,$event.value)"
+          formControlName="paisId_rep_legal">
+          <mat-option *ngFor="let item of list_paises_repL" [value]="item.id">{{item.nombre}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="legacy">
+        <mat-label>Departamento (*)</mat-label>
+        <mat-select #selectdepartamento_repL (selectionChange)="setMunicipiosList(2,$event.value)"
+          formControlName="departamentoId_rep_legal">
+          <mat-option *ngFor="let item of list_departamento_repL" [value]="item.id">{{item.nombre}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="legacy">
+        <mat-label>Municipio (*)</mat-label>
+        <mat-select formControlName="municipioId_rep_legal">
+          <mat-option *ngFor="let item of list_municipio_repL" [value]="item.id">{{item.nombre}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="legacy">
+        <mat-label>Dirección (*)</mat-label>
+        <input matInput placeholder="Direccion" formControlName="direccion_rep_legal">
+      </mat-form-field>
+
+      <mat-form-field appearance="legacy">
+        <mat-label>Teléfono 1 (*)</mat-label>
+        <input matInput placeholder="Telefono 1" type="number" formControlName="telefono1_rep_legal">
+      </mat-form-field>
+
+      <mat-form-field appearance="legacy">
+        <mat-label>Teléfono 2</mat-label>
+        <input matInput placeholder="Telefono 2" type="number" formControlName="telefono2_rep_legal">
+      </mat-form-field>
+
+      <mat-form-field appearance="legacy">
+        <mat-label>Correo electrónico (*)</mat-label>
+        <input matInput placeholder="Correo electrónico" formControlName="correo_rep_legal">
+      </mat-form-field>
+
+
+
+    </mat-tab>
+
+    <mat-tab label="Responsable de pagos">
+
+      <mat-form-field appearance="legacy">
+        <mat-label>Nombres (*)</mat-label>
+        <input matInput placeholder="Nombres" formControlName="nombre_rep_pago">
+        <!-- <mat-hint>Hint</mat-hint> -->
+      </mat-form-field>
+
+      <mat-form-field appearance="legacy">
+        <mat-label>Apellidos (*)</mat-label>
+        <input matInput placeholder="Apellidos" formControlName="apellido_rep_pago">
+        <!-- <mat-hint>Hint</mat-hint> -->
+      </mat-form-field>
+
+      <mat-form-field appearance="legacy">
+        <mat-label>Cedula (*)</mat-label>
+        <input matInput placeholder="Cedula" formControlName="cedula_rep_pago">
+        <!-- <mat-hint>Hint</mat-hint> -->
+      </mat-form-field>
+
+      <mat-form-field appearance="legacy">
+        <mat-label>Pais (*)</mat-label>
+        <mat-select #selectpais_repP (selectionChange)="setDepartamentosList(3,$event.value)"
+          formControlName="paisId_rep_pago">
+          <mat-option *ngFor="let item of list_paises_repP" [value]="item.id">{{item.nombre}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="legacy">
+        <mat-label>Departamento (*)</mat-label>
+        <mat-select #selectdepartamento_repP (selectionChange)="setMunicipiosList(3,$event.value)"
+          formControlName="departamentoId_rep_pago">
+          <mat-option *ngFor="let item of list_departamento_repP" [value]="item.id">{{item.nombre}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="legacy">
+        <mat-label>Municipio (*)</mat-label>
+        <mat-select formControlName="municipioId_rep_pago">
+          <mat-option *ngFor="let item of list_municipio_repP" [value]="item.id">{{item.nombre}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="legacy">
+        <mat-label>Dirección (*)</mat-label>
+        <input matInput placeholder="Direccion" formControlName="direccion_rep_pago">
+      </mat-form-field>
+
+      <mat-form-field appearance="legacy">
+        <mat-label>Teléfono 1 (*)</mat-label>
+        <input matInput placeholder="Telefono 1" type="number" formControlName="telefono1_rep_pago">
+      </mat-form-field>
+
+      <mat-form-field appearance="legacy">
+        <mat-label>Teléfono 2</mat-label>
+        <input matInput placeholder="Telefono 2" type="number" formControlName="telefono2_rep_pago">
+      </mat-form-field>
+
+      <mat-form-field appearance="legacy">
+        <mat-label>Correo electrónico (*)</mat-label>
+        <input matInput placeholder="Correo electrónico" formControlName="correo_rep_pago">
+      </mat-form-field>
+
+    </mat-tab>
+
+  </mat-tab-group>
+
+  <div class="modal-footer">
+    <button type="submit" [disabled]="editar.invalid" class="btn btn-liosa">Modificar</button>
+  </div>
+</form>

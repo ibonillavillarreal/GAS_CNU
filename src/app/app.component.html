@@ -1,0 +1,152 @@
+<!-- <div id="wrapper"> -->
+<!-- <app-sidebar></app-sidebar> 
+  <router-outlet></router-outlet>  -->
+<!-- <app-add-cliente ></app-add-cliente> -->
+<!-- <app-edit-cliente></app-edit-cliente> -->
+<!-- <div *ngIf="tools.getIsLoading()">
+    <mat-progress-bar mode="buffer"></mat-progress-bar>
+  </div> -->
+<!-- <div *ngIf="IsLoading()">
+  <ngx-spinner bdColor="rgba(1,1,1,0.7)" size="medium" color="#fff" type="ball-clip-rotate-pulse">
+    <p style="font-size: 20px; color: #fff">Cargando...</p>
+  </ngx-spinner>
+</div> -->
+
+<div *ngIf="IsAuthenticated()"><!--ESTA LOGUEADO-->
+
+  <span style="cursor: pointer;" mat-icon-button *ngIf="sidenav.mode === 'over'" (click)="sidenav.toggle()">
+    <mat-icon *ngIf="!sidenav.opened">
+      menu
+    </mat-icon>
+  <mat-icon *ngIf="sidenav.opened">
+      close
+  </mat-icon>
+  </span>
+  
+  <mat-sidenav-container>
+    <mat-sidenav #sidenav="matSidenav" class="mat-elevation-z8" mode="side" opened>
+      <img class="avatar mat-elevation-z8" src="../assets/Ojo.jpg" />
+  
+      <h4 class="name">MATSPEN</h4>
+      <p class="designation">Materiales e Impresión</p>
+  
+      <mat-divider></mat-divider>
+      
+      <mat-accordion multi>
+        <mat-expansion-panel class="primary-liosa">
+          <mat-expansion-panel-header>
+            <mat-panel-title style="color: #fff;">
+              <mat-icon>people_alt</mat-icon> Clientes
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+            <span routerLink="/Cliente" class="accordion-item">
+              <mat-icon>list</mat-icon>Listado
+            </span>
+          </mat-expansion-panel>  
+      </mat-accordion>
+
+  
+      <mat-accordion multi>
+        <mat-expansion-panel class="primary-liosa">
+          <mat-expansion-panel-header>
+            <mat-panel-title style="color: #fff;">
+              <mat-icon>people_alt</mat-icon> Cotizaciones
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+            <span routerLink="/Cotizacion" class="accordion-item">
+              <mat-icon>list</mat-icon>Listado
+            </span>
+          </mat-expansion-panel>  
+      </mat-accordion>
+
+
+
+      <mat-accordion multi>
+        <mat-expansion-panel class="primary-liosa">
+          <mat-expansion-panel-header>
+            <mat-panel-title style="color: #fff;">
+              <mat-icon>people_alt</mat-icon> Orden
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+            <span routerLink="/Orden" class="accordion-item">
+              <mat-icon>list</mat-icon>Listado
+            </span>
+          </mat-expansion-panel>  
+      </mat-accordion>
+
+
+
+      <mat-accordion multi>
+        <mat-expansion-panel class="primary-liosa">
+          <mat-expansion-panel-header>
+            <mat-panel-title style="color: #fff;">
+              <mat-icon>people_alt</mat-icon> Facturas
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+            <span routerLink="/ListFactura" class="accordion-item">
+              <mat-icon>list</mat-icon>Listado
+            </span>
+          </mat-expansion-panel>  
+      </mat-accordion>
+
+
+
+      <mat-accordion multi>
+        <mat-expansion-panel class="primary-liosa">
+          <mat-expansion-panel-header>
+            <mat-panel-title style="color: #fff;">
+              <mat-icon>people_alt</mat-icon> Precios
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+            <span routerLink="/Precio" class="accordion-item">
+              <mat-icon>list</mat-icon>Listado
+            </span>
+          </mat-expansion-panel>  
+      </mat-accordion>
+
+
+      <!-- <button class="mat-button primary-liosa" mat-raised-button style="width: 100%; text-align: left;" ><mat-icon>library_books</mat-icon>Ordenes</button>  -->
+      <!-- <mat-accordion multi>
+        <mat-expansion-panel class="primary-liosa">
+          <mat-expansion-panel-header>
+            <mat-panel-title style="color: #fff;">
+              <mat-icon>library_books</mat-icon> Cotización
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+            <span routerLink="/Clientes" class="accordion-item">
+              <mat-icon>list</mat-icon>Listado
+            </span>
+        </mat-expansion-panel>
+      </mat-accordion> -->
+
+      <mat-accordion multi>
+        <mat-expansion-panel class="primary-liosa">
+          <mat-expansion-panel-header>
+            <mat-panel-title style="color: #fff;">
+              <mat-icon>account_circle</mat-icon> Sesión
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+            <span (click)="logOut()" class="accordion-item">
+              <mat-icon>exit_to_app</mat-icon>Cerrar sesion
+            </span>
+        </mat-expansion-panel>
+      </mat-accordion>
+      
+  
+    </mat-sidenav>
+    <mat-sidenav-content>
+      
+      <div class="content">
+        <router-outlet></router-outlet>
+      </div>
+  
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+  <!-- </div> -->
+</div>
+
+<div *ngIf="!IsAuthenticated()">
+  <div *ngIf="!Isreload()">
+    <app-login></app-login>
+  </div>
+</div>

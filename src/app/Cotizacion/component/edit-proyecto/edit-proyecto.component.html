@@ -1,0 +1,100 @@
+<div>
+
+    <h2 style="font-family:Arial, Helvetica, sans-serif ;"> EDITAR </h2>
+
+    <form [formGroup]="form">
+        <div class="row">
+
+            <div class="col">
+                <mat-form-field appearance="legacy">
+                    <mat-label>DESCRIPCION DE PROYECTO </mat-label>
+                    <input matInput placeholder="Descripción del Proyecto" formControlName="DESCRIPCION" type="text">
+                </mat-form-field>
+            </div>
+            <div class="col-1">
+                <mat-form-field appearance="legacy">
+                    <mat-label>Ancho </mat-label>
+                    <input matInput placeholder="Ancho" formControlName="Base" type="number">
+                </mat-form-field>
+            </div>
+            <div class="col-1">
+                <mat-form-field appearance="legacy">
+                    <mat-label>Altura </mat-label>
+                    <input matInput placeholder="Alto" formControlName="Altura" type="number">
+                </mat-form-field>
+            </div>
+        </div>
+    </form>
+
+
+    <div class="row ">
+        <table mat-table [dataSource]="dataSource">
+
+            <ng-container matColumnDef="Descripcion">
+                <th mat-header-cell *matHeaderCellDef> Descripción </th>
+                <td mat-cell *matCellDef="let transaction"> {{transaction.DESCRIPCION}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Cantidad">
+                <th mat-header-cell *matHeaderCellDef> Cantidad </th>
+                <td mat-cell *matCellDef="let transaction">
+                    {{transaction.Cantidad}}
+                </td>
+
+            </ng-container>
+
+
+            <ng-container matColumnDef="DescripcionDeUso">
+                <th mat-header-cell *matHeaderCellDef> DESCRIPCION DE USO </th>
+                <td mat-cell *matCellDef="let producto">{{producto.DescripcionUso}}
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Precio">
+                <th mat-header-cell *matHeaderCellDef> Precio </th>
+                <td mat-cell *matCellDef="let producto"> {{producto.Precio}} </td>
+                <td mat-footer-cell *matFooterCellDef></td>
+            </ng-container>
+
+            <ng-container matColumnDef="Total">
+                <th mat-header-cell *matHeaderCellDef> Total </th>
+                <td mat-cell *matCellDef="let producto"> {{(producto.Cantidad * producto.Precio)}} </td>
+                <td mat-footer-cell *matFooterCellDef></td>
+            </ng-container>
+
+            <div class="col-10">
+                <ng-container matColumnDef="acciones">
+                    <th mat-header-cell *matHeaderCellDef="let producto">
+                        <span class="btn btn-outline-danger" (click)="openFrmItems()">
+                            <i class="bi bi-plus-lg"></i> PRODUCTO</span>
+
+                    </th>
+
+                    <th mat-header-cell *matHeaderCellDef></th>
+                    <td mat-cell *matCellDef="let transaction; let i = index" style="text-align:right;">
+
+                        <span class="pointer accordion-item" style="color: #198754" matTooltip="Editar">
+                            <!-- <mat-icon (click)="delete(producto.ARTICULO)">delete</mat-icon> -->
+                            <mat-icon
+                                (click)="EditDetalle(i+1,transaction.ARTICULO,transaction.Cantidad,transaction.DescripcionUso,transaction.Precio)">
+                                edit</mat-icon>
+                        </span>
+                        <span class="pointer accordion-item"  style="color: #dc3545;" matTooltip="Eliminar">
+                            <mat-icon (click)="removeItem(i+1)" >delete</mat-icon>
+                        </span>
+                </ng-container>
+            </div>
+
+
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-liosa" (click)="update(form.value)">GUARDAR</button>
+        </div>
+    </div>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]"> </mat-paginator>
+
+</div>

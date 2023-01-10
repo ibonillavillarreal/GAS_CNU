@@ -1,0 +1,140 @@
+
+
+<div *ngIf="!isAllowed()">
+    <div class="alert alert-danger">ACCESO DENEGADO</div>
+</div>
+
+
+
+<div *ngIf="isAllowed()">
+
+    <div class="row" class="mat-elevation-z3">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title"><span class="lstick"></span>ASIGNAR LOS PRECIOS </h4>
+                   
+                    <div class="div-center uploader-status" *ngIf="tools.getisLoadingDetails()">
+                        <br>
+                        <mat-spinner [diameter]="50"></mat-spinner>
+                    </div>
+
+                    <div [hidden]="tools.getisLoadingDetails()">
+
+                        <div class="row col-12">
+                            <div class="col-3">
+                                <mat-form-field appearance="standard" class="buscador">
+                                    <mat-label>Buscar</mat-label>
+                                    <input matInput (keyup)="applyFilter($event)" placeholder="Introduzca una palabra clave" #input>
+                                </mat-form-field>
+                            </div>
+                                                        
+                            <div class="col-9">
+                                <form [formGroup]="frmClientePrecio" #formDirective="ngForm" 
+                                >   
+                                    <br>
+                                    <div class="row col-12">                                 
+                                       <div class="col-5">
+                                            <mat-form-field appearance="legacy">
+                                                <mat-label>Cliente</mat-label>
+                                                <mat-select formControlName="id_cliente">
+                                                    <mat-option *ngFor="let item of list_cliente" [value]="item.id_cliente" (click)="Cliente_change(item.id_cliente,item.nombre)">
+                                                        {{item.nombre}}</mat-option> 
+                                                </mat-select>
+                                            </mat-form-field>
+
+                                       </div>
+                                        
+                                        <div class="col-5">
+                                            <mat-form-field appearance="legacy">
+                                                <mat-label>Articulo</mat-label>
+                                                <mat-select formControlName="Articulo">
+                                                    <mat-option *ngFor="let item of list_Articulos" [value]="item.ARTICULO"  (click)="Articulo_change(item.ARTICULO,item.DESCRIPCION)">
+                                                        {{item.DESCRIPCION}}</mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+
+                                        
+                                        <div class="col-1">
+                                            <span class="btn btn-liosa" (click)="Json_Seleccion_click()" > <i class="bi bi-plus-lg"></i> </span>
+                                        </div>
+                                     </div>    
+                                                                       
+                                </form>     
+                                                   
+                            </div>
+                            <div class="d-flex flex-row-reverse bd-highlight row-2" >
+                                
+                                <div class="p-2 bd-highlight">
+                                    
+                                </div>    
+                            </div>
+
+                            
+                        </div>
+
+
+                      
+
+
+                        <table mat-table #table [dataSource]="dataSourceArticuloPrecio" matSort>                           
+                            
+                            <ng-container matColumnDef="codigo">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> codigo  </th>
+                                <td mat-cell *matCellDef="let element"> {{element.codigo}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="razon_social">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Razon Social </th>
+                                <td mat-cell *matCellDef="let element"> {{element.razon_social}} </td>
+                            </ng-container>   
+                            
+                            <ng-container matColumnDef="Articulo">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Articulo </th>
+                                <td mat-cell *matCellDef="let element"> {{element.Articulo}} </td>
+                            </ng-container>
+                            
+                            <ng-container matColumnDef="Descripcion">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Descripcion </th>
+                                <td mat-cell *matCellDef="let element"> {{element.Descripcion}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="Precio">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Precio </th>
+                                <td mat-cell *matCellDef="let element"> {{element.Precio.toFixed(2)}} </td>
+                            </ng-container>
+                            
+                            <ng-container matColumnDef="Moneda">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Moneda </th>
+                                <td mat-cell *matCellDef="let element"> {{element.Moneda}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="acciones">
+                                <th mat-header-cell *matHeaderCellDef></th>
+                                <td mat-cell *matCellDef="let element" style="text-align: right;">
+                                    <span  class="pointer" style="color: #198754;" matTooltip="Editar">
+                                     <a  (click)="openDialog_ClientePrecio(element.id_cliente,element.razon_social,element.Articulo,'0')"  ><mat-icon>edit</mat-icon></a>
+                                     </span>                                    
+                                </td>
+                            </ng-container>
+                           
+                        
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                        </table>
+
+                         <mat-paginator [pageSizeOptions]="[9, 10, 25, 100]" aria-label="Items por pagina" (page)="getPaginatorData($event)"></mat-paginator>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex flex-row-reverse bd-highlight">
+        <div class="p-2 bd-highlight"><a class="btn btn-liosa" (click)="Json_click()" > CARGAR TODO </a>
+                     
+        </div>
+    </div>
+    
+</div>
+
