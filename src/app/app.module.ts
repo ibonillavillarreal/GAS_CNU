@@ -17,7 +17,7 @@ import { CotizacionModule } from './Cotizacion/Cotizacion.module';
 import { OrdenModule } from './Orden/orden.module';
 import { PreciosModule } from './Precios/precios.module';
 import { FacturaModule } from './Facturacion/factura.module';
-import { ListFacturaComponent } from './Facturacion/Components/List-factura/list-factura.component';
+//import { ListFacturaComponent } from './Facturacion/Components/List-factura/list-factura.component';
 
 
 

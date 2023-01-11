@@ -1,15 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-.primary-liosa{
-    background: #C21437;
+html, body { height: 100%;}
+body { margin:0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.mat-drawer-inner-container::-webkit-scrollbar {
+    display: none !important;
+}
+
+.primary-gas{
+    background:rgb(4, 4, 102);
     color: #fff;
 }
 
-.secondary-liosa{
-    background: rgb(78, 1, 17);
+.secondary-gas{
+    background: rgb(0, 13, 128);
     color: #fff;
-}
-.mat-drawer-inner-container::-webkit-scrollbar {
-    display: none;
 }

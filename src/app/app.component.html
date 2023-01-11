@@ -1,18 +1,6 @@
-<!-- <div id="wrapper"> -->
-<!-- <app-sidebar></app-sidebar> 
-  <router-outlet></router-outlet>  -->
-<!-- <app-add-cliente ></app-add-cliente> -->
-<!-- <app-edit-cliente></app-edit-cliente> -->
-<!-- <div *ngIf="tools.getIsLoading()">
-    <mat-progress-bar mode="buffer"></mat-progress-bar>
-  </div> -->
-<!-- <div *ngIf="IsLoading()">
-  <ngx-spinner bdColor="rgba(1,1,1,0.7)" size="medium" color="#fff" type="ball-clip-rotate-pulse">
-    <p style="font-size: 20px; color: #fff">Cargando...</p>
-  </ngx-spinner>
-</div> -->
 
-<div *ngIf="IsAuthenticated()"><!--ESTA LOGUEADO-->
+
+<div *ngIf="IsAuthenticated()"><!--ESTA Auth-->
 
   <span style="cursor: pointer;" mat-icon-button *ngIf="sidenav.mode === 'over'" (click)="sidenav.toggle()">
     <mat-icon *ngIf="!sidenav.opened">
@@ -25,15 +13,14 @@
   
   <mat-sidenav-container>
     <mat-sidenav #sidenav="matSidenav" class="mat-elevation-z8" mode="side" opened>
-      <img class="avatar mat-elevation-z8" src="../assets/Ojo.jpg" />
-  
-      <h4 class="name">MATSPEN</h4>
-      <p class="designation">Materiales e Impresión</p>
+      <img class="avatar mat-elevation-z8" src="../assets/CNULogo.png" />
+      <h3 class="name">GAS-CNU</h3>
+      <p class="designation">Sistema de Gestión Administrativa</p>
   
       <mat-divider></mat-divider>
       
       <mat-accordion multi>
-        <mat-expansion-panel class="primary-liosa">
+        <mat-expansion-panel class="primary-gas">
           <mat-expansion-panel-header>
             <mat-panel-title style="color: #fff;">
               <mat-icon>people_alt</mat-icon> Clientes
@@ -47,7 +34,7 @@
 
   
       <mat-accordion multi>
-        <mat-expansion-panel class="primary-liosa">
+        <mat-expansion-panel class="primary-gas">
           <mat-expansion-panel-header>
             <mat-panel-title style="color: #fff;">
               <mat-icon>people_alt</mat-icon> Cotizaciones
@@ -60,9 +47,8 @@
       </mat-accordion>
 
 
-
       <mat-accordion multi>
-        <mat-expansion-panel class="primary-liosa">
+        <mat-expansion-panel class="primary-gas">
           <mat-expansion-panel-header>
             <mat-panel-title style="color: #fff;">
               <mat-icon>people_alt</mat-icon> Orden
@@ -74,10 +60,8 @@
           </mat-expansion-panel>  
       </mat-accordion>
 
-
-
       <mat-accordion multi>
-        <mat-expansion-panel class="primary-liosa">
+        <mat-expansion-panel class="primary-gas">
           <mat-expansion-panel-header>
             <mat-panel-title style="color: #fff;">
               <mat-icon>people_alt</mat-icon> Facturas
@@ -89,10 +73,8 @@
           </mat-expansion-panel>  
       </mat-accordion>
 
-
-
       <mat-accordion multi>
-        <mat-expansion-panel class="primary-liosa">
+        <mat-expansion-panel class="primary-gas">
           <mat-expansion-panel-header>
             <mat-panel-title style="color: #fff;">
               <mat-icon>people_alt</mat-icon> Precios
@@ -104,23 +86,8 @@
           </mat-expansion-panel>  
       </mat-accordion>
 
-
-      <!-- <button class="mat-button primary-liosa" mat-raised-button style="width: 100%; text-align: left;" ><mat-icon>library_books</mat-icon>Ordenes</button>  -->
-      <!-- <mat-accordion multi>
-        <mat-expansion-panel class="primary-liosa">
-          <mat-expansion-panel-header>
-            <mat-panel-title style="color: #fff;">
-              <mat-icon>library_books</mat-icon> Cotización
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-            <span routerLink="/Clientes" class="accordion-item">
-              <mat-icon>list</mat-icon>Listado
-            </span>
-        </mat-expansion-panel>
-      </mat-accordion> -->
-
       <mat-accordion multi>
-        <mat-expansion-panel class="primary-liosa">
+        <mat-expansion-panel class="primary-gas">
           <mat-expansion-panel-header>
             <mat-panel-title style="color: #fff;">
               <mat-icon>account_circle</mat-icon> Sesión
@@ -130,16 +97,13 @@
               <mat-icon>exit_to_app</mat-icon>Cerrar sesion
             </span>
         </mat-expansion-panel>
-      </mat-accordion>
-      
-  
+      </mat-accordion>   
+
     </mat-sidenav>
-    <mat-sidenav-content>
-      
+    <mat-sidenav-content>      
       <div class="content">
         <router-outlet></router-outlet>
-      </div>
-  
+      </div>  
     </mat-sidenav-content>
   </mat-sidenav-container>
   <!-- </div> -->

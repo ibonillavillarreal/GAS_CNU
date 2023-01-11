@@ -25,7 +25,7 @@ module.exports = function (config) {
       suppressAll: true // removes the duplicated traces
     },
     coverageReporter: {
-      dir: require('path').join(__dirname, './coverage/SLCLIENTE'),
+      dir: require('path').join(__dirname, './coverage/GAS-APP-CNU'),   //SLCLIENTE
       subdir: '.',
       reporters: [
         { type: 'html' },

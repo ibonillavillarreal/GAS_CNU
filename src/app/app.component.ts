@@ -15,7 +15,7 @@ import { GlobalUtilities } from './utils/GlobalUtilities';
 })
 export class AppComponent implements  OnInit {
 
-  title = 'MATSPEN';
+  title = 'GAS';
   reload:boolean = true;
   private tools:GlobalUtilities
   @ViewChild(MatSidenav) sidenav!:MatSidenav;

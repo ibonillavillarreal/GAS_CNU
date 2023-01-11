@@ -18,7 +18,7 @@
     transition: all 0.5s ease;
 }
 .mat-tab-label-active{
-    color: #00ADEE !important;
+    color: #1800ee !important;
 }
 #wrapper.toggled {
     padding-left: 250px;
@@ -32,7 +32,7 @@
     height: 100%;
     margin-left: -250px;
     overflow-y: auto;
-    background: #006666;
+    background: #070066;
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
@@ -40,13 +40,13 @@
 }
 
 #wrapper.toggled #sidebar-wrapper {
-    width: 250px;
+    width: 200px;
 }
 
 #page-content-wrapper {
     width: 100%;
     position: absolute;
-    padding: 15px;
+    padding: 5px;
 }
 
 #wrapper.toggled #page-content-wrapper {
@@ -59,7 +59,7 @@
 .sidebar-nav {
     position: absolute;
     top: 0;
-    width: 250px;
+    width: 300px;
     margin: 0;
     padding: 0;
     list-style: none;
@@ -67,7 +67,7 @@
 
 .sidebar-nav li {
     text-indent: 20px;
-    line-height: 40px;
+    line-height: 20px;
 }
 
 .sidebar-nav li a {
@@ -80,7 +80,7 @@
 .sidebar-nav li a:hover {
     text-decoration: none;
     color: rgb(224, 223, 223);
-    /* background: rgba(255,255,255,0.2); */
+    background: rgba(51, 73, 170, 1); 
 }
 
 .sidebar-nav li a:active,
@@ -89,9 +89,9 @@
 }
 
 .sidebar-nav > .sidebar-brand {
-    height: 65px;
+    height: 35px;
     font-size: 18px;
-    line-height: 60px;
+    line-height: 50px;
 }
 
 .sidebar-nav > .sidebar-brand a {
@@ -132,4 +132,4 @@
     }
 }
 
-/*****MODIFICACION PERSONAL***/
+/*****Modificacion de Estilos***/

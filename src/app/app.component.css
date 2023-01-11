@@ -1,18 +1,18 @@
   @import url("template.css");  
 
 mat-toolbar{
-    background-color: #C21437;
+    background-color: rgb(4, 4, 102) ;
     color: #fff;
 }
 mat-sidenav{
     margin: 10px;
     width: 250px;
-    height: calc(100vh - 15px);
+    height: calc(100vh - 25px);
     border-right: none;
-    background: #C21437;  
+    background: rgb(4, 4, 102) ;  
     color: #fff;
     border-radius: 8px;
-    padding: 16px;
+    padding: 10px;
     text-align: center;
 }
 mat-sidenav-container{
@@ -22,13 +22,13 @@ mat-sidenav-container{
     height: calc(100vh );
     width: 95%;
     /***COMPONER CUANDO SE CAMBIA DE RESOLUCION***/
-    margin:16px;
-    margin-left: 32px;
+    margin:15px;
+    margin-left:15px;
     /*******/
     align-items: center;
     justify-content: center;
     color: lightgray;
-    border-radius: 10px;
+    border-radius: 15px;
 }
 .menu-button{
     margin-left: 40px;
@@ -45,31 +45,32 @@ mat-icon{
 }
 
 .name {
-    margin-top: 8px;
+    margin-top: 1px;
     font-weight: normal;
 }
 
 .designation {
-    margin-top: 2px;
-    font-size: 0.7rem;
+    margin-top: 1px;
+    font-size: 1rem;
     color: lightgrey;
 }
 
 mat-divider {
-    margin-top: 16px;
-    margin-bottom: 16px;
-    background-color: rgba(255, 255, 255, 0.5);
+    margin-top: 15px;
+    margin-bottom: 15px;
+    background-color: rgba(255, 255, 255, 1);
 }
 .avatar {
-    margin-top: 16px;
-    width: 100px;
-    height: 100px;
-    border-radius: 10%;
+    margin-top: 3px;
+    width: 120px;
+    height: 120px;
+    border-radius: 100% !important;
+    
 }
 
 
 .example-action-buttons {
-    padding-bottom: 20px;
+    padding-bottom: 1px;
   }
   
   .example-headers-align .mat-expansion-panel-header-title,
@@ -86,23 +87,23 @@ mat-divider {
     margin-left: 8px;
   }
   mat-accordion{
-      background: #C21437 !important;
-      margin-top: 20px !important;
+      background: #010524 !important;
+      margin-top: 10px !important;
   }
   .accordion-item{
     cursor: pointer; 
     display: flex; 
     align-items: center;
     border: none;
-    background-color: #C21437;
+    background-color: #10058a;
     color: #fff;
-    margin-top: 10px;
+    margin-top: 5px;
   }
   .blue-snackbar {
-    background: #2196F3;
+    background: #5f6f75;
   }
   .mat-expansion-panel-body {
-    background-color: #C21437;
+    background-color: #5f6f75;
   }
  .mat-expansion-indicator::before{
     color: #fff;
