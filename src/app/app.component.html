@@ -12,8 +12,8 @@
   </span>
   
   <mat-sidenav-container>
-    <mat-sidenav #sidenav="matSidenav" class="mat-elevation-z8" mode="side" opened>
-      <img class="avatar mat-elevation-z8" src="../assets/CNULogo.png" />
+    <mat-sidenav #sidenav="matSidenav" class="mat-elevation-z8" mode="side" opened >
+      <img class="avatar mat-elevation-z8" src="../assets/CNULogo.png" routerLink="/localhost" />
       <h3 class="name">GAS-CNU</h3>
       <p class="designation">Sistema de Gestión Administrativa</p>
   
@@ -100,10 +100,13 @@
       </mat-accordion>   
 
     </mat-sidenav>
-    <mat-sidenav-content>      
-      <div class="content">
-        <router-outlet></router-outlet>
-      </div>  
+
+    <mat-sidenav-content>
+      <div class="fondo-Gas position-absolute"> 
+        <div class="content">
+          <router-outlet></router-outlet>
+        </div> 
+      </div>    
     </mat-sidenav-content>
   </mat-sidenav-container>
   <!-- </div> -->

@@ -6,7 +6,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "SLCLIENTE": {
+    "GAS-APP-CNU": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:application": {
@@ -20,7 +20,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/SLCLIENTE",
+            "outputPath": "dist/GAS-APP-CNU",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -77,10 +77,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "SLCLIENTE:build:production"
+              "browserTarget": "GAS-APP-CNU:build:production"
             },
             "development": {
-              "browserTarget": "SLCLIENTE:build:development"
+              "browserTarget": "GAS-APP-CNU:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -88,7 +88,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "SLCLIENTE:build"
+            "browserTarget": "GAS-APP-CNU:build"
           }
         },
         "test": {
@@ -111,5 +111,5 @@
       }
     }
   },
-  "defaultProject": "SLCLIENTE"
+  "defaultProject": "GAS-APP-CNU"
 }

@@ -4,11 +4,9 @@
  * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap/blob/gh-pages/LICENSE)
  */
 
- body {
-    overflow-x: hidden;
+ body { 
+    overflow-x: hidden; 
  }
-
-/* Toggle Styles */
 
 #wrapper {
     padding-left: 0;
@@ -19,6 +17,7 @@
 }
 .mat-tab-label-active{
     color: #1800ee !important;
+    
 }
 #wrapper.toggled {
     padding-left: 250px;
@@ -29,10 +28,10 @@
     position: fixed;
     left: 250px;
     width: 0;
-    height: 100%;
-    margin-left: -250px;
+    height: 90%;
+    margin-left:-250px;
     overflow-y: auto;
-    background: #070066;
+    background: #070066;    
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
@@ -46,7 +45,7 @@
 #page-content-wrapper {
     width: 100%;
     position: absolute;
-    padding: 5px;
+    padding: 1px;   
 }
 
 #wrapper.toggled #page-content-wrapper {
@@ -66,14 +65,14 @@
 }
 
 .sidebar-nav li {
-    text-indent: 20px;
-    line-height: 20px;
+    text-indent: 10px;
+    line-height: 10px;
 }
 
 .sidebar-nav li a {
     display: block;
     text-decoration: none;
-    color: #ffffff; 
+    color: #ffffff;     
     
 }
 
@@ -85,11 +84,11 @@
 
 .sidebar-nav li a:active,
 .sidebar-nav li a:focus {
-    text-decoration: none;
+    text-decoration: none;    
 }
 
 .sidebar-nav > .sidebar-brand {
-    height: 35px;
+    height: 10px;
     font-size: 18px;
     line-height: 50px;
 }
@@ -133,3 +132,4 @@
 }
 
 /*****Modificacion de Estilos***/
+

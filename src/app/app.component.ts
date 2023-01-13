@@ -20,7 +20,8 @@ export class AppComponent implements  OnInit {
   private tools:GlobalUtilities
   @ViewChild(MatSidenav) sidenav!:MatSidenav;
 
-  constructor(private spinnerSevice: NgxSpinnerService,private obs:BreakpointObserver,private route:Router,private src:LoginService){
+  constructor(private spinnerSevice: NgxSpinnerService,private obs:BreakpointObserver,
+              private route:Router,private src:LoginService){
     this.tools = GlobalUtilities.getInstance();
     this.tools.setIsLoading(false) //false  era el valor anterior
     this.route.events
@@ -40,25 +41,20 @@ export class AppComponent implements  OnInit {
      })
 
      this.tools.setAuthenticated(true);
-     this.reload = false;
- 
+     this.reload = false; 
   }   
 
 
   ngOnInit() {
-    /** spinner starts on init */
+    /** spinner starts on init */    
     this.spinnerSevice.show();
-
-    setTimeout(() => {
-      /** spinner ends after 5 seconds */
-      this.spinnerSevice.hide();
-    }, 1000);
+    
+    /** spinner ends after 5 seconds */
+    setTimeout(() => { this.spinnerSevice.hide(); }, 1000);    
   }
 
-
-
   ngAfterViewInit(){
-    this.obs.observe(['(max-width : 800px)']).subscribe((res) =>{
+    this.obs.observe(['(max-width : 700px)']).subscribe((res) =>{
         if(res.matches){
             if(this.tools.IsAuthenticated()){
               this.sidenav.mode = 'over';
@@ -69,16 +65,16 @@ export class AppComponent implements  OnInit {
               let div_content = document.getElementsByClassName('content') as HTMLCollectionOf<HTMLElement>;
               div_content[0].style.marginLeft ="1%"
               div_content[0].style.marginRight ="1%"   
-              div_content[0].style.margin ="16px"
-              div_content[0].style.marginLeft ="32px"
+              div_content[0].style.margin ="10px"
+              div_content[0].style.marginLeft ="30px"              
             }
         }else{
            if(this.tools.IsAuthenticated()){
            this.sidenav.mode = 'side';
            //this.sidenav.open();
            let div_content = document.getElementsByClassName('content') as HTMLCollectionOf<HTMLElement>;
-           div_content[0].style.margin ="16px"
-           div_content[0].style.marginLeft ="32px"
+           div_content[0].style.margin ="10px"
+           div_content[0].style.marginLeft ="30px"           
          }
       }
     })

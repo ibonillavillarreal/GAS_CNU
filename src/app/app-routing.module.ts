@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { Component, ComponentRef, NgModule } from '@angular/core';
+import { Router, RouterModule, Routes } from '@angular/router';
 import { PreloadAllModules } from '@angular/router';
 import { DetailsClienteComponent } from './Cliente/components/details-cliente/details-cliente.component';
 import { AddCotizacionComponent } from './Cotizacion/component/add-cotizacion/add-cotizacion.component';
@@ -15,9 +15,26 @@ import { FacturaModule } from './Facturacion/factura.module';
 import { DetailFacturaComponent } from './Facturacion/Components/Detail-factura/detail-factura.component';
 import { ListFacturaComponent } from './Facturacion/Components/List-factura/list-factura.component';
 import { AddFacturaComponent } from './Facturacion/Components/Add-factura/add-factura.component';
+import { AppComponent } from './app.component';
+import { AppModule } from './app.module';
 
 
 const routes: Routes = [
+  
+    /* Rutas vacia -- validar contra permisos */
+  {
+    path:"",
+    pathMatch: 'full',
+    component:Component
+    
+  },
+  {
+    path:"localhost",
+    pathMatch: 'full',
+    component:Component
+    
+  },
+
   /*Clientes*/
   {
     path: 'Cliente',

@@ -3,7 +3,7 @@
 .btn-liosa {
     color: #fff;
     background-color: #070999;
-    border-color:#D30F30;     
+    border-color:#d30f30;     
   }
   .btn-liosa:hover {
     color: #fff;
@@ -16,7 +16,7 @@
     border-color: #740618;
     box-shadow: 0 0 0 0.25rem rgba(225, 83, 97, 1);
   }
-  .btn-check:checked + .btn-liosa, .btn-check:active + .btn-liosa, .btn-liosa:active, .btn-liosa.active, .show > .btn-liosa.dropdown-toggle {
+  .btn-check:checked + .btn-liosa,.btn-check:active + .btn-liosa, .btn-liosa:active, .btn-liosa.active, .show > .btn-liosa.dropdown-toggle {
     color: #fff;
     background-color: #390fd3;
     border-color: #740618;
@@ -30,8 +30,11 @@
     background-color: #C21437;
     border-color: #C21437;
   }
+  .card{    
+    border-color: #740618;
+  }
   .card-title{
-    color: #000;
+    color: #000;    
     font-weight: bold;
     font-size: 20px;
   }
@@ -44,11 +47,11 @@
     /*****/
   table {
     width: 100%;
-    margin-top: 0.5%;
+    margin-top: 0.5%;    
   }
   
   th{
-    width:10%;
+    width:10%;    
   }
   .pointer{
     cursor: pointer;
@@ -67,7 +70,7 @@
   }
   /***COLOR SPINER**/
   .uploader-status ::ng-deep .mat-progress-spinner circle, .mat-spinner circle {
-    stroke: #041a57;
+    stroke: #010c02d7;
   }
   /**OPACIDAD AL 100 LA TAB SELECCIONADA**/
   ::ng-deep.mat-tab-label-active{

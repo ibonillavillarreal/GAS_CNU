@@ -20,13 +20,6 @@ import { FacturaModule } from './Facturacion/factura.module';
 //import { ListFacturaComponent } from './Facturacion/Components/List-factura/list-factura.component';
 
 
-
-
-
-
-
-
-
 @NgModule({
   declarations: [
     AppComponent,
