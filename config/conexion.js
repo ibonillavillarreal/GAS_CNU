@@ -26,4 +26,4 @@ const conexionDB2 = {
 
 
 
-module.exports =conexion;
+module.exports =[conexion, conexionDB2];
