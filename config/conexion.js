@@ -3,7 +3,7 @@ require('dotenv').config()
 const conexion = {
     user:'sa',
     password:'123',
-    database:'GAS_CNU',
+    database:'SIGA_CNU',
     server:'DESKTOP-S1FMAIS',
      options:{
          trustedconnection:false,

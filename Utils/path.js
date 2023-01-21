@@ -1,7 +1,5 @@
 
-
-
-// rutas para la navegacion
+// RUTAS ENDPOINT
 const ArticuloComponenteProducto = '/api/ArticuloComponenteProducto';
 const CatalogoDocumento = '/api/CatalogoDocumento';
 const Cliente = '/api/Cliente';
@@ -53,7 +51,7 @@ const Ventas = '/api/Ventas';
 const VentasDetalle = '/api/VentasDetalle';
 
 
-// -- Ruta del archivo js para cada tabla --
+// -- ENRUTADOR DE ARCHIVOS 
 const JSArticuloComponenteProducto = '../routes/ArticuloComponenteProductoRuta';
 const JSCatalogoDocumento = '../routes/CatalogoDocumentoRuta';
 const JSCliente = '../routes/ClienteRuta';
@@ -156,54 +154,54 @@ module.exports = {
     Ventas,
     VentasDetalle,
 
-//direccion a la tabla js
-JSArticuloComponenteProducto,
-JSCatalogoDocumento,
-JSCliente,
-JSClienteConvenio,
-JSClienteConvenioDetalle,
-JSClienteCuentaEmail,
-JSClienteDocArteDetalle,
-JSClienteDocLegalDetalle,
-JSClienteEnPromosion,
-JSClienteEnPromosionDetalle,
-JSClienteEstado,
-JSClienteLineaCredito,
-JSClienteLineaCreditoDetalle,
-JSClienteNacionalidad,
-JSClienteSolvenciaTipo,
-JSClienteTipo,
-JSContactosPhone,
-JSCotizacion,
-JSCotizacionDetalle,
-JSCotizacionDetalleItemTipo,
-JSCotizacionEstado,
-JSCotizacionItemEstado,
-JSEmpleado,
-JSEmpresa,
-JSEstadoCatalogo,
-JSEstadoDocumento,
-JSFactura,
-JSFacturaDetalle,
-JSFacturaEstado,
-JSFacturaTipo,
-JSGastoServicioTercerosDetalle,
-JSItemComponente,
-JSMaquinasTP,
-JSMoneda,
-JSMonedaDetalle,
-JSOrdenDCompra,
-JSOrdenTrabajo,
-JSOrdenTrabajoEstado,
-JSOrdenTrabajoItemEstado,
-JSProcesoXArea,
-JSProveedorTercerizado,
-JSPuesto,
-JSRutaXProceso,
-JSSucursal,
-JSTipoGSTP,
-JSUnd_Med,
-JSUsuario,
-JSVentas,
-JSVentasDetalle
+    //RUTAS A TABLAS
+    JSArticuloComponenteProducto,
+    JSCatalogoDocumento,
+    JSCliente,
+    JSClienteConvenio,
+    JSClienteConvenioDetalle,
+    JSClienteCuentaEmail,
+    JSClienteDocArteDetalle,
+    JSClienteDocLegalDetalle,
+    JSClienteEnPromosion,
+    JSClienteEnPromosionDetalle,
+    JSClienteEstado,
+    JSClienteLineaCredito,
+    JSClienteLineaCreditoDetalle,
+    JSClienteNacionalidad,
+    JSClienteSolvenciaTipo,
+    JSClienteTipo,
+    JSContactosPhone,
+    JSCotizacion,
+    JSCotizacionDetalle,
+    JSCotizacionDetalleItemTipo,
+    JSCotizacionEstado,
+    JSCotizacionItemEstado,
+    JSEmpleado,
+    JSEmpresa,
+    JSEstadoCatalogo,
+    JSEstadoDocumento,
+    JSFactura,
+    JSFacturaDetalle,
+    JSFacturaEstado,
+    JSFacturaTipo,
+    JSGastoServicioTercerosDetalle,
+    JSItemComponente,
+    JSMaquinasTP,
+    JSMoneda,
+    JSMonedaDetalle,
+    JSOrdenDCompra,
+    JSOrdenTrabajo,
+    JSOrdenTrabajoEstado,
+    JSOrdenTrabajoItemEstado,
+    JSProcesoXArea,
+    JSProveedorTercerizado,
+    JSPuesto,
+    JSRutaXProceso,
+    JSSucursal,
+    JSTipoGSTP,
+    JSUnd_Med,
+    JSUsuario,
+    JSVentas,
+    JSVentasDetalle
 }

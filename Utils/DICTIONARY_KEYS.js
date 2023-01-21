@@ -7,7 +7,7 @@ const IDTIPOCLIENTE = 2;
 const IDCONTRIBUYENTES = 3;
 const SUB_IDEST_COTIZACION = 43;
 
-const schema = "mp";
+const schema = "mp"; // cuantos sean 
 module.exports = {
     ACTIVO_0,
     ACTIVO_1,

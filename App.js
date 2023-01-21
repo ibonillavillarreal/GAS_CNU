@@ -1,1 +1,2 @@
-const server = new (require('./serverAPI/server'))(require('dotenv').config());
+const server = new (require('./serverAPI/server'))
+                   (require('dotenv').config());
