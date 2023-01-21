@@ -14,7 +14,7 @@ export class LoginService {
 
   constructor(private http:HttpClient,private error:ErrorService) { }
 
-  url:string = 'http://192.168.1.17:3000';
+  url:string = 'http://192.168.1.zzz:3000';
    httpOptions={
      headers: new HttpHeaders({
        'Content-Type': 'application/json'

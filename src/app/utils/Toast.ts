@@ -1,9 +1,13 @@
-import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from "@angular/material/snack-bar";
+
+import { MatSnackBar, 
+         MatSnackBarHorizontalPosition, 
+         MatSnackBarVerticalPosition } from "@angular/material/snack-bar";
+
 export class Toast{
     horizontalPosition: MatSnackBarHorizontalPosition = 'center';
     verticalPosition: MatSnackBarVerticalPosition = 'top';
     constructor(private _snackBar: MatSnackBar){
-
+        
     }
 
     public showToast(msj:string,label_btn:string){

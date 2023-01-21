@@ -23,15 +23,16 @@ const routes: Routes = [
   
     /* Rutas vacia -- validar contra permisos */
   {
+    path:"localhost",    
+    pathMatch: 'full',    
+    component:Component,
+    redirectTo:"",
+  },
+
+  {
     path:"",
     pathMatch: 'full',
-    component:Component
-    
-  },
-  {
-    path:"localhost",
-    pathMatch: 'full',
-    component:Component
+    component:Component, 
     
   },
 

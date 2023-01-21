@@ -3,10 +3,11 @@ export class GlobalUtilities {
     static instance: GlobalUtilities;
 
     private isLoading:boolean = false;
-    private Authenticated:boolean = true;
+    private Authenticated:boolean=false; // true valor anterior
     private isLoadingDetails:boolean = false;
-    private constructor() {
-    }
+    
+    private constructor() { }
+
 
     public static getInstance(): GlobalUtilities {
         if (!GlobalUtilities.instance) {
@@ -15,21 +16,18 @@ export class GlobalUtilities {
         return GlobalUtilities.instance;
     }
 
-    public setIsLoading(isLoading:boolean) {
-        //console.log('SE CAMBIO EL VALOR A '+isLoading);
-        //this.isLoading = isLoading;
+    public setIsLoading(isLoading:boolean) {        
         this.isLoading = isLoading;
     }
-    public getIsLoading(){
-        //this.isLoading = true;
+    public getIsLoading(){        
         return this.isLoading;
     }
-    public setAuthenticated(Authenticated:boolean){
-            this.Authenticated = true;
+    public setAuthenticated(Authenticated:boolean){            
+            this.Authenticated = Authenticated;
     }
-    public IsAuthenticated(){
-       //return this.Authenticated = true;
-        return this.Authenticated;
+    public IsAuthenticated(){       
+        return this.Authenticated;//=false;  // FALSE ME RETORNA EL LOGIN 
+        
     }
     public getisLoadingDetails(){
         return this.isLoadingDetails;
@@ -37,4 +35,5 @@ export class GlobalUtilities {
     public setisLoadingDetails(isLoadingDetails:boolean){
         this.isLoadingDetails = isLoadingDetails;
     }
+    
 }

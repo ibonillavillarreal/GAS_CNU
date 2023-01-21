@@ -14,8 +14,8 @@
   <mat-sidenav-container>
     <mat-sidenav #sidenav="matSidenav" class="mat-elevation-z8" mode="side" opened >
       <img class="avatar mat-elevation-z8" src="../assets/CNULogo.png" routerLink="/localhost" />
-      <h3 class="name">GAS-CNU</h3>
-      <p class="designation">Sistema de Gestión Administrativa</p>
+      <h3 class="name">SIGA-CNU</h3>
+      <p class="designation">Sistema de Gestión de Actas</p>
   
       <mat-divider></mat-divider>
       
@@ -23,7 +23,7 @@
         <mat-expansion-panel class="primary-gas">
           <mat-expansion-panel-header>
             <mat-panel-title style="color: #fff;">
-              <mat-icon>people_alt</mat-icon> Clientes
+              <mat-icon>people_alt</mat-icon> Miembros
             </mat-panel-title>
           </mat-expansion-panel-header>
             <span routerLink="/Cliente" class="accordion-item">
@@ -31,13 +31,12 @@
             </span>
           </mat-expansion-panel>  
       </mat-accordion>
-
   
       <mat-accordion multi>
         <mat-expansion-panel class="primary-gas">
           <mat-expansion-panel-header>
             <mat-panel-title style="color: #fff;">
-              <mat-icon>people_alt</mat-icon> Cotizaciones
+              <mat-icon>people_alt</mat-icon> Agendas
             </mat-panel-title>
           </mat-expansion-panel-header>
             <span routerLink="/Cotizacion" class="accordion-item">
@@ -51,7 +50,7 @@
         <mat-expansion-panel class="primary-gas">
           <mat-expansion-panel-header>
             <mat-panel-title style="color: #fff;">
-              <mat-icon>people_alt</mat-icon> Orden
+              <mat-icon>people_alt</mat-icon> Actas
             </mat-panel-title>
           </mat-expansion-panel-header>
             <span routerLink="/Orden" class="accordion-item">
@@ -64,7 +63,7 @@
         <mat-expansion-panel class="primary-gas">
           <mat-expansion-panel-header>
             <mat-panel-title style="color: #fff;">
-              <mat-icon>people_alt</mat-icon> Facturas
+              <mat-icon>people_alt</mat-icon> Acuerdos
             </mat-panel-title>
           </mat-expansion-panel-header>
             <span routerLink="/ListFactura" class="accordion-item">
@@ -77,7 +76,7 @@
         <mat-expansion-panel class="primary-gas">
           <mat-expansion-panel-header>
             <mat-panel-title style="color: #fff;">
-              <mat-icon>people_alt</mat-icon> Precios
+              <mat-icon>people_alt</mat-icon> Cumplimiento
             </mat-panel-title>
           </mat-expansion-panel-header>
             <span routerLink="/Precio" class="accordion-item">
@@ -109,11 +108,14 @@
       </div>    
     </mat-sidenav-content>
   </mat-sidenav-container>
-  <!-- </div> -->
+  
+  <div>
+    <footer class="footer-gas"> Administración ... GAS-CNU </footer>    
+  </div>    
 </div>
 
-<div *ngIf="!IsAuthenticated()">
+<div *ngIf="!IsAuthenticated()" style="background-color: #ececca; height: 100%;">
   <div *ngIf="!Isreload()">
     <app-login></app-login>
-  </div>
+  </div>  
 </div>

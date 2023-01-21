@@ -16,12 +16,15 @@ import { GlobalUtilities } from './utils/GlobalUtilities';
 export class AppComponent implements  OnInit {
 
   title = 'GAS';
-  reload:boolean = true;
+  reload:boolean = false;
   private tools:GlobalUtilities
   @ViewChild(MatSidenav) sidenav!:MatSidenav;
 
-  constructor(private spinnerSevice: NgxSpinnerService,private obs:BreakpointObserver,
-              private route:Router,private src:LoginService){
+  constructor(private spinnerSevice: NgxSpinnerService,
+              private obs:BreakpointObserver,
+              private route:Router,
+              private src:LoginService)
+  {
     this.tools = GlobalUtilities.getInstance();
     this.tools.setIsLoading(false) //false  era el valor anterior
     this.route.events
@@ -36,12 +39,23 @@ export class AppComponent implements  OnInit {
         //        this.tools.setAuthenticated(true);
         //        this.reload = false;
         //   })
+
+                
          }  
 
      })
-
-     this.tools.setAuthenticated(true);
-     this.reload = false; 
+       
+                if (this.tools.IsAuthenticated()){
+                  console.log(' IF valor de autenticacion : '+this.tools.IsAuthenticated());
+                    this.tools.setAuthenticated(true);   // false me manda al login 
+                    this.reload = true;  
+                }else{
+                  console.log('Else valor de autenticacion : '+this.tools.IsAuthenticated());
+                  this.tools.setAuthenticated(false);   // false me manda al login 
+                  this.reload = false;
+                }
+       
+    
   }   
 
 
@@ -50,12 +64,18 @@ export class AppComponent implements  OnInit {
     this.spinnerSevice.show();
     
     /** spinner ends after 5 seconds */
-    setTimeout(() => { this.spinnerSevice.hide(); }, 1000);    
+    setTimeout(() => { this.spinnerSevice.hide(); }, 1000);       
   }
 
+
   ngAfterViewInit(){
-    this.obs.observe(['(max-width : 700px)']).subscribe((res) =>{
-        if(res.matches){
+
+ 
+    this.obs.observe(['(max-width: 1300px)']).subscribe((res) =>{   //700px
+
+          console.log('Resolucion: ' +JSON.stringify(res));
+
+        if(res.matches ===false || res.matches === true){
             if(this.tools.IsAuthenticated()){
               this.sidenav.mode = 'over';
               this.sidenav.close();
@@ -65,19 +85,21 @@ export class AppComponent implements  OnInit {
               let div_content = document.getElementsByClassName('content') as HTMLCollectionOf<HTMLElement>;
               div_content[0].style.marginLeft ="1%"
               div_content[0].style.marginRight ="1%"   
-              div_content[0].style.margin ="10px"
+              div_content[0].style.margin = "10px"
               div_content[0].style.marginLeft ="30px"              
             }
         }else{
            if(this.tools.IsAuthenticated()){
            this.sidenav.mode = 'side';
-           //this.sidenav.open();
+           this.sidenav.open();
            let div_content = document.getElementsByClassName('content') as HTMLCollectionOf<HTMLElement>;
            div_content[0].style.margin ="10px"
            div_content[0].style.marginLeft ="30px"           
-         }
-      }
-    })
+         }         
+      }      
+    }); 
+
+
   }
 
 
@@ -86,13 +108,11 @@ export class AppComponent implements  OnInit {
     location.reload();
   }
 
-  IsAuthenticated(){
-   // return this.tools.IsAuthenticated();
-   return this.tools.IsAuthenticated();
+  IsAuthenticated(){   
+    return this.tools.IsAuthenticated();
   }
 
-  Isreload(){
-    //return this.reload;
+  Isreload(){    
     return this.reload;
   }
   IsLoading(){
@@ -100,7 +120,6 @@ export class AppComponent implements  OnInit {
 
   }
 }
-
 
 export class SidenavAutosizeExample {
   showFiller = false;

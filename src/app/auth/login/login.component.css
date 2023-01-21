@@ -4,23 +4,36 @@
     box-sizing: border-box;
 }
 .row{
-    background: rgb(255, 255, 255);
-            border-radius: 30px;
-            box-shadow: 12px 12px 22px grey;
-    margin-top: 5%;
+     background: rgb(255, 255, 255);
+     border-radius: 30px;
+     box-shadow: 12px 12px 22px #0D2379;
+     margin-top: 5%;
 }
-img{
+
+img{    
+    margin-top: 20%;
+    margin-left: 5%;    
+    margin-bottom: 10%;    
+    padding: 1%;
+    padding-left: 5%;
     border-top-left-radius: 30px;
-    border-bottom-left-radius: 30px;
+    border-bottom-left-radius: 35px;    
+    box-shadow: 12px 12px 22px grey;
+    height: 30%;
 }
+
 .btn1{
+    margin: 2%;
+    margin-right: 10%;
     border: none;
     outline: none;
     height: 50px;
-    width: 100%;
-    background-color: rgb(207, 24, 24);
+    width: 95%;
+    background-color: #0D2379;    
     color: white;
-    border-radius: 4px;
-    border: 4px;
-    font-weight: bold;
+    font-weight: bold;  
+    font-style:initial;
+    font-size: medium;
+    border-radius: 15%;
+    
 }

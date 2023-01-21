@@ -1,49 +1,51 @@
-<section class="Form my-4 mx-5" >
-    <div class="row g-0">
-        <div class="col-lg-5">
-            <img src="../../../assets/logo.png" class="img-fluid" alt="" >
-        </div>
+<div class="col-10" style="padding-left:6% ; padding-top:6%;">
         
-        <div class="col-lg-7 px-5 pt-5">
-            <br>
-            <br>
-            <br>
-            <h2>Inicie sesión en su cuenta</h2>
-
-            <form [formGroup]="login" (ngSubmit)="enviar(login.value)">
-                <div class="form-row">
-                    <div class="col-lg-7">
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text my-3 p-3" id="basic-addon1"> <i class="material-icons">account_circle</i></span>
-                            </div>
-                            
-                            <input #user_email formControlName="user" class="form-control my-3 p-3" data-val="true" data-val-required="El campo Correo electronico es obligatorio." id="Email" name="Email" placeholder="Correo" required="" type="text" value="" />
-                            <span class="field-validation-valid text-danger" data-valmsg-for="Email" data-valmsg-replace="true"></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="col-lg-7">
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text my-3 p-3" id="basic-addon1"><i class="material-icons">vpn_key</i></span>
-                            </div>
-                            
-                            <input #psw formControlName="psw" class="form-control my-3 p-3" data-val="true" data-val-required="El campo Contraseña es obligatorio." id="Password" name="Password" placeholder="*******" required="" type="password" />
-                            <span class="field-validation-valid text-danger" data-valmsg-for="Password" data-valmsg-replace="true"></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="col-lg-7">
-                        <button type="submit" class="btn1">Iniciar sesión</button>
-                    </div>
-                </div>
-                <!-- <a href="#">Recuperar contraseña</a> -->
-                
-            </form>
+    <section class="Form my-5 mx-5">
+        <div class="row g-6" style="padding-right:3%;">   
+    
+            <div class="col-lg-5">
+                <img src="../../../assets/logo-cnu.png" class="img-fluid" alt="GAS">
+            </div>
             
+            <div class="col-lg-6 px-1 pt-1">
+                <br>       
+                <form [formGroup]="login" (ngSubmit)="enviar(login.value)" style="align-items:right;">
+                    <div class="form-row">
+                        <div class="col-lg-15">
+                            <div class="input-group mb-1">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text my-3 p-3" id="basic-addon1"> <i class="material-icons">account_circle</i></span>
+                                </div>
+                                
+                                <input #user_email autocomplete="off" formControlName="user" class="form-control my-3 p-3" data-val="true" data-val-required="El campo Correo electronico es obligatorio." id="Email" name="Email" placeholder="Correo" required="" type="text" value="" />
+                                <span class="field-validation-valid text-danger" data-valmsg-for="Email" data-valmsg-replace="true"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-lg-15">
+                            <div class="input-group mb-10">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text my-3 p-3" id="basic-addon1"><i class="material-icons">vpn_key</i></span>
+                                </div>
+                                
+                                <input #psw autocomplete="off" formControlName="psw" class="form-control my-3 p-3" data-val="true" data-val-required="El campo Contraseña es obligatorio." id="Password" name="Password" placeholder="*******" required="" type="password" />
+                                <span class="field-validtion-valid texta-danger" data-valmsg-for="Password" data-valmsg-replace="true"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-lg-4" style="text-align: center;">
+                            <button type="submit" class="btn1"> Iniciar Sesión </button>
+                        </div>
+                    </div>                               
+                </form>            
+            </div>     
+    
         </div>
-    </div>
-</section>
+    
+        
+    </section>    
+    
+</div>
+
