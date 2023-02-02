@@ -3,7 +3,7 @@ require('dotenv').config()
 const conexion = {
     user:'sa',
     password:'123',
-    database:'SIGA_CNU',
+    database:'SIGA-CNU',
     server:'DESKTOP-S1FMAIS',
      options:{
          trustedconnection:false,
@@ -26,4 +26,4 @@ const conexionDB2 = {
 
 
 
-module.exports =[conexion, conexionDB2];
+module.exports = conexion;

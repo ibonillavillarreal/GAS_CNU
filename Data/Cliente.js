@@ -8,10 +8,12 @@ const { json } = require('express')
 
 const getClientes = async () => {
   try {
+
     let mssql = await sql.connect(conexion);
     let salida = await mssql.request()
-    .input('id_estado',sql.Int,5)
-      .execute('sp_clientes_get')      
+    .input('EstadoRegistro',sql.Int,1)
+      .execute('RRHH.p_GettbMiembros')      
+      console.log('Registro :  '+JSON.stringify(salida.recordsets))
     return salida.recordsets;
   } catch (e) {
     console.log(e)
