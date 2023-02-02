@@ -21,40 +21,41 @@ import { GlobalUtilities } from 'src/app/utils/GlobalUtilities';
 })
 export class ListClienteComponent implements OnInit {
   /***VARIABLES PARA TABLA */
-  list_cliente!: any;
+  list_Representante!: any;
   tools: GlobalUtilities
   firstLoad: boolean = true;
   private permission: boolean = true;
   /*****CAMPOS TABLA **/
   displayedColumns: string[] =
-    [
-      'codigo',
-      'razon_social',
-      'ruc',
-      'direccion',
+    [ 
+      'CodGradoAcademico',
+      'Nombres',
+      'Apellidos',      
+      'FechaRegistro',
       'acciones'
     ];
+     
 
-  dataSource = new MatTableDataSource(this.list_cliente);
+  dataSource = new MatTableDataSource(this.list_Representante);
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
   constructor(private src: ClienteService, public dialog: MatDialog) {
     this.tools = GlobalUtilities.getInstance();
   }
-
-  ngOnInit(): void {
-    this.loadModules();
+  ngOnInit(): void 
+  { 
+    this.loadModules();  
   }
-
-  //Load list
+  
   async loadModules() {
     this.tools.setisLoadingDetails(true)
-    let data = await this.src.getClientes().toPromise();
-     this.list_cliente = data;
-    this.dataSource.data = this.list_cliente;
+    let data = await this.src.getPersonas().toPromise();   
+    this.list_Representante = data;
+    this.dataSource.data = this.list_Representante;
+
     setTimeout(()=>{
-      this.tools.setisLoadingDetails(false)
+      this.tools.setisLoadingDetails(false);      
     },300)
   }
 

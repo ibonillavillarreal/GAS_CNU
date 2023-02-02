@@ -143,7 +143,7 @@ export class AddCotizacionComponent implements OnInit {
 
 
   async setListCliente() {
-    this.list_cliente = await this.srvCliente.getClientes().toPromise();
+    this.list_cliente = await this.srvCliente.getPersonas().toPromise();
       //console.log('datos this.list_cliente : ',JSON.stringify(this.list_cliente));
   }
   async setListMonedas() {

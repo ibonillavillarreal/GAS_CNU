@@ -38,7 +38,7 @@ export class AddOrdenComponent implements OnInit {
 
     async getClientes(){
         this.list_clientes = [];
-        let data = await this.srcCliente.getClientes().toPromise();
+        let data = await this.srcCliente.getPersonas().toPromise();
         this.list_clientes = data;
     }
 

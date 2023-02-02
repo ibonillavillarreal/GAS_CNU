@@ -55,7 +55,7 @@ export class AddPrecioComponent implements OnInit {
   }
   //Load Cli
   async setListadosClienteArticulo() {
-    this.list_cliente   = await this.srvCliente.getClientes().toPromise();
+    this.list_cliente   = await this.srvCliente.getPersonas().toPromise();
     this.list_Articulos = await this.src_Precios.getArticulos().toPromise();
   }
   //Load list

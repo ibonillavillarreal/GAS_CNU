@@ -272,7 +272,7 @@ export class EditCotizacionComponent implements  OnInit {
 
 
   async setListCliente() {
-    this.list_cliente = await this.srvCliente.getClientes().toPromise();
+    this.list_cliente = await this.srvCliente.getPersonas().toPromise();
   }
   async setListMonedas() {
     this.Lista_Monedas = await this.srvMonedas.getMonedas().toPromise();

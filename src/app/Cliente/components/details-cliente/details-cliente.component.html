@@ -35,7 +35,7 @@
         <div class="col-lg-9 col-md-12">
             <div class="card">
                 <div class="card-body mat-elevation-z3">
-                    <h4 class="card-title"><span class="lstick"></span>DETALLES CLIENTE</h4>
+                    <h4 class="card-title"><span class="lstick"></span>DETALLES</h4>
                     <div class="div-center uploader-status" *ngIf="tools.getisLoadingDetails()">
                         <br>
                         <mat-spinner [diameter]="50"></mat-spinner>
@@ -128,7 +128,7 @@
     
                             </mat-tab>
     
-                            <mat-tab label="REPRESENTANTE LEGAL">
+                            <mat-tab label="REPRESENTACION">
                                 <br>
                                 <div class="row col-md-12">
                                     <div class="col-md-6">
@@ -191,69 +191,7 @@
                                 </div>
                             </mat-tab>
     
-                            <mat-tab label="RESPONSABLE DE PAGOS">
-    
-                                <br>
-                                <div class="row col-md-12">
-                                    <div class="col-md-6">
-                                        <label for="" class="campo">Nombres</label>
-                                        <br>
-                                        <label for="" class="valor" #nombres_repP>{{Contacto2.nombres}}</label>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label for="" class="campo">Apellidos</label><br>
-                                        <label for="" class="valor" #apellidos_repP>{{Contacto2.apellidos}}</label>
-                                    </div>
-                                </div>
-                                <br>
-                                <div class="row col-md-12">
-                                    <div class="col-md-6">
-                                        <label for="" class="campo">Cedula</label>
-                                        <br>
-                                        <label for="" class="valor" #cedula_repP>{{Contacto2.cedula}}</label>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label for="" class="campo">Pais</label><br>
-                                        <label for="" class="valor" #pais_repP>{{Contacto2.paisCon}}</label>
-                                    </div>
-                                </div>
-                                <br>
-                                <div class="row col-md-12">
-                                    <div class="col-md-6">
-                                        <label for="" class="campo">Departamento</label>
-                                        <br>
-                                        <label for="" class="valor" #departamento_repP>{{Contacto2.departamentoCon}}</label>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label for="" class="campo">Municipio</label><br>
-                                        <label for="" class="valor" #municipio_repP>{{Contacto2.municipioCon}}</label>
-                                    </div>
-                                </div>
-                                <br>
-                                <div class="row col-md-12">
-                                    <div class="col-md-6">
-                                        <label for="" class="campo">Direccion</label>
-                                        <br>
-                                        <label for="" class="valor" #direccion_repP>{{Contacto2.direccion}}</label>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label for="" class="campo">Correo</label><br>
-                                        <label for="" class="valor" #correo_repP>{{Contacto2.correo}}</label>
-                                    </div>
-                                </div>
-                                <br>
-                                <div class="row col-md-12">
-                                    <div class="col-md-6">
-                                        <label for="" class="campo">Telefono 1</label>
-                                        <br>
-                                        <label for="" class="valor" #telefono1_repP>{{Contacto2.telefono1}}</label>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label for="" class="campo">Telefono 2</label><br>
-                                        <label for="" class="valor" #telefono2_repP>{{Contacto2.telefono2}}</label>
-                                    </div>
-                                </div>
-                            </mat-tab>
+                           
                         </mat-tab-group>
                     </div>
     

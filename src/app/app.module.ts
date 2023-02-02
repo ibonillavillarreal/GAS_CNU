@@ -36,10 +36,10 @@ import { FacturaModule } from './Facturacion/factura.module';
     NgxSpinnerModule,
     SharedModule,
     MatProgressSpinnerModule,
-    CotizacionModule,
-    OrdenModule,
-    PreciosModule,
-    FacturaModule
+    //CotizacionModule,
+    //OrdenModule,
+    //PreciosModule,
+    //FacturaModule
     
   ],
 

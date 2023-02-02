@@ -16,14 +16,16 @@ import { DICTIONARYKEYS } from '../utils/DICTIONARYKEYS';
 })
 export class ClienteService {
   
-  //url = "http://192.168.1.180:4700/API/Cliente/"
-  //url = "http://192.168.1.180:3000/api/cliente/"
-  urlagente = "http://192.168.1.17:3000/api/cliente/agente";
-  
+  //url = "http://172.16.23.1:3000/API/Cliente/"  
+  urlagente = "http://172.16.23.1:3000/api/cliente/agente";  
   url = new DICTIONARYKEYS().url+'/api/cliente/';
-  constructor(private http:HttpClient,private error:ErrorService) { }
+  
+  constructor(private http:HttpClient,private error:ErrorService) 
+  { }
+  
   //get
-  getClientes():Observable<Cliente[]>{               
+  getPersonas():Observable<Cliente[]>{   
+    console.log('url enviada a la api :  '+this.url);            
     return this.http.get<Cliente[]>(this.url).
     pipe(retry(1),catchError(this.error.handleError));
   }

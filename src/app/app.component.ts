@@ -15,7 +15,7 @@ import { GlobalUtilities } from './utils/GlobalUtilities';
 })
 export class AppComponent implements  OnInit {
 
-  title = 'GAS';
+  title = 'SIGA';
   reload:boolean = false;
   private tools:GlobalUtilities
   @ViewChild(MatSidenav) sidenav!:MatSidenav;
@@ -39,9 +39,11 @@ export class AppComponent implements  OnInit {
         //        this.tools.setAuthenticated(true);
         //        this.reload = false;
         //   })
-
                 
          }  
+              console.log('Donde debe de ir el TOKEN VALIDO ');
+              this.tools.setAuthenticated(true);
+               this.reload = false;
 
      })
        

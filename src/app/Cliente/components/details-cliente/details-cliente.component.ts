@@ -18,17 +18,20 @@ export class DetailsClienteComponent implements OnInit {
   public Contacto1: any;
   public Contacto2: any;
 
-  public name: string = "COMPROSA";
+  public name: string = " INTEGRANTES";
   datos: any;
   tools: GlobalUtilities
   public index: number = 0;
 
   constructor(private Aroute: ActivatedRoute, private src: ClienteService, private route: Router,
-    private srcDepartamento: DepartamentoService, private srcMunicipio: MunicipioService, private srcPais: PaisService) {
-    this.tools = GlobalUtilities.getInstance();
-  }
+    private srcDepartamento: DepartamentoService, private srcMunicipio: MunicipioService, 
+    private srcPais: PaisService) 
+    {
+      this.tools = GlobalUtilities.getInstance();
+    }
 
   ngOnInit(): void {
+
     this.Aroute.params.subscribe((params: Params) => {
       this.id = params.id;
     })
@@ -43,10 +46,9 @@ export class DetailsClienteComponent implements OnInit {
     this.name = this.datos[0].nombre_cliente;
     this.route.navigate(['Clientes/' + this.id + '/' + type + '/' + this.name])
   }
-  async fill_data() {
-    //CAPTURAR LOS DATOS CON UNA PROMESA
-    this.tools.setisLoadingDetails(true);
-    //CONVERTIR OBSERVALBLE A PROMESA
+
+  async fill_data() {    
+    this.tools.setisLoadingDetails(true);    
     this.datos = await this.src.getCliente(this.id).toPromise();
     
     this.Contacto1 = this.datos[0];
