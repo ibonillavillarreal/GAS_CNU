@@ -38,14 +38,14 @@ const routes: Routes = [
 
   /*Clientes*/
   {
-    path: 'Cliente',
+    path: 'Personas',
     pathMatch: 'full',
     loadChildren: () => import('./Cliente/cliente.module').then(m => m.ClienteModule)
   },
 
 
   {
-    path:'Cliente/:id',
+    path:'Personas/:id',
     component:DetailsClienteComponent
   },
  

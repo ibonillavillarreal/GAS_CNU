@@ -1,207 +1,193 @@
-<div class="row">
-    <div class="col-2">
-                <br>
-                <br>
-    </div>
-    <div *ngIf="false" class="col-lg-3 col-md-12">
-        <div class="card">
-            <div class="card-body mat-elevation-z3">
-                <h4 class="card-title"><span class="lstick"></span>OPERACIONES</h4>
-                <hr>
-                <table class="table vm font-14">
-                    <tr>
 
-                        <div col="12">
-                            <button class="mat-button" mat-raised-button>
-                                <mat-icon>text_snippet</mat-icon>Cotizaciones
-                            </button>
-                        </div>
-                        <div col="12">
-                            <button class="mat-button" mat-raised-button>
-                                <mat-icon>monetization_on</mat-icon>Licitaciones
-                            </button>
-                        </div>
-                        <div col="12">
-                            <button class="mat-button" mat-raised-button>
-                                <mat-icon>list_alt</mat-icon>Reportes
-                            </button>
-                        </div>
-                    </tr>
-                </table>
-            </div>
-        </div>
-    </div>
-    <div >
-        <div class="col-lg-9 col-md-12">
-            <div class="card">
+<br>
+<br>
+
+<div class="row">
+    <div class="col-1">        
+    </div>   
+
+    <div class="col-11">
+        <div class="col-lg-16 col-md-16">
+            <div class="card" style="border-color: blue;" >
                 <div class="card-body mat-elevation-z3">
-                    <h4 class="card-title"><span class="lstick"></span>DETALLES</h4>
+                    <div class="row col-12">
+                        <div class="col-11">
+                            <h2 class="card-title"><span class="lstick"></span>DETALLES</h2>
+                        </div>                        
+                        <div class="col-1">                                                         
+                            <h6 class="card-title">                                    
+                                <span class="lstick">                                                                
+                                    <mat-icon routerLink="/Personas">❌</mat-icon>                                                                
+                                </span> 
+                            </h6>
+                        </div>
+                    </div>
+                    
+
                     <div class="div-center uploader-status" *ngIf="tools.getisLoadingDetails()">
                         <br>
                         <mat-spinner [diameter]="50"></mat-spinner>
                     </div>
+                    <br>
                     <div *ngIf="!tools.getisLoadingDetails()">
                         <mat-tab-group animationDuration="0ms">
-                            <mat-tab label="GENERALES">
+                            <mat-tab label="INFORMACION GENERAL">
                                 <br>
                                 <div class="row col-md-12">
                                     <div class="col-md-6">
-                                        <label for="" class="campo">Razon Social</label>
+                                        <label for="" class="campo">Grado</label>
                                         <br>
-                                        <label for="" class="valor" #razon_social>{{Contacto1.razon_social}}</label>
+                                        <label for="" class="valor" #Grado>{{Persona.CodGradoAcademico}}</label>
                                     </div>
                                     <div class="col-md-6">
-                                        <label for="" class="campo">Nombre comercial</label><br>
-                                        <label for="" class="valor" #nombre>{{Contacto1.nombre_cliente}}</label>
+                                        <label for="" class="campo">Nombres</label><br>
+                                        <label for="" class="valor" #Nombres>{{Persona.Nombres}}</label>
                                     </div>
                                 </div>
                                 <br>
                                 <div class="row col-md-12">
                                     <div class="col-md-6">
-                                        <label for="" class="campo">Tipo</label>
+                                        <label for="" class="campo">Cargo</label>
                                         <br>
-                                        <label for="" class="valor" #ruc>{{Contacto1.tipo_cliente}}</label>
+                                        <label for="" class="valor" #Cargo>{{Persona.CodCargo}}</label>
                                     </div>
-    
+
                                     <div class="col-md-6">
-                                        <label for="" class="campo">Contribuyente</label>
+                                        <label for="" class="campo">Apellidos</label>
                                         <br>
-                                        <label for="" class="valor" #ruc>{{Contacto1.tipo_contribuyente}}</label>
+                                        <label for="" class="valor" #Apellidos>{{Persona.Apellidos}}</label>
                                     </div>
                                 </div>
                                 <br>
                                 <div class="row col-md-12">
                                     <div class="col-md-6">
-                                        <label for="" class="campo">RUC</label>
+                                        <label for="" class="campo">Claustro</label>
                                         <br>
-                                        <label for="" class="valor" #ruc>{{Contacto1.ruc}}</label>
+                                        <label for="" class="valor" #Claustro>{{Persona.CodClaustro}}</label>
                                     </div>
                                     <div class="col-md-6">
-                                        <label for="" class="campo">Pais</label><br>
-                                        <label for="" class="valor" #pais>{{Contacto1.Pais}}</label>
+                                        <label for="" class="campo">Teléfono</label><br>
+                                        <label for="" class="valor" #Telefono>{{Persona.Telefono}}</label>
                                     </div>
                                 </div>
                                 <br>
                                 <div class="row col-md-12">
                                     <div class="col-md-6">
-                                        <label for="" class="campo">Departamento</label>
+                                        <label for="" class="campo">Correo</label>
                                         <br>
-                                        <label for="" class="valor" #departamento>{{Contacto1.Departamento}}</label>
+                                        <label for="" class="valor" #Correo>{{Persona.Email}}</label>
                                     </div>
                                     <div class="col-md-6">
-                                        <label for="" class="campo">Municipio</label><br>
-                                        <label for="" class="valor" #municipio>{{Contacto1.Municipio}}</label>
-                                    </div>
-                                </div>
-    
-                                <br>
-                                <div class="row col-md-12">
-                                    <div class="col-md-6">
-                                        <label for="" class="campo">Direccion</label>
-                                        <br>
-                                        <label for="" class="valor" #direccion>{{Contacto1.direccion_cliente}}</label>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label for="" class="campo">Telefono 1</label><br>
-                                        <label for="" class="valor" #telefono1>{{Contacto1.telefono1_cliente}}</label>
-                                    </div>
-                                </div>
-                                <br>
-                                <div class="row col-md-12">
-    
-                                    <div class="col-md-6">
-                                        <label for="" class="campo">Telefono 2</label>
-                                        <br>
-                                        <label for="" class="valor" #telefono2>{{Contacto1.telefono2_cliente}}</label>
+                                        <label for="" class="campo">Nacionalidad</label><br>
+                                        <label for="" class="valor" #municipio>Nicaraguense</label>
                                     </div>
                                 </div>
 
-                                <br>
-                                
-                                <div class="row col-md-12">
-                                    <div class="col-md-6">
-                                        <label for="" class="campo">Condicion de Pago - Plazo</label>
-                                        <br>
-                                        <label for="" class="valor" #CondicionPagoPlazo>{{Contacto1.CondicionPagoPlazo}}</label>
-                                    </div>
-                                </div>    
-    
+                                                                
+
                             </mat-tab>
-    
-                            <mat-tab label="REPRESENTACION">
+
+                            <mat-tab label="OTRAS">
                                 <br>
                                 <div class="row col-md-12">
                                     <div class="col-md-6">
-                                        <label for="" class="campo">Nombres</label>
+                                        <label for="" class="campo">Dato_n</label>
                                         <br>
-                                        <label for="" class="valor" #nombres_repL>{{Contacto1.nombres}}</label>
+                                        <label for="" class="valor" #nombres_repL>.</label>
                                     </div>
                                     <div class="col-md-6">
-                                        <label for="" class="campo">Apellidos</label><br>
-                                        <label for="" class="valor" #apellidos_repL>{{Contacto1.apellidos}}</label>
+                                        <label for="" class="campo">Dato_n</label><br>
+                                        <label for="" class="valor" #apellidos_repL>.</label>
                                     </div>
                                 </div>
                                 <br>
                                 <div class="row col-md-12">
                                     <div class="col-md-6">
-                                        <label for="" class="campo">Cedula</label>
+                                        <label for="" class="campo">Dato_n</label>
                                         <br>
-                                        <label for="" class="valor" #cedula_repL>{{Contacto1.cedula}}</label>
+                                        <label for="" class="valor" #cedula_repL>.</label>
                                     </div>
                                     <div class="col-md-6">
-                                        <label for="" class="campo">Pais</label><br>
-                                        <label for="" class="valor" #pais_repL>{{Contacto1.paisCon}}</label>
+                                        <label for="" class="campo">Dato_n</label><br>
+                                        <label for="" class="valor" #pais_repL>.</label>
                                     </div>
                                 </div>
                                 <br>
                                 <div class="row col-md-12">
                                     <div class="col-md-6">
-                                        <label for="" class="campo">Departamento</label>
+                                        <label for="" class="campo">Dato_n</label>
                                         <br>
-                                        <label for="" class="valor" #departamento_repL>{{Contacto1.departamentoCon}}</label>
+                                        <label for="" class="valor"
+                                            #departamento_repL>.</label>
                                     </div>
                                     <div class="col-md-6">
-                                        <label for="" class="campo">Municipio</label><br>
-                                        <label for="" class="valor" #municipio_repL>{{Contacto1.municipioCon}}</label>
+                                        <label for="" class="campo">Dato_n</label><br>
+                                        <label for="" class="valor" #municipio_repL>.</label>
                                     </div>
                                 </div>
                                 <br>
                                 <div class="row col-md-12">
                                     <div class="col-md-6">
-                                        <label for="" class="campo">Direccion</label>
+                                        <label for="" class="campo">Dato_n</label>
                                         <br>
-                                        <label for="" class="valor" #direccion_repL>{{Contacto1.direccion}}</label>
+                                        <label for="" class="valor" #direccion_repL>.</label>
                                     </div>
                                     <div class="col-md-6">
-                                        <label for="" class="campo">Correo</label><br>
-                                        <label for="" class="valor" #correo_repL>{{Contacto1.correo}}</label>
+                                        <label for="" class="campo">Dato_n</label><br>
+                                        <label for="" class="valor" #correo_repL>.</label>
                                     </div>
                                 </div>
                                 <br>
                                 <div class="row col-md-12">
                                     <div class="col-md-6">
-                                        <label for="" class="campo">Telefono 1</label>
+                                        <label for="" class="campo">Dato_n</label>
                                         <br>
-                                        <label for="" class="valor" #telefono1_repL>{{Contacto1.telefono1}}</label>
+                                        <label for="" class="valor" #telefono1_repL>.</label>
                                     </div>
                                     <div class="col-md-6">
-                                        <label for="" class="campo">Telefono 2</label><br>
-                                        <label for="" class="valor" #telefono2_repL>{{Contacto1.telefono2}}</label>
+                                        <label for="" class="campo">Dato_n</label><br>
+                                        <label for="" class="valor" #telefono2_repL>.</label>
                                     </div>
                                 </div>
                             </mat-tab>
-    
-                           
                         </mat-tab-group>
+                        <br>
                     </div>
-    
+
                 </div>
             </div>
         </div>
-
     </div>
 
+    <div class="col-3">
+        <div *ngIf="false" class="col-lg-20 col-md-20">
+            <div class="card">
+                <div class="card-body mat-elevation-z3" style="border-color: blue;">
+                    <h2 class="card-title"><span class="lstick"></span>OPERACIONES</h2>
+                    <hr>
+                    <table class="table vm font-14">
+                        <tr>
 
-
+                            <div col="10">
+                                <button class="mat-button" mat-raised-button>
+                                    <mat-icon>text_snippet</mat-icon>Invitaciones
+                                </button>
+                            </div>
+                            <!-- <div col="12">
+                            <button class="mat-button" mat-raised-button>
+                                <mat-icon>monetization_on</mat-icon>Otros
+                            </button>
+                        </div> -->
+                            <div col="10">
+                                <button class="mat-button" mat-raised-button>
+                                    <mat-icon>list_alt</mat-icon>Imprimir
+                                </button>
+                            </div>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </div>

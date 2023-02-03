@@ -24,8 +24,7 @@ export class ClienteService {
   { }
   
   //get
-  getPersonas():Observable<Cliente[]>{   
-    console.log('url enviada a la api :  '+this.url);            
+  getPersonas():Observable<Cliente[]>{       
     return this.http.get<Cliente[]>(this.url).
     pipe(retry(1),catchError(this.error.handleError));
   }
@@ -43,7 +42,7 @@ export class ClienteService {
     ).pipe(retry(1),catchError(this.error.handleError))   
   }
   
-  getCliente(i:number):Observable<any>{
+  getPersona(i:number):Observable<any>{
     return this.http.get<any>(this.url+i).
     pipe(retry(1),catchError(this.error.handleError));
   }

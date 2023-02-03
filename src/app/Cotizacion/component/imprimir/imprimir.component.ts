@@ -99,7 +99,7 @@ export class ImprimirComponent implements OnInit {
    this.data_cliente         =(await this.srvCliente.getPersonas().toPromise()).filter((f:any)=> f.id_cliente ===Number(this.id_cliente))[0];
    /* ------------------------------------------------------------------------- */
    this.nombre_completo_pago =(await this.srvCliente
-                              .getCliente(Number(this.id_cliente)).toPromise()).filter((f:any)=> f.id_cliente ===Number(this.id_cliente))[0];  
+                              .getPersona(Number(this.id_cliente)).toPromise()).filter((f:any)=> f.id_cliente ===Number(this.id_cliente))[0];  
   /* ------------------------------------------------------------------------- */
   this.Documento = MAESTRO.NumeroCotizacion;
                           

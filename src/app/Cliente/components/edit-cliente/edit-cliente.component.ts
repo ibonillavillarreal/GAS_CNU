@@ -25,7 +25,7 @@ export class EditClienteComponent {
 
   editar!: FormGroup
   //url = "http://localhost:3000/API"
-  /**LISTAS COMBO BOX**/
+  /** COMBO BOX**/
   list_paises!: Pais[]
   list_municipio!: Municipio[]
   list_departamento!: Departamento[]
@@ -71,7 +71,7 @@ export class EditClienteComponent {
     //console.log("RECIBIENDO DATA cliete  : " + this.data);
     this.toast = new Toast(_snackbar)
     this.iniciarForm();  
-    this.getData();
+    //this.getData();
   }
 
   iniciarForm() {
@@ -181,6 +181,7 @@ export class EditClienteComponent {
     });
     
   }
+
   /*****METODOS INICIALES */
   async loadPaises(paisId: number, pais_repL: number, pais_repP: number) {
     this.list_paises = [];
@@ -295,6 +296,8 @@ export class EditClienteComponent {
     });
   }
 
+
+
   setParticular(id: number) {
     if (id === 7) {
       this.isParticular = true;
@@ -316,7 +319,9 @@ export class EditClienteComponent {
     console.log('Daetos tipo de clientes '+JSON.stringify(contribuyentes));
     this.list_contribuyentes = contribuyentes;
   }
+  
 
+  
   enviar(values: any, formDirective: FormGroupDirective) {
     this.src.edtCliente(values).subscribe(res => {
       // this.ngZone.run(() => this.rt.navigateByUrl(this.url+'/edtCliente'))

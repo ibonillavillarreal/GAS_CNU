@@ -70,7 +70,7 @@ export class ListClienteComponent implements OnInit {
     let dialogRef;
     switch (type) {
       case 1: { dialogRef = this.dialog.open(AddClienteComponent, { height: '730px', width: '720px' }) } break;
-      case 2: { dialogRef = this.dialog.open(EditClienteComponent, { height: '730px', width: '720px', data: { id: id } }) } break;
+      case 2: { dialogRef = this.dialog.open(EditClienteComponent, { height: '720px', width: '720px', data: { id: id } }) } break;
       case 3: { dialogRef = this.dialog.open(AnularClienteComponent, { data: { id: id } }); } break;
       default: { dialogRef = this.dialog.open(AddClienteComponent); } break;
     }

@@ -15,8 +15,7 @@ import { GlobalUtilities } from 'src/app/utils/GlobalUtilities';
 export class DetailsClienteComponent implements OnInit {
   
   id!: number;
-  public Contacto1: any;
-  public Contacto2: any;
+  public Persona: any; 
 
   public name: string = " INTEGRANTES";
   datos: any;
@@ -42,19 +41,18 @@ export class DetailsClienteComponent implements OnInit {
     }, 450)
   }
   
-  redirect_to_contacts(type: number) {
-    this.name = this.datos[0].nombre_cliente;
-    this.route.navigate(['Clientes/' + this.id + '/' + type + '/' + this.name])
+  redirect_to_contacts() {
+    this.name = this.datos[0].Nombres;
+    //this.route.navigate(['Clientes/' + this.id + '/' + type + '/' + this.name])
+    this.route.navigate(['Personas'])
   }
 
   async fill_data() {    
     this.tools.setisLoadingDetails(true);    
-    this.datos = await this.src.getCliente(this.id).toPromise();
+    this.datos = await this.src.getPersona(this.id).toPromise();
     
-    this.Contacto1 = this.datos[0];
-    this.Contacto2 = this.datos[1];
-
-    console.log('this.datos[0] : ' ,JSON.stringify(this.datos[1]));
+    this.Persona = this.datos[0];
+   
   }
 
 
