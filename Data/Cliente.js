@@ -26,8 +26,9 @@ const getCliente = async (id) => {
   try {
     let mssql = await sql.connect(conexion);
     let salida = await mssql.request()
-      .input('id_cliente', sql.Int, id)
-      .execute('sp_cliente_get_w');
+      .input('CdoMiembro', sql.Int, id)
+      .input('EstadoRegistro',sql.Int,1)
+      .execute('RRHH.p_GettbMiembros');
     return salida.recordsets;
   } catch (e) {
     
