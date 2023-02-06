@@ -13,8 +13,7 @@ const getCliente = async (request, response,next) => {
 }
 
 const getClientes = async (request, response,next) => {
-    try{
-      console.log('Esta llegando hasta el Controlador ...');
+    try{     
 
       DBCliente.getClientes().then((data) => {
         response.json(data[0]);

@@ -13,11 +13,11 @@ const getClientes = async () => {
     let salida = await mssql.request()
     .input('EstadoRegistro',sql.Int,1)
       .execute('RRHH.p_GettbMiembros')      
-      console.log('Registro :  '+JSON.stringify(salida.recordsets))
+     
     return salida.recordsets;
+
   } catch (e) {
-    console.log(e)
-    
+    console.log(e)    
     return "0";
   }
 }
@@ -29,17 +29,17 @@ const getCliente = async (id) => {
       .input('CdoMiembro', sql.Int, id)
       .input('EstadoRegistro',sql.Int,1)
       .execute('RRHH.p_GettbMiembros');
+      
     return salida.recordsets;
-  } catch (e) {
-    
-    console.log("id cliente no corresponde en la tupla")
+
+  } catch (e) {   
     console.log(e)
     return "0";
   }
 }
 
 const addCliente = async (cliente) => {
-    //console.log('parametro cliente :  ',JSON.stringify(cliente));
+    
   try {
     let pool = await sql.connect(conexion);
     let insertCliente = await pool.request()
