@@ -16,8 +16,8 @@ import { DICTIONARYKEYS } from '../utils/DICTIONARYKEYS';
 })
 export class ClienteService {
   
-  //url = "http://172.16.23.1:3000/API/Cliente/"  
-  urlagente = "http://172.16.23.1:3000/api/cliente/agente";  
+  //url = "http://172.16.23.203:3000/API/Cliente/"  
+  urlagente = "http://172.16.23.203:3000/api/cliente/agente";  
   url = new DICTIONARYKEYS().url+'/api/cliente/';
   
   constructor(private http:HttpClient,private error:ErrorService) 

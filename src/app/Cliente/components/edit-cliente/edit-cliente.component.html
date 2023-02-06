@@ -3,71 +3,53 @@
 <form [formGroup]="editar" #formDirective="ngForm" (ngSubmit)="enviar(editar.value,formDirective)">
   <mat-tab-group>
 
-    <mat-tab label="Responsable de pagos">
+    <mat-tab label="Representante">
+
+      <mat-form-field appearance="legacy">
+        <mat-label>Cargo (*)</mat-label>
+        <mat-select #selectcargo (selectionChange)="setComboCargo($event.value)"
+          formControlName="Cod_Cargo">
+          <mat-option *ngFor="let item of list_Cargo" [value]="item.id">{{item.nombre}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="legacy">
+        <mat-label>Claustro (*)</mat-label>
+        <mat-select #slectclaustro (selectionChange)="setComboClaustro(3,$event.value)"
+          formControlName="Cod_Claustro">
+          <mat-option *ngFor="let item of list_Claustro" [value]="item.id">{{item.nombre}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="legacy">
+        <mat-label>Grado Académico (*)</mat-label>
+        <mat-select #selectgradoacademico (selectionChange)="setComboGrado($event.value)"
+          formControlName="Cod_Grado_Academico">
+          <mat-option *ngFor="let item of list_Grado" [value]="item.id">{{item.nombre}}</mat-option>
+        </mat-select>
+      </mat-form-field>
 
       <mat-form-field appearance="legacy">
         <mat-label>Nombres (*)</mat-label>
-        <input matInput placeholder="Nombres" formControlName="nombre_rep_pago">
-        <!-- <mat-hint>Hint</mat-hint> -->
+        <input matInput placeholder="Nombres" formControlName="Nombres">        
       </mat-form-field>
 
       <mat-form-field appearance="legacy">
         <mat-label>Apellidos (*)</mat-label>
-        <input matInput placeholder="Apellidos" formControlName="apellido_rep_pago">
-        <!-- <mat-hint>Hint</mat-hint> -->
+        <input matInput placeholder="Apellidos" formControlName="Apellidos">        
       </mat-form-field>
 
       <mat-form-field appearance="legacy">
-        <mat-label>Cedula (*)</mat-label>
-        <input matInput placeholder="Cedula" formControlName="cedula_rep_pago">
-        <!-- <mat-hint>Hint</mat-hint> -->
-      </mat-form-field>
-
-      <mat-form-field appearance="legacy">
-        <mat-label>Pais (*)</mat-label>
-        <mat-select #selectpais_repP (selectionChange)="setDepartamentosList(3,$event.value)"
-          formControlName="paisId_rep_pago">
-          <mat-option *ngFor="let item of list_paises_repP" [value]="item.id">{{item.nombre}}</mat-option>
-        </mat-select>
-      </mat-form-field>
-
-      <mat-form-field appearance="legacy">
-        <mat-label>Departamento (*)</mat-label>
-        <mat-select #selectdepartamento_repP (selectionChange)="setMunicipiosList(3,$event.value)"
-          formControlName="departamentoId_rep_pago">
-          <mat-option *ngFor="let item of list_departamento_repP" [value]="item.id">{{item.nombre}}</mat-option>
-        </mat-select>
-      </mat-form-field>
-
-      <mat-form-field appearance="legacy">
-        <mat-label>Municipio (*)</mat-label>
-        <mat-select formControlName="municipioId_rep_pago">
-          <mat-option *ngFor="let item of list_municipio_repP" [value]="item.id">{{item.nombre}}</mat-option>
-        </mat-select>
-      </mat-form-field>
-
-      <mat-form-field appearance="legacy">
-        <mat-label>Dirección (*)</mat-label>
-        <input matInput placeholder="Direccion" formControlName="direccion_rep_pago">
-      </mat-form-field>
-
-      <mat-form-field appearance="legacy">
-        <mat-label>Teléfono 1 (*)</mat-label>
-        <input matInput placeholder="Telefono 1" type="number" formControlName="telefono1_rep_pago">
-      </mat-form-field>
-
-      <mat-form-field appearance="legacy">
-        <mat-label>Teléfono 2</mat-label>
-        <input matInput placeholder="Telefono 2" type="number" formControlName="telefono2_rep_pago">
+        <mat-label>Teléfono (*)</mat-label>
+        <input matInput placeholder="Telefono" type="number" formControlName="Telefono">
       </mat-form-field>
 
       <mat-form-field appearance="legacy">
         <mat-label>Correo electrónico (*)</mat-label>
-        <input matInput placeholder="Correo electrónico" formControlName="correo_rep_pago">
+        <input matInput placeholder="Correo" formControlName="Correo">
       </mat-form-field>
 
     </mat-tab>
-
   </mat-tab-group>
 
   <div class="modal-footer">
