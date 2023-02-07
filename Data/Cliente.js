@@ -181,10 +181,13 @@ const activarCliente = async (id) => {
 
 const getClienteEdit = async (id) => {
   try {
+    console.log(' LLegando getClienteEdit ')
+
     let mssql = await sql.connect(conexion);
     let salida = await mssql.request()
-    .input('id_cliente', sql.Int, id)
-      .execute('sp_cliente_get_w_edit');
+    .input('CdoMiembro', sql.Int, id)
+    .input('EstadoRegistro', sql.Int,1)
+    .execute('RRHH.p_GettbMiembros');
       console.log(salida.recordset)
     return salida.recordsets;
 

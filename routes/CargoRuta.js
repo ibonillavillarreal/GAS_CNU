@@ -1,10 +1,10 @@
 ﻿//getCliente,  getClientes,  addCliente,  editCliente,  anularCliente,  activarCliente,  getClienteEdit
-const Pais = require('../controllers/PaisController');
+const Cargo = require('../controllers/CargoController');
 
 
 const router = require('express').Router();
 //router.get('/:id',Pais.getCliente);        // traer 1       
-router.get('/', Pais.getPaises);          // traer todos    
+router.get('/', Cargo.getCargo);          // traer todos    
 //        router.post('/',Pais.addCliente);          // crear Insertar  1
 //        router.put('/:id',Pais.editCliente);       // editar 1 Update
 //        router.patch('/:id',Pais.getClienteEdit);  // editar 1 Update

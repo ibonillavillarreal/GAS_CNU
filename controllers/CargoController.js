@@ -1,8 +1,8 @@
-const DBPais = require('../Data/Pais')
+const DBCargo = require('../Data/Cargo')
 
-const getPaises = async (request, response, next) => {
+const getCargo = async (request, response, next) => {
   try {
-    DBPais.getPaises().then((data) => {
+    DBCargo.getCargo().then((data) => {
       response.json(data[0]);
     })
   } catch (ex) {
@@ -12,7 +12,7 @@ const getPaises = async (request, response, next) => {
 
 const getPais = async (request, response, next) => {
   try {
-    DBPais.getPais(request.params.id).then((data) => {
+    DBCargo.getPais(request.params.id).then((data) => {
       response.json(data[0]);
     })
   } catch (ex) {
@@ -21,6 +21,6 @@ const getPais = async (request, response, next) => {
 }
 
 module.exports = {
-  getPaises,
+  getCargo: getCargo,
   getPais
 }

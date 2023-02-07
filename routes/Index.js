@@ -1,7 +1,7 @@
 const routerCliente = require('./ClienteRuta');
 const routerCotizacionRuta = require('./CotizacionRuta');
 const routerUsuarioRuta = require('./UsuarioRuta');
-const routerPais = require('./PaisRuta');
+const routerCargo = require('./CargoRuta');
 const routerDepartamento = require('./DepartamentoRuta');
 const routerMunicipio = require('./MunicipioRuta');
 const routerSubCatalogos = require('./SubCatalogoRoute');
@@ -18,7 +18,7 @@ const router = require("express").Router();
       router.use('/Cotizacion', routerCotizacionRuta);
       router.use('/Cotizacion/ProyectoTipo/',routerCotizacionRuta);
       router.use('/Usuario', routerUsuarioRuta);
-      router.use('/Pais', routerPais);
+      router.use('/Cargo', routerCargo);
       router.use('/Departamento', routerDepartamento);
       router.use('/Municipio', routerMunicipio);
       router.use('/SubCatalogos', routerSubCatalogos);
