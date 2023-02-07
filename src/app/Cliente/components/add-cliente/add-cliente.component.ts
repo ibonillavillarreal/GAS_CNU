@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { ClienteService } from 'src/app/services/cliente.service';
 import { Pais } from 'src/app/models/Pais';
-import { Departamento } from 'src/app/models/Departamento';
+import { Cargo } from 'src/app/models/Departamento';
 import { SP_Cliente_Add } from 'src/app/models/SP_Cliente_Add';
 import { SP_ClienteAgente_Add } from 'src/app/models/SP_ClienteAgente_Add';
 import { Municipio } from 'src/app/models/Municipio';
@@ -11,7 +11,7 @@ import { Toast } from 'src/app/utils/Toast';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MunicipioService } from 'src/app/services/municipio.service';
 import { DepartamentoService } from 'src/app/services/departamento.service';
-import { PaisService } from 'src/app/services/pais.service';
+import { CargoService } from 'src/app/services/pais.service';
 import { ClienteA } from 'src/app/models/ClienteA';
 import { SubTipoCatalogo } from 'src/app/models/SubCatalogo';
 import { SubCatalogoService } from 'src/app/services/subcatalogo.service';
@@ -31,13 +31,13 @@ export class AddClienteComponent implements OnInit {
   /**LISTAS COMBO BOX**/
   list_paises!: Pais[]
   list_municipio!: Municipio[]
-  list_departamento!: Departamento[]
+  list_departamento!: Cargo[]
 
   list_paises_repL!: Pais[]
   list_paises_repP!: Pais[]
 
-  list_departamento_repL!: Departamento[]
-  list_departamento_repP!: Departamento[]
+  list_departamento_repL!: Cargo[]
+  list_departamento_repP!: Cargo[]
 
   list_municipio_repL!: Municipio[]
   list_municipio_repP!: Municipio[]
@@ -49,7 +49,7 @@ export class AddClienteComponent implements OnInit {
 
   public isParticular = true;
   constructor(private _builder: FormBuilder, private src: ClienteService, private scrMunicipio: MunicipioService,
-    private srcDepartamento: DepartamentoService, private srcPais: PaisService, private _snackBar: MatSnackBar,
+    private srcDepartamento: DepartamentoService, private srcPais: CargoService, private _snackBar: MatSnackBar,
     public ngZone: NgZone, public rt: Router, private srcSubCatalogo: SubCatalogoService, private dialogRef: MatDialogRef<AddClienteComponent>) {
 
     this.toast = new Toast(_snackBar)
@@ -111,7 +111,7 @@ export class AddClienteComponent implements OnInit {
     this.list_paises_repL = [];
     this.list_paises_repP = [];
 
-    this.srcPais.getPaises().subscribe((data: any) => {
+    this.srcPais.getCargo().subscribe((data: any) => {
       data.forEach((element: any) => {
         let temp = new Pais(element.id, element.nombre);
         this.list_paises.push(temp);
@@ -133,10 +133,10 @@ export class AddClienteComponent implements OnInit {
     this.list_departamento_repL = [];
     this.list_departamento_repP = [];
 
-    this.srcDepartamento.getDepartamentos(id).subscribe((data: any) => {
+    this.srcDepartamento.getComboCargo(id).subscribe((data: any) => {
       data.forEach((element: any) => {
         // list.push(element.Id);
-        let temp = new Departamento(element.id, element.nombre);
+        let temp = new Cargo(element.id, element.nombre);
         this.list_departamento.push(temp);
         this.list_departamento_repL.push(temp);
         this.list_departamento_repP.push(temp);
@@ -157,9 +157,9 @@ export class AddClienteComponent implements OnInit {
       case 3: { this.list_departamento_repP = []; } break;
     }
 
-    this.srcDepartamento.getDepartamentos(id).subscribe((data: any) => {
+    this.srcDepartamento.getComboCargo(id).subscribe((data: any) => {
       data.forEach((element: any) => {
-        let temp = new Departamento(element.id, element.nombre);
+        let temp = new Cargo(element.id, element.nombre);
         switch (type) {
           case 1: { this.list_departamento.push(temp); } break;
           case 2: { this.list_departamento_repL.push(temp); } break;

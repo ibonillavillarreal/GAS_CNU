@@ -8,15 +8,15 @@
       <mat-form-field appearance="legacy">
         <mat-label>Cargo (*)</mat-label>
         <mat-select #selectcargo (selectionChange)="setComboCargo($event.value)"
-          formControlName="Cod_Cargo">
+          formControlName="CodCargo">
           <mat-option *ngFor="let item of list_Cargo" [value]="item.id">{{item.nombre}}</mat-option>
         </mat-select>
       </mat-form-field>
 
       <mat-form-field appearance="legacy">
         <mat-label>Claustro (*)</mat-label>
-        <mat-select #slectclaustro (selectionChange)="setComboClaustro(3,$event.value)"
-          formControlName="Cod_Claustro">
+        <mat-select #slectclaustro (selectionChange)="setComboClaustro($event.value)"
+          formControlName="CodClaustro">
           <mat-option *ngFor="let item of list_Claustro" [value]="item.id">{{item.nombre}}</mat-option>
         </mat-select>
       </mat-form-field>
@@ -24,7 +24,7 @@
       <mat-form-field appearance="legacy">
         <mat-label>Grado Académico (*)</mat-label>
         <mat-select #selectgradoacademico (selectionChange)="setComboGrado($event.value)"
-          formControlName="Cod_Grado_Academico">
+          formControlName="CodGradoAcademico">
           <mat-option *ngFor="let item of list_Grado" [value]="item.id">{{item.nombre}}</mat-option>
         </mat-select>
       </mat-form-field>
@@ -46,7 +46,7 @@
 
       <mat-form-field appearance="legacy">
         <mat-label>Correo electrónico (*)</mat-label>
-        <input matInput placeholder="Correo" formControlName="Correo">
+        <input matInput placeholder="Email" formControlName="Email">
       </mat-form-field>
 
     </mat-tab>

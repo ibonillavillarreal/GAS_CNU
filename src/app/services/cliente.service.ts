@@ -7,7 +7,7 @@ import { SP_ClienteAgente_Add } from 'src/app/models/SP_ClienteAgente_Add';
 
 import { retry, catchError } from 'rxjs/operators';
 import { Observable} from 'rxjs';
-import { SP_Cliente_Get_W } from 'src/app/models/SP_Cliente_Get_W';
+import { SP_Persona_Get } from 'src/app/models/SP_Cliente_Get_W';
 import { ErrorService } from './error.service';
 import { DICTIONARYKEYS } from '../utils/DICTIONARYKEYS';
 
@@ -47,10 +47,11 @@ export class ClienteService {
     pipe(retry(1),catchError(this.error.handleError));
   }
 
-  getClienteEdit(i:number):Observable<SP_Cliente_Get_W[]>{
-    return this.http.get<SP_Cliente_Get_W[]>(this.url+'edit/'+i).
-    pipe(retry(1),catchError(this.error.handleError));
+  getPersonaEdit(i:number):Observable<SP_Persona_Get[]>{    
+    return this.http.get<SP_Persona_Get[]>(this.url+'Edit/'+i)
+    .pipe(retry(1),catchError(this.error.handleError));
   }
+
   anularCliente(i:number):Observable<any>{
     return this.http.delete<any>
     (this.url +i).pipe(retry(1),catchError(this.error.handleError)) 

@@ -1,10 +1,10 @@
 import { Component, ElementRef, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { SP_Cliente_Get_W } from 'src/app/models/SP_Cliente_Get_W';
+import { SP_Persona_Get } from 'src/app/models/SP_Cliente_Get_W';
 import { ClienteService } from 'src/app/services/cliente.service';
 import { DepartamentoService } from 'src/app/services/departamento.service';
 import { MunicipioService } from 'src/app/services/municipio.service';
-import { PaisService } from 'src/app/services/pais.service';
+import { CargoService } from 'src/app/services/pais.service';
 import { GlobalUtilities } from 'src/app/utils/GlobalUtilities';
 
 @Component({
@@ -24,7 +24,7 @@ export class DetailsClienteComponent implements OnInit {
 
   constructor(private Aroute: ActivatedRoute, private src: ClienteService, private route: Router,
     private srcDepartamento: DepartamentoService, private srcMunicipio: MunicipioService, 
-    private srcPais: PaisService) 
+    private srcPais: CargoService) 
     {
       this.tools = GlobalUtilities.getInstance();
     }

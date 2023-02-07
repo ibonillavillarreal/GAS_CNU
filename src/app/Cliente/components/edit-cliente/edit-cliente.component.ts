@@ -1,20 +1,21 @@
 import { Component, ElementRef, NgZone, OnInit, ViewChild, Input, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Departamento } from 'src/app/models/Departamento';
+import { Cargo } from 'src/app/models/Departamento';
 import { Municipio } from 'src/app/models/Municipio';
 import { Pais } from 'src/app/models/Pais';
-import { SP_Cliente_Get_W } from 'src/app/models/SP_Cliente_Get_W';
+import { SP_Persona_Get } from 'src/app/models/SP_Cliente_Get_W';
 import { ClienteService } from 'src/app/services/cliente.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
 import { Toast } from 'src/app/utils/Toast';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { PaisService } from 'src/app/services/pais.service';
+import { CargoService } from 'src/app/services/pais.service';
 import { DepartamentoService } from 'src/app/services/departamento.service';
 import { MunicipioService } from 'src/app/services/municipio.service';
 import { SubTipoCatalogo } from 'src/app/models/SubCatalogo';
 import { SubCatalogoService } from 'src/app/services/subcatalogo.service';
 import { SharedModule } from '../../../shared/Material.module';
+
 @Component({
   selector: 'app-edit-cliente',
   templateUrl: './edit-cliente.component.html',
@@ -23,17 +24,15 @@ import { SharedModule } from '../../../shared/Material.module';
 
 export class EditClienteComponent {
 
-  editar!: FormGroup
-  //url = "http://localhost:3000/API"
-  /**   Lista para los combo box  **/
+  editar!: FormGroup  
 
-  list_Cargo!: Pais[]
+  list_Cargo!: Cargo[]
   list_Claustro!: Municipio[]
-  list_Grado!: Departamento[]
+  list_Grado!: Cargo[]
 
 
   list_ContactoCliente!: any;
-  cliente!: SP_Cliente_Get_W
+  cliente!: SP_Persona_Get
 
 
 
@@ -54,7 +53,7 @@ export class EditClienteComponent {
   public isParticular = true;
 
 
-  constructor(private _builder: FormBuilder, private src: ClienteService, private srcPais: PaisService,
+  constructor(private _builder: FormBuilder, private src: ClienteService, private src_Cargo: CargoService,
     private srcDepartamento: DepartamentoService,
     private srcMunicipio: MunicipioService, public ngZone: NgZone, public rt: Router,
     @Inject(MAT_DIALOG_DATA) public data: any, private _snackbar: MatSnackBar,
@@ -63,42 +62,42 @@ export class EditClienteComponent {
     //console.log("RECIBIENDO DATA cliete  : " + this.data);
     this.toast = new Toast(_snackbar)
     this.iniciarForm();
-    //this.getData();
+    this.getData();
   }
 
   iniciarForm() {
     this.editar = this._builder.group({
-      Cod_Cargo: [0],
-      Cod_Claustro: [0],
-      Cod_GradoAcademico: [0],
+      CodMiembro: [0],
+      CodCargo: [0],
+      CodClaustro: [0],
+      CodGradoAcademico: [0],
       Nombres: ['', Validators.required],
       Apellidos: ['', Validators.required],
-      Telefono: ['', Validators.required],
+      Telefono: [, Validators.required],
       Email: ['', Validators.compose([Validators.email, Validators.required])],
-      //IdUsuario  --pendiente de enviar      
+      
     });
   }
 
   async getData() {
 
-    this.src.getClienteEdit(this.data.id).subscribe((data: any) => {
+    this.src.getPersonaEdit(this.data.id).subscribe((data: any) => {
 
-      this.editar.controls['id_cliente'].setValue(data[0].id_cliente);
-      this.editar.controls['nombre'].setValue(data[0].nombre_cliente);
-      this.editar.controls['razon_social'].setValue(data[0].razon_social);
-      this.editar.controls['direccion'].setValue(data[0].direccion_cliente);
-      this.editar.controls['ruc'].setValue(data[0].ruc);
-      this.editar.controls['correo'].setValue(data[0].correo_cliente);
-      this.editar.controls['cedula'].setValue(data[0].cedula_cliente);
-      this.editar.controls['id_tipo_cliente'].setValue(data[0].tipo_cliente);
-      this.editar.controls['id_tipo_contribuyente'].setValue(data[0].tipo_contribuyente);
-      this.editar.controls['telefono1'].setValue(data[0].telefono1_cliente);
-      this.editar.controls['telefono2'].setValue(data[0].telefono2_cliente);
-      this.editar.controls['telefono3'].setValue(data[0].telefono3_cliente);
+      console.log('retorno observable '+JSON.stringify(data[0]))
 
-      this.loadCargos(data[0].paisId);
-      this.loadGrado(data[0].departamentoId); 
-      this.loadClaustro(data[0].municipioId);      
+      this.editar.controls['CodMiembro'].setValue(data[0].CodMiembro);
+      this.editar.controls['CodCargo'].setValue(data[0].Cod_Cargo);
+      this.editar.controls['CodClaustro'].setValue(data[0].Cod_Claustro);
+      this.editar.controls['CodGradoAcademico'].setValue(data[0].Cod_GradoAcademico);
+      this.editar.controls['Nombres'].setValue(data[0].Nombres);
+      this.editar.controls['Apellidos'].setValue(data[0].Apellidos);
+      this.editar.controls['Telefono'].setValue(data[0].Telefono);
+      this.editar.controls['Email'].setValue(data[0].Email);
+      
+
+      this.loadCargos(data[0].Cod_Cargo);
+      this.loadGrado(data[0].Cod_GradoAcademico); 
+      //this.loadClaustro(data[0].municipioId);      
 
     });
 
@@ -108,13 +107,13 @@ export class EditClienteComponent {
   async loadCargos(cargoId: number) {
     this.list_Cargo = [];
 
-    const res = await this.srcPais.getPaises().toPromise();
+    const res = await this.src_Cargo.getCargo().toPromise();
     res.forEach(element => {
-      let temp = new Pais(element.id, element.nombre);
+      let temp = new Cargo(element.id, element.nombre);
       this.list_Cargo.push(temp);
 
     });
-    this.editar.controls['paisId'].setValue(cargoId);
+    this.editar.controls['CodCargo'].setValue(cargoId);
   }
 
 
@@ -134,9 +133,9 @@ export class EditClienteComponent {
   async loadGrado(GradoId: number) {
 
     this.list_Grado = [];
-    const res = await this.srcDepartamento.getDepartamentos(GradoId).toPromise();
+    const res = await this.srcDepartamento.getComboCargo(GradoId).toPromise();
     res.forEach(element => {
-      let temp = new Departamento(element.id, element.nombre);
+      let temp = new Cargo(element.id, element.nombre);
       this.list_Grado.push(temp);
     });
 
@@ -149,57 +148,37 @@ export class EditClienteComponent {
   /*****METODOS LLAMADOS EN LOS EVENTOS CHANGE */
 
   setComboCargo(id: number) {
-    this.list_Grado = [];    
-
-    this.srcDepartamento.getDepartamentos(id).subscribe((data: any) => {
-      data.forEach((element: any) => {
-        let temp = new Departamento(element.id, element.nombre);
-        
-        this.list_Grado.push(temp);        
-      });
-        this.editar.controls['departamentoId'].setValue(this.list_Grado[0].id);
-        this.setComboClaustro(1, this.list_Grado[0].id)
-    });
+        this.editar.controls['CodCargo'].setValue(id);        
   }
 
 
-  setComboClaustro(type: number, id: number) {
-    switch (type) {
-      case 1: { this.list_Claustro = []; } break;
-
-    }
+  setComboClaustro(id: number) {
+    this.list_Claustro = [];    
 
     this.srcMunicipio.getMunicipios(id).subscribe((data: any) => {
       data.forEach((element: any) => {
         let temp = new Municipio(element.id, element.nombre);
-        switch (type) {
-          case 1: { this.list_Claustro.push(temp); } break;
-
-        }
+        this.list_Claustro.push(temp);        
       });
-      switch (type) {
-        case 1: { this.editar.controls['municipioId'].setValue(this.list_Claustro[0].id); } break;
-
-      }
-
+      this.editar.controls['municipioId'].setValue(this.list_Claustro[0].id);       
     });
   }
-
 
 
   setComboGrado(id: number) {
 
     this.list_Grado = [];
     
-    this.srcDepartamento.getDepartamentos(id).subscribe((data: any) => {
+    this.srcDepartamento.getComboCargo(id).subscribe((data: any) => {
       data.forEach((element: any) => {
-        let temp = new Departamento(element.id, element.nombre);        
+        let temp = new Cargo(element.id, element.nombre);        
         this.list_Grado.push(temp);        
       });
-        this.editar.controls['departamentoId'].setValue(this.list_Grado[0].id);
-        this.setComboClaustro(1, this.list_Grado[0].id)    
+        this.editar.controls['departamentoId'].setValue(this.list_Grado[0].id);        
     });
   }
+
+
 
  
 
