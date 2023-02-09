@@ -1,0 +1,193 @@
+
+<br>
+<br>
+
+<div class="row">
+    <div class="col-1">        
+    </div>   
+
+    <div class="col-11">
+        <div class="col-lg-16 col-md-16">
+            <div class="card" style="border-color: blue;" >
+                <div class="card-body mat-elevation-z3">
+                    <div class="row col-12">
+                        <div class="col-11">
+                            <h2 class="card-title"><span class="lstick"></span>DETALLES</h2>                            
+                        </div>                        
+                        <div class="col-1">                                                         
+                            <h6 class="card-title">                                    
+                                <span class="lstick">                                                                
+                                    <mat-icon routerLink="/Personas">✖️</mat-icon>                                                                
+                                </span> 
+                            </h6>
+                        </div>
+                    </div>
+                    
+
+                    <div class="div-center uploader-status" *ngIf="tools.getisLoadingDetails()">
+                        <br>
+                        <mat-spinner [diameter]="50"></mat-spinner>
+                    </div>
+                    <br>
+                    <div *ngIf="!tools.getisLoadingDetails()">
+                        <mat-tab-group animationDuration="0ms">
+                            <mat-tab label="INFORMACION GENERAL">
+                                <br>
+                                <div class="row col-md-12">
+                                    <div class="col-md-6">
+                                        <label for="" class="campo">Grado</label>
+                                        <br>
+                                        <label for="" class="valor" #Grado>{{Persona.CodGradoAcademico}}</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="" class="campo">Nombres</label><br>
+                                        <label for="" class="valor" #Nombres>{{Persona.Nombres}}</label>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row col-md-12">
+                                    <div class="col-md-6">
+                                        <label for="" class="campo">Cargo</label>
+                                        <br>
+                                        <label for="" class="valor" #Cargo>{{Persona.CodCargo}}</label>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label for="" class="campo">Apellidos</label>
+                                        <br>
+                                        <label for="" class="valor" #Apellidos>{{Persona.Apellidos}}</label>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row col-md-12">
+                                    <div class="col-md-6">
+                                        <label for="" class="campo">Claustro</label>
+                                        <br>
+                                        <label for="" class="valor" #Claustro>{{Persona.CodClaustro}}</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="" class="campo">Teléfono</label><br>
+                                        <label for="" class="valor" #Telefono>{{Persona.Telefono}}</label>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row col-md-12">
+                                    <div class="col-md-6">
+                                        <label for="" class="campo">Correo</label>
+                                        <br>
+                                        <label for="" class="valor" #Correo>{{Persona.Email}}</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="" class="campo">Nacionalidad</label><br>
+                                        <label for="" class="valor" #municipio>Nicaraguense</label>
+                                    </div>
+                                </div>
+
+                                                                
+
+                            </mat-tab>
+
+                            <mat-tab label="OTRAS">
+                                <br>
+                                <div class="row col-md-12">
+                                    <div class="col-md-6">
+                                        <label for="" class="campo">Dato_n</label>
+                                        <br>
+                                        <label for="" class="valor" #nombres_repL>.</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="" class="campo">Dato_n</label><br>
+                                        <label for="" class="valor" #apellidos_repL>.</label>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row col-md-12">
+                                    <div class="col-md-6">
+                                        <label for="" class="campo">Dato_n</label>
+                                        <br>
+                                        <label for="" class="valor" #cedula_repL>.</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="" class="campo">Dato_n</label><br>
+                                        <label for="" class="valor" #pais_repL>.</label>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row col-md-12">
+                                    <div class="col-md-6">
+                                        <label for="" class="campo">Dato_n</label>
+                                        <br>
+                                        <label for="" class="valor"
+                                            #departamento_repL>.</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="" class="campo">Dato_n</label><br>
+                                        <label for="" class="valor" #municipio_repL>.</label>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row col-md-12">
+                                    <div class="col-md-6">
+                                        <label for="" class="campo">Dato_n</label>
+                                        <br>
+                                        <label for="" class="valor" #direccion_repL>.</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="" class="campo">Dato_n</label><br>
+                                        <label for="" class="valor" #correo_repL>.</label>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row col-md-12">
+                                    <div class="col-md-6">
+                                        <label for="" class="campo">Dato_n</label>
+                                        <br>
+                                        <label for="" class="valor" #telefono1_repL>.</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="" class="campo">Dato_n</label><br>
+                                        <label for="" class="valor" #telefono2_repL>.</label>
+                                    </div>
+                                </div>
+                            </mat-tab>
+                        </mat-tab-group>
+                        <br>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-3">
+        <div *ngIf="false" class="col-lg-20 col-md-20">
+            <div class="card">
+                <div class="card-body mat-elevation-z3" style="border-color: blue;">
+                    <h2 class="card-title"><span class="lstick"></span>OPERACIONES</h2>
+                    <hr>
+                    <table class="table vm font-14">
+                        <tr>
+
+                            <div col="10">
+                                <button class="mat-button" mat-raised-button>
+                                    <mat-icon>text_snippet</mat-icon>Invitaciones
+                                </button>
+                            </div>
+                            <!-- <div col="12">
+                            <button class="mat-button" mat-raised-button>
+                                <mat-icon>monetization_on</mat-icon>Otros
+                            </button>
+                        </div> -->
+                            <div col="10">
+                                <button class="mat-button" mat-raised-button>
+                                    <mat-icon>list_alt</mat-icon>Imprimir
+                                </button>
+                            </div>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

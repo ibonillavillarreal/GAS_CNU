@@ -1,0 +1,12 @@
+
+@import url("../../../template.css"); 
+@import url("../../../style/Generales.css"); 
+tr{
+  border-bottom: rgb(202, 200, 200) 1px solid ;  
+}
+td{
+  padding: 10px;
+}
+a{
+  text-decoration: none;
+}

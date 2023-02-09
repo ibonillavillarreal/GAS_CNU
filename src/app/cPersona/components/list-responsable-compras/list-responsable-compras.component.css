@@ -1,0 +1,6 @@
+@import url('../list-cliente/list-cliente.component.css');
+h4 > a{
+    font-weight: normal;
+    text-decoration: none;
+    text-transform: uppercase;
+}

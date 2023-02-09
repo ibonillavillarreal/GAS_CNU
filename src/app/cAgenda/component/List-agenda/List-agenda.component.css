@@ -1,0 +1,41 @@
+@import url("../../../template.css"); 
+@import url("../../../style/Generales.css"); 
+
+a { color: inherit; } 
+
+.ancho{
+  width: 90% !important;  
+}
+
+  .mat-column-Codigo{
+    width: 5% !important;
+  }
+
+  .mat-column-Cliente{
+      width: 5% !important;
+  }
+
+  .mat-column-FechaEntrega{
+    width: 5% !important;
+    text-align:left;
+  }
+
+  .mat-column-GranTotal{
+    width: 5% !important;
+  }
+  .mat-column-Estado{
+    width: 5% !important;
+  }
+  .mat-column-Moneda{
+    width: 5% !important;
+  }
+
+  .mat-column-Facturada{
+    
+    width: 5% !important;
+  }
+
+  .mat-column-acciones {
+    width: 5% !important;
+    text-align:left;
+  }

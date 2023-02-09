@@ -1,22 +1,17 @@
 import { Component, ComponentRef, NgModule } from '@angular/core';
 import { Router, RouterModule, Routes } from '@angular/router';
 import { PreloadAllModules } from '@angular/router';
-import { DetailsClienteComponent } from './Cliente/components/details-cliente/details-cliente.component';
-import { AddCotizacionComponent } from './Cotizacion/component/add-cotizacion/add-cotizacion.component';
-import { DetailsCotizacionComponent } from './Cotizacion/component/details-cotizacion/details-cotizacion.component';
-import { EditCotizacionComponent } from './Cotizacion/component/edit-cotizacion/edit-cotizacion.component';
-import { ImprimirComponent } from './Cotizacion/component/imprimir/imprimir.component';
-import { ListCotizacionComponent } from './Cotizacion/component/List-cotizacion/List-cotizacion.component';
+import { DetailsClienteComponent } from './cPersona/components/details-cliente/details-cliente.component';
+import { AddCotizacionComponent } from './cAgenda/component/add-cotizacion/add-cotizacion.component';
+import { DetailsCotizacionComponent } from './cAgenda/component/details-cotizacion/details-cotizacion.component';
+import { EditCotizacionComponent } from './cAgenda/component/edit-cotizacion/edit-cotizacion.component';
+import { ImprimirComponent } from './cAgenda/component/imprimir/imprimir.component';
 import { DetailOrdenComponent } from './Orden/component/Detail-Orden/detail-orden.component';
 import { EditOrdenComponent } from './Orden/component/Edit-Orden/edit-orden.component';
-import { PreciosComponent } from './Precios/components/List-Precio/List-precios.component';
 import { AddPrecioComponent } from './Precios/components/add-Precio/add-precio.component';
-import { FacturaModule } from './Facturacion/factura.module';
-import { DetailFacturaComponent } from './Facturacion/Components/Detail-factura/detail-factura.component';
 import { ListFacturaComponent } from './Facturacion/Components/List-factura/list-factura.component';
 import { AddFacturaComponent } from './Facturacion/Components/Add-factura/add-factura.component';
-import { AppComponent } from './app.component';
-import { AppModule } from './app.module';
+
 
 
 const routes: Routes = [
@@ -40,7 +35,7 @@ const routes: Routes = [
   {
     path: 'Personas',
     pathMatch: 'full',
-    loadChildren: () => import('./Cliente/cliente.module').then(m => m.ClienteModule)
+    loadChildren: () => import('./cPersona/persona.module').then(m => m.ClienteModule)
   },
 
 
@@ -49,31 +44,31 @@ const routes: Routes = [
     component:DetailsClienteComponent
   },
  
-
   
-  /*Cotizacion*/
+  /*Agenda*/
   {
-    path: 'Cotizacion',
+    path: 'Agenda',
     pathMatch: 'full',
-    loadChildren: () => import('./Cotizacion/Cotizacion.module').then(m => m.CotizacionModule)
+    loadChildren: () => import('./cAgenda/Cotizacion.module').then(m => m.CotizacionModule)
   },
+
   {
-    path:'Cotizacion/add', 
+    path:'Agenda/add', 
     component:AddCotizacionComponent
     
   },
   {
-    path:'Cotizacion/:id', 
+    path:'Agenda/:id', 
     component:DetailsCotizacionComponent
   },
   {
-    path:'Cotizacion/:id/:id', 
+    path:'Agenda/:id/:id', 
     component:ImprimirComponent
   },
   
 
  {
-  path:'Cotizacion/VistaDetalle/:id', 
+  path:'Agenda/VistaDetalle/:id', 
   component:EditCotizacionComponent
 
  },

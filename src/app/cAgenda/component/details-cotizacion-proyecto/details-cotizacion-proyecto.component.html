@@ -1,0 +1,27 @@
+<h4 class="card-title"><span class="lstick"></span>{{descripcion | uppercase}}</h4>
+
+<table mat-table #table [dataSource]="dataSourceArticulos" matSort>
+    <ng-container matColumnDef="CODIGO">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> CODIGO</th>
+        <td mat-cell *matCellDef="let element"> {{element.ARTICULO}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="DESCRIPCION">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> DESCRIPCION </th>
+        <td mat-cell *matCellDef="let element"> {{element.Descripcion}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="CANTIDAD">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> CANTIDAD </th>
+        <td mat-cell *matCellDef="let element"> {{(element.Cantidad)}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="MONTO">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> MONTO </th>
+        <td mat-cell *matCellDef="let element"> {{(element.Precio * element.Cantidad) | currency}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumnsArticulos"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumnsArticulos;"></tr>
+</table>
+<mat-paginator [pageSizeOptions]="[10, 25, 100]" aria-label="Items por pagina"></mat-paginator>

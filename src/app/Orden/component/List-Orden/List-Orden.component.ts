@@ -31,7 +31,7 @@ export class OrdenComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.loadOrdenes();
+       // this.loadOrdenes();
     }
 
     async loadOrdenes(){
