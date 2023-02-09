@@ -2,27 +2,28 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { catchError, retry } from "rxjs/operators";
-import { Municipio } from "../models/Municipio";
+import { Claustro } from "../models/Claustro";
+import { Cargo } from "../models/Cargo";
 import { DICTIONARYKEYS } from "../utils/DICTIONARYKEYS";
 import { ErrorService } from "./error.service";
 
 @Injectable({
     providedIn: 'root'
 })
-export class MunicipioService {
-    //url2 = "http://192.168.1.180:4700/API/Municipio/"
-    //url = "http://192.168.1.180:3000/api/Municipio/"
-    url = new DICTIONARYKEYS().url+'/api/Municipio/';
-    
-    constructor(private http: HttpClient,private error:ErrorService) { }
+export class ClaustroService {
 
-    getMunicipios(i:number):Observable<Municipio[]>{  
-        return this.http.get<Municipio[]>(this.url+"Departamento/"+i).
-        pipe(retry(1),catchError(this.error.handleError));
+    url = new DICTIONARYKEYS().url + '/api/Municipio/';    
+
+    constructor(private http: HttpClient, private error: ErrorService) { }
+
+    getClaustro(i: number): Observable<Claustro[]> {
+        return this.http.get<Claustro[]>(this.url + "Departamento/" + i).
+            pipe(retry(1), catchError(this.error.handleError));
     }
-    
-    getMunicipio(i:number):Observable<Municipio[]>{  
-        return this.http.get<Municipio[]>(this.url+i).
-        pipe(retry(1),catchError(this.error.handleError));
+
+    getMunicipio(i: number): Observable<Claustro[]> {
+        return this.http.get<Claustro[]>(this.url + i).
+            pipe(retry(1), catchError(this.error.handleError));
     }
+
 }

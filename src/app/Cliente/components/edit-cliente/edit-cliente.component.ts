@@ -1,20 +1,18 @@
-import { Component, ElementRef, NgZone, OnInit, ViewChild, Input, Inject } from '@angular/core';
+import { Component, ElementRef, NgZone, ViewChild, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Cargo } from 'src/app/models/Departamento';
-import { Municipio } from 'src/app/models/Municipio';
-import { Pais } from 'src/app/models/Pais';
+import { Cargo } from 'src/app/models/Cargo';
+import { Claustro } from 'src/app/models/Claustro';
 import { SP_Persona_Get } from 'src/app/models/SP_Cliente_Get_W';
 import { ClienteService } from 'src/app/services/cliente.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
 import { Toast } from 'src/app/utils/Toast';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { CargoService } from 'src/app/services/pais.service';
+import { CargoService } from 'src/app/services/Cargo.service';
 import { DepartamentoService } from 'src/app/services/departamento.service';
-import { MunicipioService } from 'src/app/services/municipio.service';
-import { SubTipoCatalogo } from 'src/app/models/SubCatalogo';
+import { ClaustroService } from 'src/app/services/municipio.service';
 import { SubCatalogoService } from 'src/app/services/subcatalogo.service';
-import { SharedModule } from '../../../shared/Material.module';
+import { Grado } from 'src/app/models/Grado';
 
 @Component({
   selector: 'app-edit-cliente',
@@ -24,10 +22,10 @@ import { SharedModule } from '../../../shared/Material.module';
 
 export class EditClienteComponent {
 
-  editar!: FormGroup  
+  editar!: FormGroup
 
   list_Cargo!: Cargo[]
-  list_Claustro!: Municipio[]
+  list_Claustro!: Claustro[]
   list_Grado!: Cargo[]
 
 
@@ -35,19 +33,15 @@ export class EditClienteComponent {
   cliente!: SP_Persona_Get
 
 
-
   @ViewChild('selectcargo') select_Cargo!: ElementRef
   @ViewChild('slectclaustro') select_Claustro!: ElementRef
   @ViewChild('selectgradoacademico') select_GradoAcademico!: ElementRef
-
-
   @ViewChild('selectdepartamento_repL') select_departamento_repL!: ElementRef
   @ViewChild('selectpais_repP') select_pais_repP!: ElementRef
   @ViewChild('selectdepartamento_repP') select_departamento_repP!: ElementRef
   @ViewChild('edtmodal') edt_modal!: ElementRef;
 
   @ViewChild('cedula') cedula!: ElementRef
-
   toast: Toast
 
   public isParticular = true;
@@ -55,11 +49,11 @@ export class EditClienteComponent {
 
   constructor(private _builder: FormBuilder, private src: ClienteService, private src_Cargo: CargoService,
     private srcDepartamento: DepartamentoService,
-    private srcMunicipio: MunicipioService, public ngZone: NgZone, public rt: Router,
+    private src_Claustro: ClaustroService, public ngZone: NgZone, public rt: Router,
     @Inject(MAT_DIALOG_DATA) public data: any, private _snackbar: MatSnackBar,
     private srcSubCatalogo: SubCatalogoService, private dialogRef: MatDialogRef<EditClienteComponent>) {
 
-    //console.log("RECIBIENDO DATA cliete  : " + this.data);
+
     this.toast = new Toast(_snackbar)
     this.iniciarForm();
     this.getData();
@@ -75,7 +69,7 @@ export class EditClienteComponent {
       Apellidos: ['', Validators.required],
       Telefono: [, Validators.required],
       Email: ['', Validators.compose([Validators.email, Validators.required])],
-      
+
     });
   }
 
@@ -83,7 +77,7 @@ export class EditClienteComponent {
 
     this.src.getPersonaEdit(this.data.id).subscribe((data: any) => {
 
-      console.log('retorno observable '+JSON.stringify(data[0]))
+      console.log('retorno observable ' + JSON.stringify(data[0]))
 
       this.editar.controls['CodMiembro'].setValue(data[0].CodMiembro);
       this.editar.controls['CodCargo'].setValue(data[0].Cod_Cargo);
@@ -93,11 +87,11 @@ export class EditClienteComponent {
       this.editar.controls['Apellidos'].setValue(data[0].Apellidos);
       this.editar.controls['Telefono'].setValue(data[0].Telefono);
       this.editar.controls['Email'].setValue(data[0].Email);
-      
+
 
       this.loadCargos(data[0].Cod_Cargo);
-      this.loadGrado(data[0].Cod_GradoAcademico); 
-      //this.loadClaustro(data[0].municipioId);      
+      this.loadClaustro(data[0].Cod_Claustro);
+      this.loadGrado(data[0].Cod_GradoAcademico);
 
     });
 
@@ -119,27 +113,28 @@ export class EditClienteComponent {
 
   async loadClaustro(claustroId: number) {
     this.list_Claustro = [];
-    
-    const res = await this.srcMunicipio.getMunicipios(claustroId).toPromise();
+
+    const res = await this.src_Cargo.getClaustro().toPromise();
     res.forEach(element => {
-      let temp = new Municipio(element.id, element.nombre);
-      
-      this.list_Claustro.push(temp);      
+      let temp = new Claustro(element.id, element.nombre);
+
+      this.list_Claustro.push(temp);
     });
-    
-    this.editar.controls['municipioId'].setValue(claustroId);
+
+    this.editar.controls['CodClaustro'].setValue(claustroId);
   }
 
-  async loadGrado(GradoId: number) {
 
+  async loadGrado(GradoId: number) {
     this.list_Grado = [];
-    const res = await this.srcDepartamento.getComboCargo(GradoId).toPromise();
+
+    const res = await this.src_Cargo.getGrado().toPromise();
     res.forEach(element => {
-      let temp = new Cargo(element.id, element.nombre);
+      let temp = new Grado(element.id, element.nombre);
       this.list_Grado.push(temp);
     });
 
-    this.editar.controls['departamentoId'].setValue(GradoId);
+    this.editar.controls['CodGradoAcademico'].setValue(GradoId);
   }
 
 
@@ -148,53 +143,41 @@ export class EditClienteComponent {
   /*****METODOS LLAMADOS EN LOS EVENTOS CHANGE */
 
   setComboCargo(id: number) {
-        this.editar.controls['CodCargo'].setValue(id);        
+    this.editar.controls['CodCargo'].setValue(id);
   }
 
 
-  setComboClaustro(id: number) {
-    this.list_Claustro = [];    
-
-    this.srcMunicipio.getMunicipios(id).subscribe((data: any) => {
-      data.forEach((element: any) => {
-        let temp = new Municipio(element.id, element.nombre);
-        this.list_Claustro.push(temp);        
-      });
-      this.editar.controls['municipioId'].setValue(this.list_Claustro[0].id);       
-    });
+  setComboClaustro(claustroId: number) {
+    this.editar.controls['CodClaustro'].setValue(claustroId);
   }
 
 
-  setComboGrado(id: number) {
-
-    this.list_Grado = [];
-    
-    this.srcDepartamento.getComboCargo(id).subscribe((data: any) => {
-      data.forEach((element: any) => {
-        let temp = new Cargo(element.id, element.nombre);        
-        this.list_Grado.push(temp);        
-      });
-        this.editar.controls['departamentoId'].setValue(this.list_Grado[0].id);        
-    });
+  setComboGrado(GradoId: number) {
+    this.editar.controls['CodGradoAcademico'].setValue(GradoId);
   }
-
-
-
- 
 
 
   /**** METODOS SUMIT DEL FORMULARIO  ***/
 
   enviar(values: any, formDirective: FormGroupDirective) {
-    this.src.edtCliente(values).subscribe(res => {
+
+    let IdUsuario: number = 1
+    values.IdUsuario = IdUsuario
+
+    this.src.edtPersona(values).subscribe(res => {
+
+      console.log('res retorno ' + JSON.stringify(res))
+
       if (res) {
         this.toast.showToast('Registro actualizado correctamente ✔️', 'Aceptar');
       } else {
-        this.toast.showToast('No se ha podido actualizar el registro', 'Aceptar');
+        this.toast.showToast('No se ha podido actualizar el registro ❌', 'Aceptar');
       }
     });
+
     this.dialogRef.close();
     //this.editar.reset();
+
   }
 
 

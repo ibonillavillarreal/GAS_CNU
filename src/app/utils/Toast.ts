@@ -12,7 +12,7 @@ export class Toast{
 
     public showToast(msj:string,label_btn:string){
         this._snackBar.open(msj,'', {
-            duration: 2 * 1000,
+            duration: 3 * 1000,
             horizontalPosition: this.horizontalPosition,
             verticalPosition: this.verticalPosition,
             panelClass: ['secondary-liosa', 'secondary-liosa'],

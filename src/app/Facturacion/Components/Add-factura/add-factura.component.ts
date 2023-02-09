@@ -176,7 +176,7 @@ export class AddFacturaComponent implements OnInit {
   async tipoFactura_change(id_tipo_Factura: any, tipo_factura_Desc: any) {    
     this.tipoFactura = id_tipo_Factura
     this.tipo_factura_Desc = tipo_factura_Desc
-    if (id_tipo_Factura === DICTIONARYKEYS.IDTIPOFACTCREDITO) 
+    if (id_tipo_Factura === DICTIONARYKEYS.IDTIPO) 
     { this.itsCredit = true; 
 
     } else { this.itsCredit = false; }

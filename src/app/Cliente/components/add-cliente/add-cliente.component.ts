@@ -1,258 +1,140 @@
-import { Component, OnInit, NgZone, Output, EventEmitter, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, NgZone, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { ClienteService } from 'src/app/services/cliente.service';
-import { Pais } from 'src/app/models/Pais';
-import { Cargo } from 'src/app/models/Departamento';
-import { SP_Cliente_Add } from 'src/app/models/SP_Cliente_Add';
-import { SP_ClienteAgente_Add } from 'src/app/models/SP_ClienteAgente_Add';
-import { Municipio } from 'src/app/models/Municipio';
+import { Cargo } from 'src/app/models/Pais';
+import { Claustro } from 'src/app/models/Claustro';
 import { Toast } from 'src/app/utils/Toast';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { MunicipioService } from 'src/app/services/municipio.service';
+import { ClaustroService } from 'src/app/services/municipio.service';
 import { DepartamentoService } from 'src/app/services/departamento.service';
-import { CargoService } from 'src/app/services/pais.service';
-import { ClienteA } from 'src/app/models/ClienteA';
-import { SubTipoCatalogo } from 'src/app/models/SubCatalogo';
+import { CargoService } from 'src/app/services/Cargo.service';
 import { SubCatalogoService } from 'src/app/services/subcatalogo.service';
 import { MatDialogRef } from '@angular/material/dialog';
+import { Grado } from 'src/app/models/Grado';
 @Component({
   selector: 'app-add-cliente',
   templateUrl: './add-cliente.component.html',
   styleUrls: ['./add-cliente.component.css']
 })
 export class AddClienteComponent implements OnInit {
+
   /***CAMPOS***/
   registrar: FormGroup
 
-  url = "http://localhost:3000/api/Cliente"
-
   @Output() salida = new EventEmitter();
+
   /**LISTAS COMBO BOX**/
-  list_paises!: Pais[]
-  list_municipio!: Municipio[]
-  list_departamento!: Cargo[]
-
-  list_paises_repL!: Pais[]
-  list_paises_repP!: Pais[]
-
-  list_departamento_repL!: Cargo[]
-  list_departamento_repP!: Cargo[]
-
-  list_municipio_repL!: Municipio[]
-  list_municipio_repP!: Municipio[]
 
   toast: Toast
 
-  list_tipos_cliente!: SubTipoCatalogo[];
-  list_contribuyentes!: SubTipoCatalogo[];
+  list_Cargo!: Cargo[]
+  list_Claustro!: Claustro[]
+  list_Grado!: Cargo[]
 
-  public isParticular = true;
-  constructor(private _builder: FormBuilder, private src: ClienteService, private scrMunicipio: MunicipioService,
-    private srcDepartamento: DepartamentoService, private srcPais: CargoService, private _snackBar: MatSnackBar,
-    public ngZone: NgZone, public rt: Router, private srcSubCatalogo: SubCatalogoService, private dialogRef: MatDialogRef<AddClienteComponent>) {
+  constructor(private _builder: FormBuilder, private src: ClienteService,
+    private _snackBar: MatSnackBar, public ngZone: NgZone,
+    public rt: Router, private src_Cargo: CargoService,
+    private dialogRef: MatDialogRef<AddClienteComponent>
+  ) {
 
     this.toast = new Toast(_snackBar)
+
     this.registrar = this._builder.group({
-      /******CLIENTE******/
-      id_cliente: [0],
-      codigo: ['0000'],
-      nombre: ['', Validators.required],
-      razon_social: ['', Validators.required],
-      ruc: ['', Validators.required],
-      direccion: ['', Validators.required],
-      cedula: [''],
-      CondicionPagoPlazo: [0,Validators.required],
-      correo: ['', Validators.compose([Validators.email, Validators.required])],
-      id_tipo_cliente: ['', Validators.required],
-      id_tipo_contribuyente: ['', Validators.required],
-      paisId: ['', Validators.required],
-      departamentoId: ['', Validators.required],
-      municipioId: ['', Validators.required],
-      telefono1: ['', Validators.required],
-      telefono2: [''],
-      telefono3: [''],
-
-      //RESPONSABLE DE LEGAL
-      nombre_rep_legal: ['',Validators.required],
-      apellido_rep_legal: ['',Validators.required],
-      cedula_rep_legal: ['',Validators.required],
-      municipioId_rep_legal: ['',Validators.required],
-      departamentoId_rep_legal: ['',Validators.required],
-      paisId_rep_legal: ['',Validators.required],
-      direccion_rep_legal: ['',Validators.required],
-      correo_rep_legal: ['', Validators.compose([Validators.email, Validators.required])],
-      telefono1_rep_legal: ['',Validators.required],
-      telefono2_rep_legal: [''],
-
-      //REPRESENTANTE PAGOS
-      nombre_rep_pago: ['',Validators.required],
-      apellido_rep_pago: ['',Validators.required],
-      cedula_rep_pago: ['',Validators.required],
-      municipioId_rep_pago: ['',Validators.required],
-      departamentoId_rep_pago: ['',Validators.required],
-      paisId_rep_pago: ['',Validators.required],
-      direccion_rep_pago: ['',Validators.required],
-      correo_rep_pago: ['', Validators.compose([Validators.email, Validators.required])],
-      telefono1_rep_pago: ['',Validators.required],
-      telefono2_rep_pago: [''],
+      CodMiembro: [0],
+      CodCargo: [0],
+      CodClaustro: [0],
+      CodGradoAcademico: [0],
+      Nombres: ['', Validators.required],
+      Apellidos: ['', Validators.required],
+      Telefono: [, Validators.required],
+      Email: ['', Validators.compose([Validators.email, Validators.required])],
     });
 
-    this.loadInfo();
-    this.setListTiposCliente();
-    this.setListContribuyentes();
-  }
+    this.loadCargos();
+    this.loadClaustro();
+    this.loadGrado();
 
+  }
   ngOnInit(): void {
   }
-  /***METODOS**/
-  loadInfo() {
-    this.list_paises = [];
-    this.list_paises_repL = [];
-    this.list_paises_repP = [];
-
-    this.srcPais.getCargo().subscribe((data: any) => {
-      data.forEach((element: any) => {
-        let temp = new Pais(element.id, element.nombre);
-        this.list_paises.push(temp);
-        this.list_paises_repL.push(temp);
-        this.list_paises_repP.push(temp);
-      });
-
-      this.registrar.controls['paisId'].setValue(this.list_paises[0].id);
-      this.registrar.controls['paisId_rep_legal'].setValue(this.list_paises[0].id);
-      this.registrar.controls['paisId_rep_pago'].setValue(this.list_paises[0].id);
-      this.setDepartamentos(this.list_paises[0].id);
-    });
-
-  }
 
 
-  setDepartamentos(id: number) {
-    this.list_departamento = [];
-    this.list_departamento_repL = [];
-    this.list_departamento_repP = [];
-
-    this.srcDepartamento.getComboCargo(id).subscribe((data: any) => {
-      data.forEach((element: any) => {
-        // list.push(element.Id);
-        let temp = new Cargo(element.id, element.nombre);
-        this.list_departamento.push(temp);
-        this.list_departamento_repL.push(temp);
-        this.list_departamento_repP.push(temp);
-      });
-      this.registrar.controls['departamentoId'].setValue(this.list_departamento[0].id);
-      this.registrar.controls['departamentoId_rep_legal'].setValue(this.list_departamento_repL[0].id);
-      this.registrar.controls['departamentoId_rep_pago'].setValue(this.list_departamento_repP[0].id);
-      this.setMunicipios(this.list_departamento[0].id)
-    });
-  }
-
-
-  setDepartamentosList(type: number, id: number) {
-
-    switch (type) {
-      case 1: { this.list_departamento = []; } break;
-      case 2: { this.list_departamento_repL = []; } break;
-      case 3: { this.list_departamento_repP = []; } break;
-    }
-
-    this.srcDepartamento.getComboCargo(id).subscribe((data: any) => {
-      data.forEach((element: any) => {
-        let temp = new Cargo(element.id, element.nombre);
-        switch (type) {
-          case 1: { this.list_departamento.push(temp); } break;
-          case 2: { this.list_departamento_repL.push(temp); } break;
-          case 3: { this.list_departamento_repP.push(temp); } break;
-        }
-      });
-      switch (type) {
-        case 1: { this.registrar.controls['departamentoId'].setValue(this.list_departamento[0].id); this.setMunicipiosList(1, this.list_departamento[0].id) } break;
-        case 2: { this.registrar.controls['departamentoId_rep_legal'].setValue(this.list_departamento_repL[0].id); this.setMunicipiosList(2, this.list_departamento_repL[0].id) } break;
-        case 3: { this.registrar.controls['departamentoId_rep_pago'].setValue(this.list_departamento_repP[0].id); this.setMunicipiosList(3, this.list_departamento_repP[0].id) } break;
-      }
-    });
-  }
-
-
-  setMunicipiosList(type: number, id: number) {
-    switch (type) {
-      case 1: { this.list_municipio = []; } break;
-      case 2: { this.list_municipio_repL = []; } break;
-      case 3: { this.list_municipio_repP = []; } break;
-    }
-    this.scrMunicipio.getMunicipios(id).subscribe((data: any) => {
-      data.forEach((element: any) => {
-        let temp = new Municipio(element.id, element.nombre);
-        switch (type) {
-          case 1: { this.list_municipio.push(temp); } break;
-          case 2: { this.list_municipio_repL.push(temp); } break;
-          case 3: { this.list_municipio_repP.push(temp); } break;
-        }
-      });
-      switch (type) {
-        case 1: { this.registrar.controls['municipioId'].setValue(this.list_municipio[0].id); } break;
-        case 2: { this.registrar.controls['municipioId_rep_legal'].setValue(this.list_municipio_repL[0].id); } break;
-        case 3: { this.registrar.controls['municipioId_rep_pago'].setValue(this.list_municipio_repP[0].id); } break;
-      }
+  /*****METODOS de Cargas Iniciales */
+  async loadCargos() {
+    this.list_Cargo = [] ;
+    const res = await this.src_Cargo.getCargo().toPromise();
+    res.forEach(element => {
+      let temp = new Cargo(element.id, element.nombre);
+      this.list_Cargo.push(temp);
 
     });
+    this.registrar.controls['CodCargo'].setValue(this.list_Cargo[0].id);
   }
 
-  setMunicipios(id: number) {
+  async loadClaustro() {
+    this.list_Claustro = [];
 
-    this.list_municipio = [];
-    this.list_municipio_repL = [];
-    this.list_municipio_repP = [];
+    const res = await this.src_Cargo.getClaustro().toPromise();
+    res.forEach(element => {
+      let temp = new Claustro(element.id, element.nombre);
 
-    this.scrMunicipio.getMunicipios(id).subscribe((data: any) => {
-      data.forEach((element: any) => {
-        let temp = new Municipio(element.id, element.nombre);
-        this.list_municipio.push(temp);
-        this.list_municipio_repL.push(temp);
-        this.list_municipio_repP.push(temp);
-      });
-
-      this.registrar.controls['municipioId'].setValue(this.list_municipio[0].id);
-      this.registrar.controls['municipioId_rep_legal'].setValue(this.list_municipio[0].id);
-      this.registrar.controls['municipioId_rep_pago'].setValue(this.list_municipio[0].id);
+      this.list_Claustro.push(temp);
     });
-  }
-  setParticular(id: number) {
-    if (id === 7) {
-      this.isParticular = true;
-      console.log("ES PARTICULAR")
-    } else {
-      this.isParticular = false;
-      this.registrar.controls['cedula'].setValue('');
-      console.log("NO ES PARTICULAR")
-    }
+
+    this.registrar.controls['CodClaustro'].setValue(this.list_Claustro[0].id);
   }
 
-  async setListTiposCliente() {
-    let tipos_cliente = await this.srcSubCatalogo.getTiposCliente().toPromise();
-    this.list_tipos_cliente = tipos_cliente;
+  async loadGrado() {
+    this.list_Grado = [];
+
+    const res = await this.src_Cargo.getGrado().toPromise();
+    res.forEach(element => {
+      let temp = new Grado(element.id, element.nombre);
+      this.list_Grado.push(temp);
+    });
+
+    this.registrar.controls['CodGradoAcademico'].setValue(this.list_Grado[0].id);
   }
-  async setListContribuyentes() {
-    let contribuyentes = await this.srcSubCatalogo.getContribuyentesCliente().toPromise();
-    this.list_contribuyentes = contribuyentes;
+
+
+  /*****METODOS LLAMADOS EN LOS EVENTOS CHANGE */
+  setComboCargo(id: number) {
+    this.registrar.controls['CodCargo'].setValue(id);
   }
+
+
+  setComboClaustro(claustroId: number) {
+    this.registrar.controls['CodClaustro'].setValue(claustroId);
+  }
+
+
+  setComboGrado(GradoId: number) {
+    this.registrar.controls['CodGradoAcademico'].setValue(GradoId);
+  }
+
   evento(value: number) {
     console.log(value)
   }
 
+  // Gaurdar el Registro   
   enviar(values: any, formDirective: FormGroupDirective) {
 
-    this.src.addCliente(values).subscribe(res => {      
-      if (res) {
-        this.toast.showToast('Registro realizado correctamente', 'Aceptar')
-      } else {
-        this.toast.showToast('Ha ocurrido un error', 'Aceptar')
+    let IdUsuario: number = 1
+    values.IdUsuario = IdUsuario
 
+    this.src.addPersona(values).subscribe(res => {
+
+      if (res) {
+        this.toast.showToast('Registro Guardado correctamente ✔️ ', 'Aceptar')
+      } else {
+        this.toast.showToast('Ha ocurrido un error ❌', 'Aceptar')
       }
     })
+
     this.registrar.reset();
     formDirective.resetForm();
     this.dialogRef.close();
   }
+
 }

@@ -11,35 +11,48 @@ import { Toast } from 'src/app/utils/Toast';
   styleUrls: ['./anular-cliente.component.css']
 })
 export class AnularClienteComponent implements OnInit {
-  private id:number
-  private toast:Toast
-  private tools:GlobalUtilities
-  constructor(private src:ClienteService,@Inject(MAT_DIALOG_DATA) public data: any, private _snackBar: MatSnackBar,
-  private dialogRef: MatDialogRef<AnularClienteComponent>){
-      this.id = data.id;
-      this.toast = new Toast(_snackBar);
-      this.tools = GlobalUtilities.getInstance();
-      console.log("ID ELIMINAR"+this.id)
-   }
+  private id: number
+  private toast: Toast
+  private tools: GlobalUtilities
+
+  constructor(private src: ClienteService, @Inject(MAT_DIALOG_DATA)
+  public data: any, private _snackBar: MatSnackBar,
+    private dialogRef: MatDialogRef<AnularClienteComponent>
+  ) {
+    this.id = data.id;
+    this.toast = new Toast(_snackBar);
+    this.tools = GlobalUtilities.getInstance();
+    
+  }
 
   ngOnInit(): void {
   }
-  cerrar(){
+  cerrar() {
     this.dialogRef.close();
   }
-  confirmar(){
-    this.tools.setIsLoading(true);
-    this.src.anularCliente(this.id).subscribe(res=>{
-        if(res){
-          this.toast.showToast("Eliminado correctamente","Aceptar")
-          this.cerrar();
-        }else{
-          this.toast.showToast("Se produjo un error al eliminar","Aceptar")
-          console.log(res);
-        }
+  
+  confirmar(operacion:number) {
+
+    let id_User:any ={id:this.id,idUser:1,operacion:operacion}  
+
+    this.tools.setIsLoading(true);    
+    this.src.anularPersona(id_User).subscribe(res => {
+      if (res) {
+          if(operacion === 1)
+          {
+            this.toast.showToast("Eliminado FISICA correctamente ✔️", "Aceptar")
+            this.cerrar();
+          }else
+          {
+            this.toast.showToast("Eliminado LOGICA correctamente ✔️", "Aceptar")
+            this.cerrar();
+          }
+        
+      } else {
+        this.toast.showToast("Error inesperado en la acción ❌", "Aceptar")
+        console.log(res);
       }
-      
-    )
+    });
   }
 
 }
