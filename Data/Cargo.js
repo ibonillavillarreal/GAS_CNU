@@ -1,24 +1,13 @@
 const conexion = require('../config/conexion')
 const sql = require('mssql')
 
-const getPais = async (id) => {
-  try {    
-    let mssql = await sql.connect(conexion);
-    let salida = await mssql.request()
-    .input('id', sql.Int, id)
-      .execute('sp_pais_get_w');
-    return salida.recordsets;
-  } catch (e) {
-    console.log(e)
-    return 0;
-  }
-}
+
 const getCargo = async () => {
   try {
     let pool = await sql.connect(conexion);
     let result = await pool.request()
     .input('CodTipo', sql.Int, 0)
-    .input('CodDocTipo', sql.Int, 4)
+    .input('CodCatalogoTipo', sql.Int, 9)
     .execute("Catalogos.p_GettbCodigoTipo"); 
     return result.recordsets;
   } catch (e) {
@@ -26,7 +15,37 @@ const getCargo = async () => {
     return 0;
   }
 }
+
+const getClaustro = async (id) => {
+  try {    
+    let mssql = await sql.connect(conexion);
+    let salida = await mssql.request()
+    .input('CodTipo', sql.Int, 0)
+    .input('CodCatalogoTipo', sql.Int, 8)
+    .execute("Catalogos.p_GettbCodigoTipo"); 
+    return salida.recordsets;
+  } catch (e) {
+    console.log(e)
+    return 0;
+  }
+}
+
+const getGrado = async (id) => {
+  try {    
+    let mssql = await sql.connect(conexion);
+    let salida = await mssql.request()
+    .input('CodTipo', sql.Int, 0)
+    .input('CodCatalogoTipo', sql.Int, 6)
+    .execute("Catalogos.p_GettbCodigoTipo"); 
+    return salida.recordsets;
+  } catch (e) {
+    console.log(e)
+    return 0;
+  }
+}
+
 module.exports = {
-  getPais: getPais,
-  getCargo: getCargo
+  getCargo: getCargo,
+  getClaustro: getClaustro,
+  getGrado: getGrado
 }

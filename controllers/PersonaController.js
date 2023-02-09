@@ -1,10 +1,10 @@
 
 // getClientes, getCliente, addCliente, editCliente, anularCliente, getClienteEdit
-const DBCliente = require('../Data/Cliente'); 
+const DBPersona = require('../Data/Persona'); 
 
 const getCliente = async (request, response,next) => {
   try {
-      DBCliente.getCliente(request.params.id).then((data) => {
+      DBPersona.getCliente(request.params.id).then((data) => {
       response.json(data[0]);
      })
   } catch (error) {
@@ -15,7 +15,7 @@ const getCliente = async (request, response,next) => {
 const getClientes = async (request, response,next) => {
     try{     
 
-      DBCliente.getClientes().then((data) => {
+      DBPersona.getClientes().then((data) => {
         response.json(data[0]);
       })
     }catch(ex){
@@ -26,40 +26,34 @@ const getClientes = async (request, response,next) => {
 const addCliente = async (request, response,next) => {
   try {
     const cliente = { ...request.body }
-    DBCliente.addCliente(cliente).then(data  => {
-    response.json(data[0]);
+    DBPersona.addCliente(cliente).then(data  => {
+    response.json(data);
   })
   } catch (error) {
     next(error)      
   }
 }
 
-const editCliente = async (request, response,next) => {
+const editPersona = async (request, response,next) => {
   try {
-    const cliente = { ...request.body }
-    console.log(cliente)
-    DBCliente.editCliente(cliente).then(data  => {
-    response.json(data[0]);
+    const persona = { ...request.body }
+    console.log('Registro Persona : '+persona)
+    DBPersona.editPersona(persona).then(data  => {
+    
+      console.log('Controlador-Retorno')
+
+      response.json(data);
   })
   } catch (error) {
     next(error)
   }
 }
 
-const anularCliente = async (request, response,next) => {
-  try {
-    DBCliente.anularCliente(request.params.id).then(data  => {
-    console.log(data[0])
-      response.json(data[0]);
-  })
-  } catch (error) {
-    next(error)
-  }
-}
+
 
 const activarCliente = async (request, response,next) => {
   try {
-    DBCliente.activarCliente(request.params.id).then(data  => {
+    DBPersona.activarCliente(request.params.id).then(data  => {
     response.json(data[0]);
   })
   } catch (error) {
@@ -70,7 +64,7 @@ const activarCliente = async (request, response,next) => {
 const getClienteEdit = async (request, response,next) => {
   try {
       const id =  request.params.id
-      DBCliente.getClienteEdit(id).then((data) => {
+      DBPersona.getClienteEdit(id).then((data) => {
       response.json(data[0]);
     })
   } catch (error) {
@@ -78,11 +72,26 @@ const getClienteEdit = async (request, response,next) => {
   }
 }
 
+
+const anularCliente = async (request, response,next) => {
+  try {
+    const id = request.params.id
+    const id_User = {...request.body}
+
+    DBPersona.anularCliente(id_User).then(data  => {    
+      response.json(data);
+  })
+  } catch (error) {
+    next(error)
+  }
+}
+
+
 const addClienteAgente = async (request, response,next) => {
   try {
     console.log(request.body)
     const cliente = { ...request.body }
-    DBCliente.addClienteAgente(cliente).then(data  => {
+    DBPersona.addClienteAgente(cliente).then(data  => {
     response.json(data[0]);
   })
   } catch (error) {
@@ -94,7 +103,7 @@ module.exports =  {
   getCliente, 
   getClientes,  
   addCliente,  
-  editCliente, 
+  editPersona: editPersona, 
   anularCliente,  
   activarCliente, 
   getClienteEdit,
