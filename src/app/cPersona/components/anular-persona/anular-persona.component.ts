@@ -7,8 +7,8 @@ import { Toast } from 'src/app/utils/Toast';
 
 @Component({
   selector: 'app-anular-cliente',
-  templateUrl: './anular-cliente.component.html',
-  styleUrls: ['./anular-cliente.component.css']
+  templateUrl: './anular-persona.component.html',
+  styleUrls: ['./anular-persona.component.css']
 })
 export class AnularClienteComponent implements OnInit {
   private id: number

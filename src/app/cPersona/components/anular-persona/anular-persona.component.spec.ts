@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AnularClienteComponent } from './anular-cliente.component';
+import { AnularClienteComponent } from './anular-persona.component';
 
 describe('AnularClienteComponent', () => {
   let component: AnularClienteComponent;

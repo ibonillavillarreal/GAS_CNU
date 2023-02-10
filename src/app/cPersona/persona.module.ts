@@ -1,9 +1,9 @@
 
 import { NgModule } from "@angular/core";
-import { ListClienteComponent } from "./components/list-cliente/list-cliente.component";
-import { DetailsClienteComponent } from "./components/details-cliente/details-cliente.component";
+import { ListClienteComponent } from "./components/list-persona/list-persona.component";
+import { DetailsClienteComponent } from "./components/details-persona/details-cliente.component";
 import { EditClienteComponent } from "./components/edit-cliente/edit-cliente.component";
-import { AddClienteComponent } from "./components/add-cliente/add-cliente.component";
+import { AddClienteComponent } from "./components/add-persona/add-persona.component";
 import { ClienteRoutingModule } from "./persona-routing.module";
 import { EditContactoComponent } from "./components/edit-contacto/edit-contacto.component";
 import { AddResponsableComprasComponent } from "./components/add-responsable-compras/add-responsable-compras.component";

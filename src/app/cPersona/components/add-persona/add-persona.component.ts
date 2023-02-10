@@ -14,8 +14,8 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { Grado } from 'src/app/models/Grado';
 @Component({
   selector: 'app-add-cliente',
-  templateUrl: './add-cliente.component.html',
-  styleUrls: ['./add-cliente.component.css']
+  templateUrl: './add-persona.component.html',
+  styleUrls: ['./add-persona.component.css']
 })
 export class AddClienteComponent implements OnInit {
 

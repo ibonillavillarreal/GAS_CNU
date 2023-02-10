@@ -6,7 +6,7 @@ import { FormBuilder, FormGroup, FormGroupDirective, Validators } from '@angular
 import { ActivatedRoute, Data, NavigationStart, Params, Router, RouterLink, Routes } from '@angular/router';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { CotizacionService } from 'src/app/services/cotizacion.service';
+import { AgendaService } from 'src/app/services/cotizacion.service';
 import { Toast } from 'src/app/utils/Toast';
 import { Cliente } from 'src/app/models/Cliente';
 import { GlobalUtilities } from 'src/app/utils/GlobalUtilities';
@@ -116,7 +116,7 @@ export class EditCotizacionComponent implements  OnInit {
     public rt: Router,
     private _snackbar: MatSnackBar,
     private srvCliente: ClienteService,
-    private srvCotizacion: CotizacionService, public ngZone: NgZone,
+    private srvCotizacion: AgendaService, public ngZone: NgZone,
     private srvMonedas: MonedaService,
     private srvItem: ItemService,
     public dialog: MatDialog,

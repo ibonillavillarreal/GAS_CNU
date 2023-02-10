@@ -21,7 +21,7 @@ import { AddItemSComponent } from '../add-item-s/add-item-s.component';
 import { Items } from '../../../models/Items';
 import { EditProyectoComponent } from '../edit-proyecto/edit-proyecto.component';
 import { MatSort } from '@angular/material/sort';
-import { CotizacionService } from 'src/app/services/cotizacion.service';
+import { AgendaService } from 'src/app/services/cotizacion.service';
 import { Router, Data } from '@angular/router';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
@@ -75,7 +75,7 @@ export class AddCotizacionComponent implements OnInit {
 
   constructor(private _builder: FormBuilder, private _snackbar: MatSnackBar, private srvCliente: ClienteService,
     public ngZone: NgZone, private srvMonedas: MonedaService, private srvItem: ItemService, public dialog: MatDialog,
-    private srcItem: ItemService, private srcCotizacion: CotizacionService,private router: Router, 
+    private srcItem: ItemService, private srcCotizacion: AgendaService,private router: Router, 
     public srcFactura:Factura
    ) {
     this.tools = GlobalUtilities.getInstance();

@@ -5,7 +5,7 @@ import { Factura } from 'src/app/services/Factura.service';
 import { GlobalUtilities } from 'src/app/utils/GlobalUtilities';
 import { Data } from '@angular/router';
 import { VerItemDetalleComponent } from '../Ver-ItemDetail/ver-item-detalle.component';
-import { CotizacionService } from 'src/app/services/cotizacion.service';
+import { AgendaService } from 'src/app/services/cotizacion.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { TrackingComponent } from '../Seg-Tracking/tracking.component';
@@ -33,7 +33,7 @@ export class DetailFacturaComponent implements OnInit {
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any, private srcFactura: Factura, private dialoRef: MatDialogRef<DetailFacturaComponent>,
-    public dialog: MatDialog,private srcCotizacion: CotizacionService,
+    public dialog: MatDialog,private srcCotizacion: AgendaService,
   ) {
     this.facturaMaestro = data.facturaMaestro;    
     this.id_factura = this.facturaMaestro.id_factura;

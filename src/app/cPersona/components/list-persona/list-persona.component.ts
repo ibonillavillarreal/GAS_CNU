@@ -4,16 +4,16 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ClienteService } from 'src/app/services/cliente.service';
 import { MatDialog } from '@angular/material/dialog';
-import { AddClienteComponent } from '../add-cliente/add-cliente.component';
+import { AddClienteComponent } from '../add-persona/add-persona.component';
 import { EditClienteComponent } from '../edit-cliente/edit-cliente.component';
-import { AnularClienteComponent } from '../anular-cliente/anular-cliente.component';
+import { AnularClienteComponent } from '../anular-persona/anular-persona.component';
 import { GlobalUtilities } from 'src/app/utils/GlobalUtilities';
 
 
 @Component({
   selector: 'app-list-cliente',
-  templateUrl: './list-cliente.component.html',
-  styleUrls: ['./list-cliente.component.css']
+  templateUrl: './list-persona.component.html',
+  styleUrls: ['./list-persona.component.css']
 })
 export class ListClienteComponent implements OnInit {
   /***VARIABLES PARA TABLA */

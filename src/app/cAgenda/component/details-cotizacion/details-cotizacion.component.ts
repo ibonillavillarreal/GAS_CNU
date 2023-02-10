@@ -5,14 +5,14 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Data, NavigationStart, Params, Router, RouterLink, Routes } from '@angular/router';
-import { CotizacionService } from 'src/app/services/cotizacion.service';
+import { AgendaService } from 'src/app/services/cotizacion.service';
 import { GlobalUtilities } from 'src/app/utils/GlobalUtilities';
 import { DetailsCotizacionProyectoComponent } from '../details-cotizacion-proyecto/details-cotizacion-proyecto.component';
 
 
 @Component({
   selector: 'app-details-cotizacion',
-  templateUrl: './details-cotizacion.component.html',
+  templateUrl:'./details-cotizacion.component.html',
   styleUrls: ['./details-cotizacion.component.css']
 })
 export class DetailsCotizacionComponent implements OnInit {
@@ -35,7 +35,7 @@ export class DetailsCotizacionComponent implements OnInit {
   @ViewChild(MatPaginator) paginatorArticulos!: MatPaginator;
   @ViewChild(MatSort) sortArticulos!: MatSort;
   constructor(private Aroute: ActivatedRoute, private route: Router, public rt: Router,
-    private srcCotizacion: CotizacionService, private dialog: MatDialog) {
+    private srcCotizacion: AgendaService, private dialog: MatDialog) {
     this.tools = GlobalUtilities.getInstance();
     this.Aroute.params.subscribe((params: Params) => {
       this.id = params.id;
@@ -43,7 +43,7 @@ export class DetailsCotizacionComponent implements OnInit {
   }
   
   ngOnInit(): void {
-    this.getData()
+    //this.getData()
   }
   ngAfterViewInit() {
     this.dataSourceArticulos.paginator = this.paginatorArticulos;

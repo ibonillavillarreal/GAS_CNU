@@ -82,7 +82,7 @@ export class CarItemAddComponent implements OnInit {
     this.list_factura_Item_DB_Grid.push(facturaDirecta);
     this.dataSourceFacturaItems.data = this.list_factura_Item_DB_Grid;
 
-}
+  }
 
 Cantidad_click(index:any){
   console.log('indice : ',JSON.stringify(index));
@@ -96,8 +96,7 @@ Cantidad_click(index:any){
       let regCantidad =  this.list_factura_Item_DB_Grid[index].Cantidad = obj.Cantidad;
       console.log('Regsitro con el indice : ',JSON.stringify(regCantidad));
 
-    });
-  
+    });  
   
 }
 

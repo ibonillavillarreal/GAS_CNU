@@ -8,8 +8,8 @@ import { GlobalUtilities } from 'src/app/utils/GlobalUtilities';
 
 @Component({
   selector: 'app-details-cliente',
-  templateUrl: './details-cliente.component.html',
-  styleUrls: ['./details-cliente.component.css']
+  templateUrl: './details-persona.component.html',
+  styleUrls: ['./details-persona.component.css']
 })
 export class DetailsClienteComponent implements OnInit {
 

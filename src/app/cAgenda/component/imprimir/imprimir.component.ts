@@ -7,7 +7,7 @@ import { ClienteService } from 'src/app/services/cliente.service';
 import { Items } from '../../../models/Items';
 import { filter, find, first } from 'rxjs/operators';
 import { analyzeAndValidateNgModules } from '@angular/compiler';
-import { CotizacionService } from 'src/app/services/cotizacion.service';
+import { AgendaService } from 'src/app/services/cotizacion.service';
 import {NgxPrintModule} from "ngx-print";  
 import { Cotizacion } from '../../../models/adddCotizacion';
 
@@ -66,7 +66,7 @@ export class ImprimirComponent implements OnInit {
     //public dialogRef_Imprimir: MatDialogRef<ImprimirComponent>,
     //@Inject(MAT_DIALOG_DATA) public Obj_Print: any,
     private srvCliente: ClienteService,
-    private srvCotizacion: CotizacionService
+    private srvCotizacion: AgendaService
   ) {     
     this.Aroute.params.subscribe((params: Params) => {
       console.log('params.id : '+params.id);

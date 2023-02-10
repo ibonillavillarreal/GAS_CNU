@@ -1,12 +1,12 @@
 
 import { NgModule } from "@angular/core";
 import { Routes,RouterModule } from "@angular/router";
-import { ListCotizacionComponent } from "./component/List-agenda/List-Agenda.component";
+import { ListAgendaComponent } from "./component/List-agenda/List-Agenda.component";
 
 const routes: Routes =[    
     {
         path: '',
-        component:ListCotizacionComponent,     
+        component:ListAgendaComponent,     
         
     }
 ];

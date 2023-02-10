@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ListCotizacionComponent } from './List-Agenda.component';
+import { ListAgendaComponent } from './List-Agenda.component';
 
 describe('DetalleCotizacionComponentComponent', () => {
-  let component: ListCotizacionComponent;
-  let fixture: ComponentFixture<ListCotizacionComponent>;
+  let component: ListAgendaComponent;
+  let fixture: ComponentFixture<ListAgendaComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ListCotizacionComponent ]
+      declarations: [ ListAgendaComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ListCotizacionComponent);
+    fixture = TestBed.createComponent(ListAgendaComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

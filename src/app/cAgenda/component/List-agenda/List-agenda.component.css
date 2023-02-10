@@ -4,38 +4,23 @@
 a { color: inherit; } 
 
 .ancho{
-  width: 90% !important;  
+  width: 100% !important;  
 }
 
-  .mat-column-Codigo{
-    width: 5% !important;
+  .mat-column-IdAgenda{
+    width: 15% !important;
   }
 
-  .mat-column-Cliente{
-      width: 5% !important;
+  .mat-column-DescripcionAgenda{
+      width: 40% !important;
   }
 
-  .mat-column-FechaEntrega{
-    width: 5% !important;
+  .mat-column-FechaRegristro{
+    width: 10% !important;
     text-align:left;
-  }
-
-  .mat-column-GranTotal{
-    width: 5% !important;
-  }
-  .mat-column-Estado{
-    width: 5% !important;
-  }
-  .mat-column-Moneda{
-    width: 5% !important;
-  }
-
-  .mat-column-Facturada{
-    
-    width: 5% !important;
-  }
+  } 
 
   .mat-column-acciones {
-    width: 5% !important;
+    width: 10% !important;
     text-align:left;
   }

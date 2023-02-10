@@ -10,3 +10,27 @@ td{
 a{
   text-decoration: none;
 }
+
+
+.card-title {
+  color: #000;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.campo {
+  color: #000;
+  font-size: medium;
+}
+
+.valor {
+
+  color: #0a0ac7;
+}
+
+
+.mat-button {
+  width: 100% !important;
+  text-align: justify;
+  text-justify: auto;
+}

@@ -3,14 +3,14 @@ import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { SharedModule } from "../shared/Material.module";
 
-import { ListClienteComponent } from "../cPersona/components/list-cliente/list-cliente.component";
-import { DetailsClienteComponent } from "../cPersona/components/details-cliente/details-cliente.component";
+import { ListClienteComponent } from "../cPersona/components/list-persona/list-persona.component";
+import { DetailsClienteComponent } from "../cPersona/components/details-persona/details-cliente.component";
 import { EditClienteComponent } from "../cPersona/components/edit-cliente/edit-cliente.component";
-import { AddClienteComponent } from "../cPersona/components/add-cliente/add-cliente.component";
+import { AddClienteComponent } from "../cPersona/components/add-persona/add-persona.component";
 import { EditContactoComponent } from "../cPersona/components/edit-contacto/edit-contacto.component";
 import { AddResponsableComprasComponent } from "../cPersona/components/add-responsable-compras/add-responsable-compras.component";
-import { CotizacionRoutingModule } from "../cAgenda/Cotizacion-routing.module";
-import { ListCotizacionComponent } from './component/List-agenda/List-Agenda.component';
+import { CotizacionRoutingModule } from "./agenda-routing.module";
+import { ListAgendaComponent } from './component/List-agenda/List-Agenda.component';
 import { AddCotizacionComponent } from './component/add-cotizacion/add-cotizacion.component';
 import { DeleteCotizacionComponent } from './component/delete-cotizacion/delete-cotizacion.component';
 import { EditCotizacionComponent } from './component/edit-cotizacion/edit-cotizacion.component';
@@ -30,7 +30,7 @@ import { NgxPrintModule } from "ngx-print";
     declarations:[
      
         DetailsCotizacionComponent,
-        ListCotizacionComponent,
+        ListAgendaComponent,
         AddCotizacionComponent,
         DeleteCotizacionComponent,
         EditCotizacionComponent,
