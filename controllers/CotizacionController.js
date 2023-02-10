@@ -4,7 +4,7 @@ const { VarChar, columns } = require('mssql');
 const DBCotizacion = require('../Data/Cotizacion');
 
 
-const getCotizaciones = async (request, response,next) => {
+const getAgenda = async (request, response,next) => {
   try{
       DBCotizacion.getCotizaciones().then((data) => {
       response.json(data[0]);
@@ -90,7 +90,7 @@ const anularCotizacion = async (request, response,next) => {
 
 module.exports = {
   getCotizacion,  
-  getCotizaciones,  
+  getAgenda: getAgenda,  
   addCotizacion, 
   editCotizacion,  
   anularCotizacion, 

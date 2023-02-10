@@ -23,12 +23,12 @@ const addCotizacion = async (cotizacion) => {
 }
 
 
-const getCotizaciones = async () => {
+const getAgenda = async () => {
   try {
     let mssql = await sql.connect(conexion);
-    let salida = await mssql.request()
-    .execute('mp_cotizacion_get')
-   // console.log(salida.recordsets);
+    let salida = await mssql.request()    
+    .input('EstadoRegsistro',sql.Int,1)
+    .execute('Legales.p_GettbAgendas')   
     return salida.recordsets;
 
   } catch (e) {
@@ -40,7 +40,8 @@ const getCotizaciones = async () => {
 const getCotizacion = async (id) => {
   try {
     let mssql = await sql.connect(conexion);
-    let salida = await mssql.request().input('id_cotizacion', sql.Int, id)
+    let salida = await mssql.request()
+      .input('id_cotizacion', sql.Int, id)
       .execute('mp_cotizacion_get_byId');
       console.log(salida.recordsets[0][0])
     return salida.recordsets[0][0];
@@ -325,7 +326,7 @@ const anularCotizacion = async (id) => {
 
 module.exports = {
   getCotizacion,
-  getCotizaciones,
+  getCotizaciones: getAgenda,
   addCotizacion,
   editCotizacion,
   anularCotizacion,
