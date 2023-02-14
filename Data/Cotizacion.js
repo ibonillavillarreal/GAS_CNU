@@ -27,6 +27,7 @@ const getAgenda = async () => {
   try {
     let mssql = await sql.connect(conexion);
     let salida = await mssql.request()    
+    .input('CodAgenda',sql.Int,0)
     .input('EstadoRegsistro',sql.Int,1)
     .execute('Legales.p_GettbAgendas')   
     return salida.recordsets;
@@ -37,14 +38,34 @@ const getAgenda = async () => {
   }
 }
 
-const getCotizacion = async (id) => {
+const getAgendaId = async (id) => {
   try {
+    let json_Agenda;
+    let maestro;
+    let asistencia;
+    let puntos;
+
     let mssql = await sql.connect(conexion);
-    let salida = await mssql.request()
-      .input('id_cotizacion', sql.Int, id)
-      .execute('mp_cotizacion_get_byId');
-      console.log(salida.recordsets[0][0])
-    return salida.recordsets[0][0];
+    let salida_maestro = await mssql.request()
+      .input('CodAgenda', sql.Int, id)
+      .input('EstadoRegsistro', sql.Int, 1)
+      .execute('Legales.p_GettbAgendas');      
+      maestro = salida_maestro.recordsets[0];
+
+      let salida_asistencia = await mssql.request()
+      .input('CodAgenda', sql.Int, id)
+      .execute('Legales.p_GettbRepresentantes');      
+      asistencia = salida_asistencia.recordsets[0];
+      
+      let salida_puntos = await mssql.request()
+      .input('CodAgenda', sql.Int, id)
+      .execute('Legales.p_GettbAgendaDetalles');      
+      puntos = salida_puntos.recordsets[0];
+
+      json_Agenda = {maestro:maestro,asistencia:asistencia,puntos:puntos}
+      console.log('full agenda '+ JSON.stringify(json_Agenda))
+      
+     return json_Agenda
   } catch (e) {
     console.log(e)
   }
@@ -325,8 +346,8 @@ const anularCotizacion = async (id) => {
 }
 
 module.exports = {
-  getCotizacion,
-  getCotizaciones: getAgenda,
+  getAgendaId: getAgendaId,
+  getAgenda: getAgenda,
   addCotizacion,
   editCotizacion,
   anularCotizacion,

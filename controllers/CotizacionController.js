@@ -6,7 +6,7 @@ const DBCotizacion = require('../Data/Cotizacion');
 
 const getAgenda = async (request, response,next) => {
   try{
-      DBCotizacion.getCotizaciones().then((data) => {
+      DBCotizacion.getAgenda().then((data) => {
       response.json(data[0]);
     })
   }catch(ex){
@@ -14,9 +14,9 @@ const getAgenda = async (request, response,next) => {
   } 
 }
 
-const getCotizacion = async (request, response,next) => {
+const getAgendaId = async (request, response,next) => {
   try {
-      DBCotizacion.getCotizacion(request.params.id).then((data) => {
+      DBCotizacion.getAgendaId(request.params.id).then((data) => {
       response.json(data);
    }) 
   } catch (ex) {
@@ -43,9 +43,9 @@ const getCotizacionTipo = async (request, response,next) => {
 const getCotizacionEdit = async (request, response,next) => {
   try {
       const id =  request.params.id
-      //   DBCotizacion.getCotizacionEdit(id).then((data) => {
-      //   response.json(data[0]);
-    //})
+         DBCotizacion.getCotizacionEdit(id).then((data) => {
+         response.json(data[0]);
+    })
   } catch (error) {
     next(error)
   }
@@ -89,7 +89,7 @@ const anularCotizacion = async (request, response,next) => {
 
 
 module.exports = {
-  getCotizacion,  
+  getAgendaId: getAgendaId,  
   getAgenda: getAgenda,  
   addCotizacion, 
   editCotizacion,  
