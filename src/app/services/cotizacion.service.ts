@@ -43,7 +43,7 @@ export class AgendaService {
       ).pipe(retry(1), catchError(this.error.handleError))
   }
 
-  getCotizacion(i: number): Observable<any> {
+  getVerAgenda(i: number): Observable<any> {
     return this.http.get<any>(this.url + i).
       pipe(retry(1), catchError(this.error.handleError));
   }

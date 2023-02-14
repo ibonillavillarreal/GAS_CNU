@@ -60,6 +60,8 @@ async cargando(){
     this.list_agenda = await this.src_Agenda.getAgenda().toPromise();
     this.dataSourceAgenda.data = this.list_agenda;
 
+    
+
     //this.Estado_subCatalogo = 
     //await this.srvSubCatalogos.get_Sub_Estados_Cotizacion({ 'op': 1 }).toPromise();
     //this.Estado_subCatalogo.push({ id: '0', descripcion: 'SIN FILTRO' })

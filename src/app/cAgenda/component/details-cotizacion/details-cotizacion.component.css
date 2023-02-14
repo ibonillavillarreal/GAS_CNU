@@ -34,3 +34,34 @@ a{
   text-align: justify;
   text-justify: auto;
 }
+
+
+/* ESTILOS DE TABLA : Asistencia*/
+.mat-column-Grado{
+  width:10% !important;
+}
+.mat-column-Nombres{
+  width: 10% !important;
+}
+.mat-column-Apellidos{
+  width: 10% !important;
+}
+.mat-column-Correo{
+  width: 10% !important;
+}
+.mat-column-Tipo{
+  width: 15% !important;
+}
+.mat-column-Observacion{
+  width: 15% !important;
+}
+
+
+/** Estilos de tabla: Puntos de Agendas */
+.mat-column-PuntosAgenda{
+  width: 60% !important;
+}
+
+.mat-column-Observacion{
+  width: 35% !important;
+}

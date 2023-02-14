@@ -66,7 +66,7 @@ export class ImprimirComponent implements OnInit {
     //public dialogRef_Imprimir: MatDialogRef<ImprimirComponent>,
     //@Inject(MAT_DIALOG_DATA) public Obj_Print: any,
     private srvCliente: ClienteService,
-    private srvCotizacion: AgendaService
+    private srvCotizacion: AgendaService  
   ) {     
     this.Aroute.params.subscribe((params: Params) => {
       console.log('params.id : '+params.id);
@@ -80,7 +80,7 @@ export class ImprimirComponent implements OnInit {
     
   }
   async detalle_cotizacion(){
-    this.Cotizacion_Completa = (await this.srvCotizacion.getCotizacion(this.id_Cotizacion).toPromise());
+    this.Cotizacion_Completa = (await this.srvCotizacion.getVerAgenda(this.id_Cotizacion).toPromise());
     
     let MAESTRO = JSON.parse(this.Cotizacion_Completa.cotizacion);
     this.list_detalle = JSON.parse(this.Cotizacion_Completa.cotizacion_detalle); 
@@ -141,22 +141,6 @@ export class ImprimirComponent implements OnInit {
 
    this.sub_total = this.Maestro_Cotizacion.SubTotal;
    this.iva = this.Maestro_Cotizacion.IVA;
-
-   if(ft != NaN){
-      this.gran_total = fp 
-   }else if(fp != NaN){
-      this.gran_total = ft;
-   }else{
-      this.gran_total = (Number(fp) + Number(ft));
-   }
-   
-      
-
-    //console.log('id_cliente : '+JSON.stringify((this.Cotizacion_Completa.Maestro[0])[0].id_cliente));   
-    //console.log('this.data_cliente : '+ JSON.stringify( this.data_cliente));
-  //  console.log('nombre_completo_pago : '+ JSON.stringify( this.nombre_completo_pago));
-  //  console.log('this.contacto_pago: '+ JSON.stringify( this.contacto_pago));
-  //  console.log('cotizacion_en_cordoba(): '+ this.cotizacion_en_cordoba());
   }
 
   joinProyectDetails() {
