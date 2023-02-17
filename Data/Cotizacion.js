@@ -54,17 +54,19 @@ const getAgendaId = async (id) => {
 
       let salida_asistencia = await mssql.request()
       .input('CodAgenda', sql.Int, id)
+      .input('EstadoRegistro', sql.Int, 1)      
       .execute('Legales.p_GettbRepresentantes');      
       asistencia = salida_asistencia.recordsets[0];
       
       let salida_puntos = await mssql.request()
       .input('CodAgenda', sql.Int, id)
+      .input('EstadoRegistro',sql.Int,1)
       .execute('Legales.p_GettbAgendaDetalles');      
       puntos = salida_puntos.recordsets[0];
 
-      json_Agenda = {maestro:maestro,asistencia:asistencia,puntos:puntos}
-      console.log('full agenda '+ JSON.stringify(json_Agenda))
-      
+      json_Agenda = {Maestro:maestro,Asistencia:asistencia,PuntosDeAgenda:puntos}
+      //console.log('full agenda '+ JSON.stringify(json_Agenda))
+
      return json_Agenda
   } catch (e) {
     console.log(e)
