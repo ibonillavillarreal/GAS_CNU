@@ -1,5 +1,6 @@
 
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -12,10 +13,10 @@ import { DetailsCotizacionProyectoComponent } from '../details-cotizacion-proyec
 
 @Component({
   selector: 'app-details-cotizacion',
-  templateUrl: './details-cotizacion.component.html',
-  styleUrls: ['./details-cotizacion.component.css']
+  templateUrl: './details-agenda.component.html',
+  styleUrls: ['./details-agenda.component.css']
 })
-export class DetailsCotizacionComponent implements OnInit {
+export class DetailsAgendaComponent implements OnInit {
   
 
   public id_Agenda: number = 0;
@@ -23,20 +24,12 @@ export class DetailsCotizacionComponent implements OnInit {
   Data_AgendaMaestro: any
   Data_AgendaAsistencia: any[] = [];  
   list_asistencia: any[] = [];
-  list_PuntosAgenda: any[] = [];
   Data_PuntosAgenda: any[] = [];
+  list_PuntosAgenda: any[] = [];
+  frmAgenda!:FormGroup 
   tools: GlobalUtilities
-
-  /***TABLA PROYECTOS */
-  displayedColumns: string[] = ['UND', 'DESCRIPCION', 'MONTO', 'acciones'];
-  dataSource = new MatTableDataSource(this.Data_AgendaAsistencia);
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
-  /***TABLA ARTICULOS */
-  displayedColumnsArticulos: string[] = ['CODIGO', 'DESCRIPCION', 'CANTIDAD', 'MONTO', 'acciones'];
-  dataSourceArticulos = new MatTableDataSource(this.Data_AgendaAsistencia);  
-  @ViewChild(MatPaginator) paginatorArticulos!: MatPaginator;
-  @ViewChild(MatSort) sortArticulos!: MatSort;
+  
+  
 
   /***TABLA DE ASISTENCIA - REPRESENTANTES */
   displayedColumnsAsistencia: string[] = ['Grado','Nombres','Apellidos','Correo','Tipo','Observacion'];
@@ -49,62 +42,72 @@ export class DetailsCotizacionComponent implements OnInit {
   dataSourceAgendaPuntosAgenda = new MatTableDataSource(this.list_PuntosAgenda);
   @ViewChild(MatPaginator) paginatorPuntosAgenda!: MatPaginator;
   @ViewChild(MatSort) sortPuntosAgenda!: MatSort;
+  
   /* CONSTRUCTOR */
   constructor(private Aroute: ActivatedRoute, private route: Router, public rt: Router,
-    private srcCotizacion: AgendaService, private dialog: MatDialog
-  ) {
-    this.tools = GlobalUtilities.getInstance();
-    this.Aroute.params.subscribe((params: Params) => {
+    private src_Agenda: AgendaService, private dialog: MatDialog,
+    private _builder: FormBuilder
+    ) {
+      this.tools = GlobalUtilities.getInstance();
+      this.Aroute.params.subscribe((params: Params) => {
       this.id_Agenda = params.id;
     })
-  }
+    this.iniciar_FormAgenda();
+    }
 
   ngOnInit(): void {
     this.getData()
-   
-
   }
 
   ngAfterViewInit() {
-    this.dataSourceArticulos.paginator = this.paginatorArticulos;
-    this.dataSourceArticulos.sort = this.sortArticulos;
 
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    this.dataSourceAgendaAsitencia.paginator = this.paginatorAsistencia;
+    this.dataSourceAgendaAsitencia.sort = this.sortAsistencia;
+    
+    this.dataSourceAgendaPuntosAgenda.paginator = this.paginatorPuntosAgenda;
+    this.dataSourceAgendaPuntosAgenda.sort = this.sortPuntosAgenda;    
+  }
 
-    this.dataSourceAgendaAsitencia.paginator = this.paginator;
-    this.dataSourceAgendaAsitencia.sort = this.sort;
-    
-    this.dataSourceAgendaPuntosAgenda.paginator = this.paginator;
-    this.dataSourceAgendaPuntosAgenda.sort = this.sort;
-    
+  iniciar_FormAgenda() {
+    this.frmAgenda = this._builder.group({
+      IdAgenda: [''],
+      DescripcionAgenda: [''],
+      FechaRegristro: ['']
+    });
   }
 
   async getData() {
-    console.log('parametro Agenda '+JSON.stringify(this.id_Agenda)) 
-   
     this.tools.setisLoadingDetails(true)
-    this.Data_AgendaCompleta = await this.srcCotizacion.getVerAgenda(this.id_Agenda).toPromise();
-   
-    console.log('Data Agenda '+JSON.stringify(this.Data_AgendaCompleta))
-   
-    // this.Data_AgendaMaestro = JSON.parse(this.Data_AgendaCompleta.cotizacion)
-   // this.Data_AgendaAsistencia = JSON.parse(this.Data_AgendaCompleta.cotizacion_detalle)
-   // this.Data_PuntosAgenda = JSON.parse(this.Data_AgendaCompleta.elemento_detalle)
-    
 
-    //this.dataSource.data = this.Data_AgendaAsistencia;
-    //this.dataSourceArticulos.data = this.Data_PuntosAgenda
+    this.Data_AgendaCompleta = await this.src_Agenda.getVerAgenda(this.id_Agenda).toPromise();
+
+    this.Data_AgendaMaestro = this.Data_AgendaCompleta.Maestro //Maestro Agenda    
+    
+    this.frmAgenda.controls['IdAgenda'].setValue(this.Data_AgendaMaestro[0].IdAgenda);
+    this.frmAgenda.controls['DescripcionAgenda'].setValue(this.Data_AgendaMaestro[0].DescripcionAgenda);
+    this.frmAgenda.controls['FechaRegristro'].setValue(this.Data_AgendaMaestro[0].FechaRegristro);
+    //
+    this.Data_AgendaAsistencia = this.Data_AgendaCompleta.Asistencia;
+    this.Data_PuntosAgenda = this.Data_AgendaCompleta.PuntosDeAgenda;
+    
+    //console.log(' Tabla Asistencia ' +JSON.stringify(this.Data_AgendaAsistencia)) 
+    this.dataSourceAgendaAsitencia.data = this.Data_AgendaAsistencia;
+    this.dataSourceAgendaPuntosAgenda.data = this.Data_PuntosAgenda;
+
     setTimeout(() => {
       this.tools.setisLoadingDetails(false)
     }, 450);
   }
 
   getPaginatorData(event: any) {
-    console.log("INDICE " + this.paginator.pageIndex);
-    console.log("REGISTROS POR PAGINA " + this.paginator.pageSize)
-    console.log("TAMAÑO " + this.paginator.hidePageSize)
+     console.log("INDICE Asistencia" + this.paginatorAsistencia.pageIndex);
+     console.log("REGISTROS POR PAGINA " + this.paginatorAsistencia.pageSize)
+     console.log("TAMAÑO " + this.paginatorAsistencia.hidePageSize)     
+     console.log("INDICE Puntos Agenda" + this.paginatorPuntosAgenda.pageIndex);
+     console.log("REGISTROS POR PAGINA " + this.paginatorPuntosAgenda.pageSize)
+     console.log("TAMAÑO " + this.paginatorPuntosAgenda.hidePageSize)
   }
+
 
   joinProyectDetails() {
     if (this.Data_AgendaAsistencia) {
@@ -129,9 +132,14 @@ export class DetailsCotizacionComponent implements OnInit {
   }
 
   openDetailsProject(id: any) {
-    console.log(id)
+    console.log('parametro id : '+id)
     let proyecto = this.Data_AgendaAsistencia.find(x => x.idDetCotizacion === id);
-    let dialog = this.dialog.open(DetailsCotizacionProyectoComponent, { height: '730px', width: '720px', data: { list: proyecto.detalles_proyecto, proyecto: proyecto.descripcion }, autoFocus: false })
+    let dialog = this.dialog.open(DetailsCotizacionProyectoComponent,
+       { height: '730px', width: '720px', 
+       data:{List:1,proyecto:1},
+       //data: { list: proyecto.detalles_proyecto, proyecto: proyecto.descripcion }, 
+       autoFocus: false 
+      })
   }
 
 

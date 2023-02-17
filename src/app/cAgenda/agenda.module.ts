@@ -11,10 +11,10 @@ import { EditContactoComponent } from "../cPersona/components/edit-contacto/edit
 import { AddResponsableComprasComponent } from "../cPersona/components/add-responsable-compras/add-responsable-compras.component";
 import { CotizacionRoutingModule } from "./agenda-routing.module";
 import { ListAgendaComponent } from './component/List-agenda/List-Agenda.component';
-import { AddCotizacionComponent } from './component/add-cotizacion/add-cotizacion.component';
+import { AddAgendaComponent } from './component/add-agenda/add-agenda.component';
 import { DeleteCotizacionComponent } from './component/delete-cotizacion/delete-cotizacion.component';
 import { EditCotizacionComponent } from './component/edit-cotizacion/edit-cotizacion.component';
-import { DetailsCotizacionComponent } from './component/details-cotizacion/details-cotizacion.component';
+import { DetailsAgendaComponent } from './component/details-agenda/details-agenda.component';
 import { AddItemComponent } from './component/add-item/add-item.component';
 import { AddItemSComponent } from './component/add-item-s/add-item-s.component';
 import { ViewItemsComponent } from './component/view-Items/view-items.component';
@@ -29,12 +29,12 @@ import { NgxPrintModule } from "ngx-print";
 @NgModule({
     declarations:[
      
-        DetailsCotizacionComponent,
+        DetailsAgendaComponent,
         ListAgendaComponent,
-        AddCotizacionComponent,
+        AddAgendaComponent,
         DeleteCotizacionComponent,
         EditCotizacionComponent,
-        DetailsCotizacionComponent,
+        DetailsAgendaComponent,
         AddItemComponent,
         AddItemSComponent,
         ViewItemsComponent,

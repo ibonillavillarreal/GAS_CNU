@@ -41,19 +41,19 @@ a{
   width:10% !important;
 }
 .mat-column-Nombres{
-  width: 10% !important;
+  width: 15% !important;
 }
 .mat-column-Apellidos{
-  width: 10% !important;
+  width: 15% !important;
 }
 .mat-column-Correo{
-  width: 10% !important;
+  width: 15% !important;
 }
 .mat-column-Tipo{
-  width: 15% !important;
+  width: 20% !important;
 }
 .mat-column-Observacion{
-  width: 15% !important;
+  width: 25% !important;
 }
 
 
@@ -65,3 +65,8 @@ a{
 .mat-column-Observacion{
   width: 35% !important;
 }
+
+  /*****/
+  mat-form-field {
+    width: 100%;
+  }

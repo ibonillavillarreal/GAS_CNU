@@ -6,7 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { AgendaService } from 'src/app/services/cotizacion.service';
 import { MatDialog } from '@angular/material/dialog';
 //import { DetailsClienteComponent } from '../details-cliente/details-cliente.component';
-import { AddCotizacionComponent } from '../add-cotizacion/add-cotizacion.component';
+import { AddAgendaComponent } from '../add-agenda/add-agenda.component';
 //import { AnularClienteComponent } from '../anular-cliente/anular-cliente.component';
 import { GlobalUtilities } from 'src/app/utils/GlobalUtilities';
 import { DeleteCotizacionComponent } from '../delete-cotizacion/delete-cotizacion.component';
@@ -83,10 +83,10 @@ async cargando(){
   openForm(type: number, id: number) {
     let dialogRef;
     switch (type) {
-      case 1: { dialogRef = this.dialog.open(AddCotizacionComponent,  { height: '780px', width: '1200px' }) } break;
+      case 1: { dialogRef = this.dialog.open(AddAgendaComponent,  { height: '780px', width: '1200px' }) } break;
       //case 2: { dialogRef = this.dialog.open(EditCotizacionComponent, { height: '780px', width: '1200px', data: { id: id } }) } break;
       case 3: { dialogRef = this.dialog.open(DeleteCotizacionComponent, { data: { id: id } }); } break;
-      default: { dialogRef = this.dialog.open(AddCotizacionComponent); } break;
+      default: { dialogRef = this.dialog.open(AddAgendaComponent); } break;
     }
 
     dialogRef.afterClosed().subscribe(result => {

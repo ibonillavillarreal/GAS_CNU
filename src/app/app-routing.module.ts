@@ -2,8 +2,8 @@ import { Component, ComponentRef, NgModule } from '@angular/core';
 import { Router, RouterModule, Routes } from '@angular/router';
 import { PreloadAllModules } from '@angular/router';
 import { DetailsClienteComponent } from './cPersona/components/details-persona/details-cliente.component';
-import { AddCotizacionComponent } from './cAgenda/component/add-cotizacion/add-cotizacion.component';
-import { DetailsCotizacionComponent } from './cAgenda/component/details-cotizacion/details-cotizacion.component';
+import { AddAgendaComponent } from './cAgenda/component/add-agenda/add-agenda.component';
+import { DetailsAgendaComponent } from './cAgenda/component/details-agenda/details-agenda.component';
 import { EditCotizacionComponent } from './cAgenda/component/edit-cotizacion/edit-cotizacion.component';
 import { ImprimirComponent } from './cAgenda/component/imprimir/imprimir.component';
 import { DetailOrdenComponent } from './Orden/component/Detail-Orden/detail-orden.component';
@@ -54,12 +54,12 @@ const routes: Routes = [
 
   {
     path:'Agenda/add', 
-    component:AddCotizacionComponent
+    component:AddAgendaComponent
     
   },
   {
     path:'Agenda/:id', 
-    component:DetailsCotizacionComponent
+    component:DetailsAgendaComponent
   },
   {
     path:'Agenda/:id/:id', 

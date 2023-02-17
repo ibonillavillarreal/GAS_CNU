@@ -1,0 +1,163 @@
+<div class="card">
+    <div class="card-body" style="padding: 10px">
+
+        <div class="row" style="border-color: #0a46c7;">
+            <div class="col-11">
+                <h4 class="card-title"><span class="lstick"></span>AGREGAR AGENDA</h4>
+            </div>
+            <div class="col-1">
+                <h6 class="card-title">
+                    <span class="lstick">
+                        <mat-icon routerLink="/Agenda">🗙</mat-icon>
+                    </span>
+                </h6>
+            </div>
+        </div>
+
+        <div>
+            <form [formGroup]="frmAgenda" #formDirective="ngForm" (ngSubmit)="enviar(frmAgenda.value,formDirective)">
+
+                <div class="mat-elevation-z3" style="border-color: #0a46c7; padding: 10px;">
+                    <div class="row">
+                        <div class="col-3">
+                            <mat-form-field appearance="legacy" style="margin-left: 5px;color: #0a46c7;">
+                                <mat-label>CODIGO </mat-label>
+                                <input type="text" class='Nombres' matInput placeholder="Codigo"
+                                    formControlName="IdAgenda" readonly="true">
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-6"> </div>
+
+                        <div class="col-3">
+                            <mat-form-field appearance="legacy" style="color: #0a46c7;">                                
+                                <mat-label>FECHA AGENDADA</mat-label>
+                                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>                                    
+                                <input matInput [matDatepicker]="picker" formControlName="FechaRegristro">                                
+                                <mat-datepicker #picker></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <mat-form-field appearance="legacy" style="color: #0a46c7;">
+                                <mat-label>DESCRIPCION DE AGENDA </mat-label>
+                                <input type="text" matInput placeholder="Descripción de Agenda" readonly="true">
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+
+            <br>
+
+            <div class="col-12">
+                <div class="mat-elevation-z3" style="border-color: #0a46c7;">
+                    <div class="card-body " style="border-color: #0a46c7;">
+                        <h6 class="card-title"><span class="lstick"></span>Agregar Detalles</h6>
+                    </div>
+                    <div class="card-body, mat-elevation-z3">
+                        <mat-tab-group animationDuration="0ms">
+                            <mat-tab label="ASISTENCIAS Y EXPOSITORES">
+                                <div class="row col-12">
+                                    <div class="col-9"></div>
+                                    <div class="col-3">
+                                        <button type="button" class="btn btn-outline-secondary" (click)="openForm(1,0)">
+                                            <i class="bi bi-plus-lg"></i>
+                                            Representante
+                                        </button>
+                                    </div>
+                                </div>
+                                <br>
+
+                                <table mat-table #table [dataSource]="dataSourceAgendaAsitencia" matSort>
+
+                                    <ng-container matColumnDef="Grado">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Grado</th>
+                                        <td mat-cell *matCellDef="let element"> {{element.Grado}} </td>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="Nombres">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombres</th>
+                                        <td mat-cell *matCellDef="let element"> {{element.Nombres}} </td>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="Apellidos">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Apellidos</th>
+                                        <td mat-cell *matCellDef="let element"> {{element.Apellidos}} </td>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="Correo">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Correo</th>
+                                        <td mat-cell *matCellDef="let element"> {{element.Email}} </td>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="Tipo">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Representante</th>
+                                        <td mat-cell *matCellDef="let element"> {{element.Tipo_Representante}} </td>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="Observacion">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Observación</th>
+                                        <td mat-cell *matCellDef="let element"> {{element.NotaObservacion}} </td>
+                                    </ng-container>
+
+                                    <tr mat-header-row *matHeaderRowDef="displayedColumnsAsistencia_Add"></tr>
+                                    <tr mat-row *matRowDef="let row; columns: displayedColumnsAsistencia_Add"></tr>
+
+                                </table>
+                                <mat-paginator [pageSizeOptions]="[10, 25, 100]" aria-label="Items por pagina"
+                                    (page)="getPaginatorData($event)">
+                                </mat-paginator>
+
+                            </mat-tab>
+
+                            <mat-tab label="PUNTOS DE AGENDA">
+                                <div class="row col-12">
+                                    <div class="col-9"></div>
+                                    <div class="col-3">
+                                        <button type="button" class="btn btn-outline-secondary" (click)="openForm(2,1)">
+                                            <i class="bi bi-plus-lg"></i>
+                                            Puntos de Agendas
+                                        </button>
+                                    </div>
+                                </div>
+                                <br>
+
+                                <table mat-table #table [dataSource]="dataSourceAgendaPuntosAgenda" matSort>
+
+                                    <ng-container matColumnDef="PuntosAgenda">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Puntos de Agenda</th>
+                                        <td mat-cell *matCellDef="let element"> {{element.PuntosAgenda}}</td>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="Observacion">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Observación</th>
+                                        <td mat-cell *matCellDef="let element"> {{element.NotaObservacion}} </td>
+                                    </ng-container>
+
+                                    <tr mat-header-row *matHeaderRowDef="displayedColumnsPuntosAgenda"></tr>
+                                    <tr mat-row *matRowDef="let row; columns: displayedColumnsPuntosAgenda;"></tr>
+
+                                </table>
+                                <mat-paginator [pageSizeOptions]="[10, 25, 100]" aria-label="Items por pagina"
+                                    (page)="getPaginatorData($event)"></mat-paginator>
+
+                            </mat-tab>
+
+                        </mat-tab-group>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" [disabled]="frmAgenda.invalid" class="btn btn-liosa">
+                        GUARDAR
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div>
+    </div>

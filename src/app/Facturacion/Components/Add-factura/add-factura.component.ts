@@ -74,8 +74,8 @@ export class AddFacturaComponent implements OnInit {
   }
   iniciarForm() {
     this.frmClienteCotizacion = this._builder.group({
-      id_cliente: [], razon_social: [], Cotizacion: [], TipoFactura: [], FechaFactura: [this.fecha_factura] , id_moneda: ['USD'] ,
-      id_plazo_interes: [1]     
+      id_cliente: [], razon_social: [], Cotizacion: [], TipoFactura: [], FechaFactura: [this.fecha_factura] , 
+      id_moneda: ['USD'] , id_plazo_interes: [1]     
     });
     this.idMoneda = 'USD'; // valor inicial por default 
     
