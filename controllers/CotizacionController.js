@@ -1,12 +1,12 @@
 ﻿
 
 const { VarChar, columns } = require('mssql');
-const DBCotizacion = require('../Data/Cotizacion');
+const DBAgendas = require('../Data/Cotizacion');
 
 
 const getAgenda = async (request, response,next) => {
   try{
-      DBCotizacion.getAgenda().then((data) => {
+      DBAgendas.getAgenda().then((data) => {
       response.json(data[0]);
     })
   }catch(ex){
@@ -16,7 +16,7 @@ const getAgenda = async (request, response,next) => {
 
 const getAgendaId = async (request, response,next) => {
   try {
-      DBCotizacion.getAgendaId(request.params.id).then((data) => {
+      DBAgendas.getAgendaId(request.params.id).then((data) => {
       response.json(data);
    }) 
   } catch (ex) {
@@ -25,13 +25,26 @@ const getAgendaId = async (request, response,next) => {
 
 }
 
+//getNroAgenda
+const getNroAgenda = async (request, response,next) => {
+  try {
+      DBAgendas.getNroAgenda().then((data) => {
+      response.json(data);
+   }) 
+  } catch (ex) {
+    next(ex)
+  }
+
+}
+
+
 //getCotizacionTipo = async (idCot, tipo)
 const getCotizacionTipo = async (request, response,next) => {
   try {
     
     let idCot = request.params.idCot; 
     
-      DBCotizacion.getCotizacionTipo(idCot).then((data) => {
+      DBAgendas.getCotizacionTipo(idCot).then((data) => {
       response.json(data);
    }) 
   } catch (ex) {
@@ -43,7 +56,7 @@ const getCotizacionTipo = async (request, response,next) => {
 const getCotizacionEdit = async (request, response,next) => {
   try {
       const id =  request.params.id
-         DBCotizacion.getCotizacionEdit(id).then((data) => {
+         DBAgendas.getCotizacionEdit(id).then((data) => {
          response.json(data[0]);
     })
   } catch (error) {
@@ -57,7 +70,7 @@ const addCotizacion = async (request, response,next) => {
     //console.log("LLEGA A ADD COTIZACION ")
     let cotizacion = {...request.body} ;
    // console.log(ObjCotizacion.Maestro.id_cotizacion);
-    let data = await DBCotizacion.addCotizacion(cotizacion)
+    let data = await DBAgendas.addCotizacion(cotizacion)
     return response.json(1);
   } catch (error) {
     next(error)
@@ -68,7 +81,7 @@ const editCotizacion = async (request, response,next) => {
   try {
     const Cotizacion = { ...request.body }
       //console.log(Cotizacion)
-        DBCotizacion.editCotizacion (Cotizacion).then(data  => {
+        DBAgendas.editCotizacion (Cotizacion).then(data  => {
         response.json(data[0]);
        })
   } catch (error) {
@@ -90,7 +103,8 @@ const anularCotizacion = async (request, response,next) => {
 
 module.exports = {
   getAgendaId: getAgendaId,  
-  getAgenda: getAgenda,  
+  getAgenda: getAgenda, 
+  getNroAgenda:getNroAgenda, 
   addCotizacion, 
   editCotizacion,  
   anularCotizacion, 

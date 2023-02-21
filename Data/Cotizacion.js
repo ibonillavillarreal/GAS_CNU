@@ -38,6 +38,23 @@ const getAgenda = async () => {
   }
 }
 
+//getNroAgenda
+const getNroAgenda = async () => {
+  try {
+    let mssql = await sql.connect(conexion);
+    let salida = await mssql.request()        
+    .execute('Legales.p_GetNroDeAgendas')   
+    return salida.recordsets;
+
+  } catch (e) {
+    console.log(e)
+    return "0";
+  }
+}
+
+
+
+
 const getAgendaId = async (id) => {
   try {
     let json_Agenda;
@@ -350,6 +367,7 @@ const anularCotizacion = async (id) => {
 module.exports = {
   getAgendaId: getAgendaId,
   getAgenda: getAgenda,
+  getNroAgenda:getNroAgenda,
   addCotizacion,
   editCotizacion,
   anularCotizacion,
