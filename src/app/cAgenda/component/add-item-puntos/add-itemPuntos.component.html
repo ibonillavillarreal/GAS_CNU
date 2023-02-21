@@ -1,0 +1,40 @@
+
+<div class="mat-elevation-z3">
+    <div class="card-body">
+        <h2 style="font-family:Arial, Helvetica, sans-serif ;color: black;">
+            AGREGAR PUNTOS DE AGENDAS
+        </h2>
+        <br>
+
+        <div class="card">
+
+            <form [formGroup]="registrar" #formDirective="ngForm"
+                               (ngSubmit)="agregar_textos(registrar.value,formDirective)">
+                <div class="row">                  
+                    <div class="col-12">
+                        <mat-form-field appearance="legacy">
+                            <mat-label> PuntosAgenda (*)</mat-label>
+                            <textarea style="height: 80px;" type="text" matInput placeholder="Puntos de Agenda"
+                                formControlName="PuntosAgenda" cols="40" rows="50"></textarea>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-12">
+                        <mat-form-field appearance="legacy">
+                            <mat-label> Observacion (*)</mat-label>
+                            <textarea style="height: 80px;" type="text" matInput placeholder="Nota de Observacion"
+                                formControlName="NotaObservacion" cols="40" rows="50"></textarea>
+                        </mat-form-field>
+                    </div>
+                    
+                    <div class="modal-footer">
+                        <button type="submit" [disabled]="registrar.invalid" class="btn btn-liosa">Cargarlo</button>
+                    </div>
+
+                </div>
+            </form>
+
+
+        </div>
+    </div>
+</div>

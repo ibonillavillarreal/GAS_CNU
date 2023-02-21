@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { ItemService } from 'src/app/services/Item.service';
-import { AddItemSComponent } from '../add-item-s/add-item-s.component';
+import { AddItemSComponent } from '../add-item-puntos/add-itemPuntos.component';
 import { EditfilaUsoCantidadComponent } from '../editFilaUso/editfila-uso-cantidad.component';
 
 @Component({

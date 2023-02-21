@@ -7,7 +7,7 @@ import { ItemService } from 'src/app/services/Item.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { AddItemSComponent } from '../add-item-s/add-item-s.component';
+import { AddItemSComponent } from '../add-item-puntos/add-itemPuntos.component';
 import { Items } from 'src/app/models/Items';
 import { GlobalUtilities } from 'src/app/utils/GlobalUtilities';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -18,7 +18,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { DepartamentoService } from '../../../services/departamento.service';
 import { filter, map } from 'rxjs/operators';
 import { EditfilaUsoCantidadComponent } from '../editFilaUso/editfila-uso-cantidad.component';
-import { AddDetailsProyectComponent } from '../add-details-proyect/add-details-proyect.component';
+import { AddDetailsProyectComponent } from '../add-detalles/add-detalles.component';
 
 
 @Component({

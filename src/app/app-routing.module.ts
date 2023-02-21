@@ -3,14 +3,13 @@ import { Router, RouterModule, Routes } from '@angular/router';
 import { PreloadAllModules } from '@angular/router';
 import { DetailsClienteComponent } from './cPersona/components/details-persona/details-cliente.component';
 import { AddAgendaComponent } from './cAgenda/component/add-agenda/add-agenda.component';
-import { DetailsAgendaComponent } from './cAgenda/component/details-agenda/details-agenda.component';
-import { EditCotizacionComponent } from './cAgenda/component/edit-cotizacion/edit-cotizacion.component';
+import { DetailsAgendaComponent } from './cAgenda/component/detalles-agenda/details-agenda.component';
+import { EditCotizacionComponent } from './cAgenda/component/editar-agenda/edit-cotizacion.component';
 import { ImprimirComponent } from './cAgenda/component/imprimir/imprimir.component';
-import { DetailOrdenComponent } from './Orden/component/Detail-Orden/detail-orden.component';
-import { EditOrdenComponent } from './Orden/component/Edit-Orden/edit-orden.component';
-import { AddPrecioComponent } from './Precios/components/add-Precio/add-precio.component';
-import { ListFacturaComponent } from './Facturacion/Components/List-factura/list-factura.component';
-import { AddFacturaComponent } from './Facturacion/Components/Add-factura/add-factura.component';
+
+import { AddPrecioComponent } from './cResolutos/components/add-Precio/add-precio.component';
+import { ListFacturaComponent } from './cActas/Components/List-acta/list-factura.component';
+import { AddFacturaComponent } from './cActas/Components/Add-actas/add-factura.component';
 
 
 
@@ -74,31 +73,17 @@ const routes: Routes = [
  },
 
 
- /*Orden*/
- {
-  path:'Orden',
-  pathMatch: 'full',
-  loadChildren: () => import('./Orden/orden.module').then(O => O.OrdenModule)
-},
+ 
 
-{
-  path:'Orden/Edit/:id', 
-  component:EditOrdenComponent
   
-  },
-  
-  {
-    path:'Orden/Vista/Ver/:id', 
-    component:DetailOrdenComponent
-    
-  },
+
 
 
  /*Niveles de Precio*/
  {
   path:'Precio',
   pathMatch: 'full',
-  loadChildren: () => import('./Precios/precios.module').then(O => O.PreciosModule)
+  loadChildren: () => import('./cResolutos/precios.module').then(O => O.PreciosModule)
 },
 {
   path:'Precio/add', 
@@ -110,7 +95,7 @@ const routes: Routes = [
 {
   path:'Factura',
   pathMatch: 'full',
-  loadChildren: () => import('./Facturacion/factura.module').then(O => O.FacturaModule)
+  loadChildren: () => import('./cActas/actas.module').then(O => O.FacturaModule)
 },
 {
   path:'ListFactura', 

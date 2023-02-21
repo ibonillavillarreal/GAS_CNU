@@ -1,23 +1,15 @@
 
 import { Router } from '@angular/router';
 import {
-  Component, OnInit, ViewChild, NgZone,
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Inject,
-  OnDestroy
+  Component, OnInit,
+  ViewChild, NgZone,
+  ChangeDetectionStrategy
 } from '@angular/core';
-import { MatCalendar } from '@angular/material/datepicker';
-import { DateAdapter, MAT_DATE_FORMATS, MatDateFormats } from '@angular/material/core';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
-
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog'
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-
 import { FormBuilder, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { GlobalUtilities } from 'src/app/utils/GlobalUtilities';
 import { Toast } from 'src/app/utils/Toast';
@@ -28,11 +20,9 @@ import { Monedas } from '../../../models/Moneda';
 import { MonedaService } from '../../../services/Moneda.service';
 import { AddItemComponent } from '../add-item/add-item.component';
 import { ItemService } from '../../../services/Item.service';
-import { AddItemSComponent } from '../add-item-s/add-item-s.component';
+import { AddItemSComponent as AddPuntosItemComponent } from '../add-item-puntos/add-itemPuntos.component';
 import { Items } from '../../../models/Items';
-import { AgendaService } from 'src/app/services/cotizacion.service';
-import { EditProyectoComponent } from '../edit-proyecto/edit-proyecto.component';
-
+import { AgendaService } from 'src/app/services/agenda.service';
 
 
 @Component({
@@ -103,7 +93,7 @@ export class AddAgendaComponent implements OnInit {
   constructor(private _builder: FormBuilder, private _snackbar: MatSnackBar,
     private srvCliente: ClienteService, public ngZone: NgZone, private srvMonedas: MonedaService,
     private srvItem: ItemService, public dialog: MatDialog, private srcItem: ItemService,
-    private srcCotizacion: AgendaService, private router: Router, public srcFactura: Factura
+    private src_Agenda: AgendaService, private router: Router, public srcFactura: Factura
   ) {
     this.tools = GlobalUtilities.getInstance();
     this.toast = new Toast(this._snackbar);
@@ -141,9 +131,10 @@ export class AddAgendaComponent implements OnInit {
 
   async getData() {
     this.tools.setisLoadingDetails(true)
-    // this.Data_AgendaCompleta = await this.src_Agenda.getVerAgenda(this.id_Agenda).toPromise();
-    this.frmAgenda.controls['IdAgenda'].setValue("003-2023");
+    const nroRegAgenda = await this.src_Agenda.getNroRegAgenda().toPromise();
+    this.frmAgenda.controls['IdAgenda'].setValue(nroRegAgenda[0][0].newNroIdAgenda);
     this.frmAgenda.controls['FechaRegristro'].setValue(this.fecha_Agendada);
+    //console.log('nroRegAgenda : '+ JSON.stringify(nroRegAgenda[0][0].newNroIdAgenda))
 
     setTimeout(() => {
       this.tools.setisLoadingDetails(false)
@@ -155,8 +146,8 @@ export class AddAgendaComponent implements OnInit {
     this.firstLoad = true;
     this.tools.setisLoadingDetails(true)
     //let modelo: reg_asistencia[]=[];
-    let json_reg = { Grado: "ing1", Nombres: "ivan", Apellidos: "bonilla", Email: "ib@d.com", Id_Representante: 14, Tipo_Representante: "Asistente", NotaObservacion: "Sin Dato" };
-    let json_reg2 = { Grado: "ing2", Nombres: "ivan", Apellidos: "bonilla", Email: "ib@d.com", Id_Representante: 14, Tipo_Representante: "Asistente", NotaObservacion: "Sin Dato" };
+    let json_reg = { CodMiembro: 1, Grado: "ing1", Nombres: "ivan", Apellidos: "bonilla", Email: "ib@d.com", Id_Representante: 22, Tipo_Representante: "Invitado Especial", NotaObservacion: "Mantiene su cargo" };
+    let json_reg2 = { CodMiembro: 1, Grado: "ing2", Nombres: "ivan", Apellidos: "bonilla", Email: "ib@d.com", Id_Representante: 22, Tipo_Representante: "Invitado Especial", NotaObservacion: "Mantiene su cargo" };
     this.Data_AgendaAsistencia.push(json_reg);
     this.Data_AgendaAsistencia.push(json_reg2);
     this.list_asistencia = this.Data_AgendaAsistencia;
@@ -193,60 +184,48 @@ export class AddAgendaComponent implements OnInit {
 
   openForm(type: number, id: number) {   // FRM DIALOGOS SHOW  
     let dialogRef;
-    //1 - Proyecto y   2 - producto
+
     switch (type) {
-      case 1: {
-        if (this.id_cliente !== 0) {                              ///  this.setListaProducto() ;      
+      case 1: {  // 1 - Representantes    
+        if (this.id_cliente == 0) {
 
           dialogRef = this.dialog.open(AddItemComponent,
-            { height: '750px', width: '1150px', data: { lista_Producto: this.lista_Producto, id_cliente: this.id_cliente } })
+            {
+              height: '700px', width: '1000px',
+              data: { lista_Producto: this.lista_Producto, id_cliente: this.id_cliente }
+            })
           dialogRef.afterClosed().subscribe((res) => {
-
             if (res !== undefined) {
-              this.lista_Producto_temp.push(res);
-              //this.dataSource.data = this.lista_Producto_temp
-              this.updateTotales()
+              console.log('list_Item_Agenda_Ckeck: ' + JSON.stringify(res))
+            }
+          });
+        } else {
+          this.toast.showToast("Debe de Selecionar los Representantes ⛔", "Aceptar");
+        }
+      } break;
+
+      case 2: { //Puntos de Agenda
+        if (this.id_cliente == 0) {
+
+          let datoCompuesto_term: any[] = [0, this.removeExistingItems(this.list_producto_term_bd), this.flag_Moneda_Cordoba];
+          dialogRef = this.dialog.open(AddPuntosItemComponent,
+            {
+              height: '500px', width: '1000px',
+              data: datoCompuesto_term
+            })
+
+          dialogRef.afterClosed().subscribe((res) => {
+            if (res !== undefined) {
+              console.log('Textos: ' + JSON.stringify(res))
             }
           });
 
-
-
         } else {
-          this.toast.showToast("Debe de Selecionar al Cliente  ❌", "Aceptar");
+          this.toast.showToast("Debe Caragar puntos de Agenda ⛔", "Aceptar");
         }
-      } break;
-      case 2: { // para los Articulos libres 
-        if (this.id_cliente !== 0) {                             ///  this.setListaProducto() ;       POSIBLE FALLA POR LLAMAR LA CARGA DATA
-
-          let datoCompuesto_term: any[] = [0, this.removeExistingItems(this.list_producto_term_bd), this.flag_Moneda_Cordoba];
-          dialogRef = this.dialog.open(AddItemSComponent, { height: '750px', width: '1150px', data: datoCompuesto_term })
-          dialogRef.afterClosed().subscribe(() => {
-
-
-          });
-        } else {
-          this.toast.showToast("Debe de Selecionar al Cliente  ❌", "Aceptar");
-        }
-
-      } break;
-      case 3: {  //para editar los elementos cargados
-
-        let proyecto = this.lista_Producto_temp[id - 1];
-        dialogRef = this.dialog.open(EditProyectoComponent, { height: '730px', width: '1000px', data: proyecto })
-        dialogRef.afterClosed().subscribe((res: any) => {
-          if (res !== undefined) {
-            this.lista_Producto_temp.push(res);
-            let index = id - 1;
-            this.lista_Producto_temp.splice(index, 1);
-            // this.dataSource.data = this.lista_Producto_temp;
-            this.updateTotales()
-          }
-
-        });
       } break;
       default: { } break;
     }
-
 
   }
 
@@ -368,7 +347,7 @@ export class AddAgendaComponent implements OnInit {
   /* Sumit del formulario  */
   enviar(values: any, formDirective: FormGroupDirective) {
     let cotizacion = { Master: values, Details: this.lista_Producto_temp }
-    this.srcCotizacion.addCotizacion(cotizacion).subscribe(res => {
+    this.src_Agenda.addCotizacion(cotizacion).subscribe(res => {
       this.toast.showToast("Agregado correctamente ✔️", "Aceptar");
       this.router.navigate(['/Cotizacion']);
     })
@@ -412,6 +391,7 @@ export class AddAgendaComponent implements OnInit {
 
 
 export interface reg_asistencia {
+  CodMiembro: number,
   Grado: string,
   Nombres: string,
   Apellidos: string,

@@ -1,31 +1,42 @@
 @import url("../../../template.css"); 
 @import url("../../../Style/Generales.css"); 
+
+
 mat-form-field{
-    width: 100%;
+  padding: 5px;
+    width: 100% !important;
 }
-.mat-column-Descripcion{
-  width: 20% !important;
-  text-align: center;
-  padding-right: 5%;
+.mat-column-Grado{
+  width: 5% !important;  
   text-align: left;
+  color: black;
 }
-.mat-column-DescripcionDeUso{
-  width: 15% !important;
-  padding-right: 5%;
+  
+.mat-column-Nombres{
+  width: 10% !important;  
   text-align: left;
+  color: black;
 }
-  .mat-column-Cantidad{
-    width: 6% !important;
+  .mat-column-Apellidos{
+    width: 10% !important;
     text-align: left;
+    color: black;
   }
-  .mat-column-Precio{
-    width: 6% !important;
+  .mat-column-Correo{
+    width: 10% !important;
     text-align: left;
+    color: black;
   }
-  .mat-column-Total{
-    width: 6% !important;
+  .mat-column-Representante{
+    width: 10% !important;
     text-align: left;
     padding-right: 5%;
+    color: black;
   }
   
- 
+  .mat-column-Enviar{
+    width: 5% !important;
+    text-align: center;
+    color: black;
+  }
+    

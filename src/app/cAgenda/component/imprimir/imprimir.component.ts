@@ -7,7 +7,7 @@ import { ClienteService } from 'src/app/services/cliente.service';
 import { Items } from '../../../models/Items';
 import { filter, find, first } from 'rxjs/operators';
 import { analyzeAndValidateNgModules } from '@angular/compiler';
-import { AgendaService } from 'src/app/services/cotizacion.service';
+import { AgendaService } from 'src/app/services/agenda.service';
 import {NgxPrintModule} from "ngx-print";  
 import { Cotizacion } from '../../../models/adddCotizacion';
 
