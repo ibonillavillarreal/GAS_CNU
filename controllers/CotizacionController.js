@@ -4,21 +4,21 @@ const { VarChar, columns } = require('mssql');
 const DBAgendas = require('../Data/Cotizacion');
 
 
-const getAgenda = async (request, response,next) => {
-  try{
-      DBAgendas.getAgenda().then((data) => {
+const getAgenda = async (request, response, next) => {
+  try {
+    DBAgendas.getAgenda().then((data) => {
       response.json(data[0]);
     })
-  }catch(ex){
+  } catch (ex) {
     next(ex)
-  } 
+  }
 }
 
-const getAgendaId = async (request, response,next) => {
+const getAgendaId = async (request, response, next) => {
   try {
-      DBAgendas.getAgendaId(request.params.id).then((data) => {
+    DBAgendas.getAgendaId(request.params.id).then((data) => {
       response.json(data);
-   }) 
+    })
   } catch (ex) {
     next(ex)
   }
@@ -26,11 +26,11 @@ const getAgendaId = async (request, response,next) => {
 }
 
 //getNroAgenda
-const getNroAgenda = async (request, response,next) => {
+const getNroAgenda = async (request, response, next) => {
   try {
-      DBAgendas.getNroAgenda().then((data) => {
+    DBAgendas.getNroAgenda().then((data) => {
       response.json(data);
-   }) 
+    })
   } catch (ex) {
     next(ex)
   }
@@ -39,61 +39,59 @@ const getNroAgenda = async (request, response,next) => {
 
 
 //getCotizacionTipo = async (idCot, tipo)
-const getCotizacionTipo = async (request, response,next) => {
+const getCotizacionTipo = async (request, response, next) => {
   try {
-    
-    let idCot = request.params.idCot; 
-    
-      DBAgendas.getCotizacionTipo(idCot).then((data) => {
+
+    let idCot = request.params.idCot;
+
+    DBAgendas.getCotizacionTipo(idCot).then((data) => {
       response.json(data);
-   }) 
+    })
   } catch (ex) {
     next(ex)
   }
-  
+
 }
 
-const getCotizacionEdit = async (request, response,next) => {
+const getCotizacionEdit = async (request, response, next) => {
   try {
-      const id =  request.params.id
-         DBAgendas.getCotizacionEdit(id).then((data) => {
-         response.json(data[0]);
+    const id = request.params.id
+    DBAgendas.getCotizacionEdit(id).then((data) => {
+      response.json(data[0]);
     })
   } catch (error) {
     next(error)
   }
-  
+
 }
 
-const addCotizacion = async (request, response,next) => {
+const add_Agenda = async (request, response, next) => {
   try {
-    //console.log("LLEGA A ADD COTIZACION ")
-    let cotizacion = {...request.body} ;
-   // console.log(ObjCotizacion.Maestro.id_cotizacion);
-    let data = await DBAgendas.addCotizacion(cotizacion)
-    return response.json(1);
+    let Agenda = { ...request.body };
+    let data = await DBAgendas.add_Agenda(Agenda)
+    return response.json(data);
   } catch (error) {
     next(error)
   }
 }
 
-const editCotizacion = async (request, response,next) => {
+const editCotizacion = async (request, response, next) => {
   try {
     const Cotizacion = { ...request.body }
-      //console.log(Cotizacion)
-        DBAgendas.editCotizacion (Cotizacion).then(data  => {
-        response.json(data[0]);
-       })
+    //console.log(Cotizacion)
+    DBAgendas.editCotizacion(Cotizacion).then(data => {
+      response.json(data[0]);
+    })
   } catch (error) {
     next(error)
   }
 }
 
-const anularCotizacion = async (request, response,next) => {
+const anularCotizacion = async (request, response, next) => {
   try {
     //  DBCotizacion.anularCotizacion (request.params.id).then(data  => {
-  //    response.json(data[0]);
-  //  })
+    //    response.json(data[0]);
+    //  })
   } catch (error) {
     next(error)
   }
@@ -102,13 +100,13 @@ const anularCotizacion = async (request, response,next) => {
 
 
 module.exports = {
-  getAgendaId: getAgendaId,  
-  getAgenda: getAgenda, 
-  getNroAgenda:getNroAgenda, 
-  addCotizacion, 
-  editCotizacion,  
-  anularCotizacion, 
+  getAgendaId: getAgendaId,
+  getAgenda: getAgenda,
+  getNroAgenda: getNroAgenda,
+  add_Agenda: add_Agenda,
+  editCotizacion,
+  anularCotizacion,
   getCotizacionEdit,
-  getCotizacionTipo  
+  getCotizacionTipo
 };
 
