@@ -23,7 +23,9 @@ import { ItemService } from '../../../services/Item.service';
 import { AddItemSComponent as AddPuntosItemComponent } from '../add-item-puntos/add-itemPuntos.component';
 import { Items } from '../../../models/Items';
 import { AgendaService } from 'src/app/services/agenda.service';
-
+import { isNull } from '@angular/compiler/src/output/output_ast';
+import { EditafilaCampoComponent } from '../editFilaUso/editfila-Campo.component';
+import { CdkAccordion } from '@angular/cdk/accordion';
 
 @Component({
   selector: 'app-add-cotizacion',
@@ -40,7 +42,6 @@ export class AddAgendaComponent implements OnInit {
   public flag_Moneda_Cordoba: boolean = false;
   public flag_ts_Cambio: any;
   public fecha_ts = new Date(Date.now()).toISOString().substring(0, 10);
-  public id_cliente: any = 0;
   public index: number = 0;
   public tsIVA: number = 0.15;
   public usaArea: boolean = false;
@@ -57,12 +58,13 @@ export class AddAgendaComponent implements OnInit {
 
 
 
-  // AGENDA - ALISTANDO CAMPOS 
+  // AGENDA - ALISTANDO CAMPOS   
   public datos: any;
   public toast: Toast;
   public firstLoad: boolean = true;
 
-  public id_Agenda: number = 0;
+  public CodMiembro = 0;
+  public Id_Agenda: any;
   Data_AgendaCompleta: any
   Data_AgendaMaestro: any
   Data_AgendaAsistencia: reg_asistencia[] = [];
@@ -77,23 +79,26 @@ export class AddAgendaComponent implements OnInit {
 
 
   /***TABLA DE ASISTENCIA - REPRESENTANTES */
-  displayedColumnsAsistencia_Add: string[] = ['Grado', 'Nombres', 'Apellidos', 'Correo', 'Tipo', 'Observacion'];
+  displayedColumnsAsistencia_Add: string[] = ['Grado', 'Nombres', 'Apellidos', 'Correo', 'Tipo', 'Observacion1', 'acciones'];
   dataSourceAgendaAsitencia = new MatTableDataSource(this.list_asistencia);
   @ViewChild(MatPaginator) paginatorAsistencia!: MatPaginator;
   @ViewChild(MatSort) sortAsistencia!: MatSort;
 
   /***TABLA DE LOS PUNTOS DE AGENDAS  */
-  displayedColumnsPuntosAgenda: string[] = ['PuntosAgenda', 'Observacion'];
+  displayedColumnsPuntosAgenda: string[] = ['PuntosAgenda', 'Observacion', 'punto-acciones'];
   dataSourceAgendaPuntosAgenda = new MatTableDataSource(this.list_PuntosAgenda);
   @ViewChild(MatPaginator) paginatorPuntosAgenda!: MatPaginator;
   @ViewChild(MatSort) sortPuntosAgenda!: MatSort;
 
 
   // CONSTRUCTOR - INJECTOR 
-  constructor(private _builder: FormBuilder, private _snackbar: MatSnackBar,
-    private srvCliente: ClienteService, public ngZone: NgZone, private srvMonedas: MonedaService,
-    private srvItem: ItemService, public dialog: MatDialog, private srcItem: ItemService,
-    private src_Agenda: AgendaService, private router: Router, public srcFactura: Factura
+  constructor(
+    private _builder: FormBuilder, private _snackbar: MatSnackBar,
+    private srvCliente: ClienteService, public ngZone: NgZone,
+    private srvMonedas: MonedaService, public dialog: MatDialog,
+    public dialog2: MatDialog, private srcItem: ItemService,
+    private src_Agenda: AgendaService, private router: Router,
+    public srcAgenda: AgendaService      
   ) {
     this.tools = GlobalUtilities.getInstance();
     this.toast = new Toast(this._snackbar);
@@ -116,6 +121,7 @@ export class AddAgendaComponent implements OnInit {
 
   }
 
+
   //eventos OnInit
   async eventAdd() {
 
@@ -134,7 +140,9 @@ export class AddAgendaComponent implements OnInit {
     const nroRegAgenda = await this.src_Agenda.getNroRegAgenda().toPromise();
     this.frmAgenda.controls['IdAgenda'].setValue(nroRegAgenda[0][0].newNroIdAgenda);
     this.frmAgenda.controls['FechaRegristro'].setValue(this.fecha_Agendada);
-    //console.log('nroRegAgenda : '+ JSON.stringify(nroRegAgenda[0][0].newNroIdAgenda))
+
+    this.Id_Agenda = nroRegAgenda[0][0].newNroIdAgenda;
+
 
     setTimeout(() => {
       this.tools.setisLoadingDetails(false)
@@ -145,11 +153,6 @@ export class AddAgendaComponent implements OnInit {
   async loadModules_Asistencias() {
     this.firstLoad = true;
     this.tools.setisLoadingDetails(true)
-    //let modelo: reg_asistencia[]=[];
-    let json_reg = { CodMiembro: 1, Grado: "ing1", Nombres: "ivan", Apellidos: "bonilla", Email: "ib@d.com", Id_Representante: 22, Tipo_Representante: "Invitado Especial", NotaObservacion: "Mantiene su cargo" };
-    let json_reg2 = { CodMiembro: 1, Grado: "ing2", Nombres: "ivan", Apellidos: "bonilla", Email: "ib@d.com", Id_Representante: 22, Tipo_Representante: "Invitado Especial", NotaObservacion: "Mantiene su cargo" };
-    this.Data_AgendaAsistencia.push(json_reg);
-    this.Data_AgendaAsistencia.push(json_reg2);
     this.list_asistencia = this.Data_AgendaAsistencia;
     this.dataSourceAgendaAsitencia.data = this.list_asistencia;
 
@@ -164,12 +167,7 @@ export class AddAgendaComponent implements OnInit {
   async loadModules_PuntosAgenda() {
     this.firstLoad = true;
     this.tools.setisLoadingDetails(true)
-    //let modelo: puntos_agenda[]=[];
-    let json_punto_agenda = { PuntosAgenda: "Inicia presentación", NotaObservacion: "Todos hablan" };
-    let json_punto_agenda2 = { PuntosAgenda: "Iniciar puntos ", NotaObservacion: "Todos aportan" };
 
-    this.Data_PuntosAgenda.push(json_punto_agenda);
-    this.Data_PuntosAgenda.push(json_punto_agenda2);
     this.list_PuntosAgenda = this.Data_PuntosAgenda;
     this.dataSourceAgendaPuntosAgenda.data = this.list_PuntosAgenda;
 
@@ -184,48 +182,167 @@ export class AddAgendaComponent implements OnInit {
 
   openForm(type: number, id: number) {   // FRM DIALOGOS SHOW  
     let dialogRef;
+    let dialogRef2;
 
     switch (type) {
-      case 1: {  // 1 - Representantes    
-        if (this.id_cliente == 0) {
+      case 1: {  // 1 - Representantes            
+        if (this.frmAgenda.controls['DescripcionAgenda'].value !== "") {
 
           dialogRef = this.dialog.open(AddItemComponent,
             {
               height: '700px', width: '1000px',
-              data: { lista_Producto: this.lista_Producto, id_cliente: this.id_cliente }
-            })
+              data: {
+                Id_Agenda: this.Id_Agenda,
+                list_asistencia: this.list_asistencia
+              }
+            });
           dialogRef.afterClosed().subscribe((res) => {
+
             if (res !== undefined) {
-              console.log('list_Item_Agenda_Ckeck: ' + JSON.stringify(res))
+
+              res.forEach((reg: any) => {
+                this.Data_AgendaAsistencia.push(reg);
+              });
+              this.loadModules_Asistencias();
+
             }
           });
         } else {
-          this.toast.showToast("Debe de Selecionar los Representantes ⛔", "Aceptar");
+          this.toast.showToast("Digite una descripción de Agenda - codigo: " + this.Id_Agenda + " ⛔", "Aceptar");
         }
       } break;
 
       case 2: { //Puntos de Agenda
-        if (this.id_cliente == 0) {
+        if (this.frmAgenda.controls['DescripcionAgenda'].value !== "") {
 
-          let datoCompuesto_term: any[] = [0, this.removeExistingItems(this.list_producto_term_bd), this.flag_Moneda_Cordoba];
-          dialogRef = this.dialog.open(AddPuntosItemComponent,
+          this.CodMiembro = this.list_PuntosAgenda.length == undefined ? 0 : this.list_PuntosAgenda.length;
+          dialogRef2 = this.dialog.open(AddPuntosItemComponent,
             {
               height: '500px', width: '1000px',
-              data: datoCompuesto_term
-            })
+              data: { Id_Agenda: this.Id_Agenda, CodMiembro: this.CodMiembro },
+              disableClose: true, autoFocus: true
+            });
 
-          dialogRef.afterClosed().subscribe((res) => {
+          dialogRef2.afterClosed().subscribe((res) => {
             if (res !== undefined) {
-              console.log('Textos: ' + JSON.stringify(res))
+              this.Data_PuntosAgenda.push(res[0]);
+              this.loadModules_PuntosAgenda();
+
             }
           });
 
         } else {
-          this.toast.showToast("Debe Caragar puntos de Agenda ⛔", "Aceptar");
+          this.toast.showToast("Digite una descripción de Agenda - codigo: " + this.Id_Agenda + " ⛔", "Aceptar");
         }
       } break;
       default: { } break;
     }
+
+  }
+
+
+
+  EditaCampo(key: number, CodMiembro: any, Descripcion: any) {
+
+    switch (key) {
+      case 1: {
+        let dialog_asistencia = this.dialog.open(EditafilaCampoComponent,
+          {
+            height: '290px', width: '500px',
+            data: { CodMiembro: CodMiembro, Descripcion: Descripcion },
+            disableClose: true, autoFocus: true
+          });
+
+        dialog_asistencia.afterClosed().subscribe((asistencia_res: any) => {
+          if (asistencia_res !== undefined) {
+            let Index = this.list_asistencia.findIndex((reg: any) => reg.CodMiembro == CodMiembro);
+            let fila = this.list_asistencia[Index];
+            fila.NotaObservacion = asistencia_res.Descripcion;
+          }
+        });
+
+      } break;
+
+
+      case 2: {
+        let dialog_Puntos = this.dialog2.open(EditafilaCampoComponent,
+          {
+            height: '290px', width: '500px',
+            data: { CodMiembro: CodMiembro, Descripcion: Descripcion },
+            disableClose: true, autoFocus: true
+          });
+
+        dialog_Puntos.afterClosed().subscribe((res_puntos: any) => {
+
+          if (res_puntos !== undefined) {
+            let IndexPuntos = this.list_PuntosAgenda.findIndex((reg_puntos: any) => reg_puntos.CodMiembro == CodMiembro);
+            let filaPuntos = this.list_PuntosAgenda[IndexPuntos];
+            filaPuntos.NotaObservacion = res_puntos.Descripcion;
+          }
+
+        });
+      } break;
+
+      default: { } break;
+    }
+
+
+  }
+
+  delete_filaGrid_Asistencia(CodMiembro: any) {
+    this.Data_AgendaAsistencia = this.delete_Items_Existente(this.list_asistencia, CodMiembro);
+    this.loadModules_Asistencias();
+  }
+  delete_filaGrid_PuntosAgenda(CodMiembro: any) {
+    this.Data_PuntosAgenda = this.delete_Items_Existente(this.list_PuntosAgenda, CodMiembro);
+
+    this.Data_PuntosAgenda.map((reg: any, cont: number = 0) => { reg.CodMiembro = cont }); //reordenar los index    
+    this.CodMiembro = this.Data_PuntosAgenda.length == undefined ? 0 : this.Data_PuntosAgenda.length;
+    this.loadModules_PuntosAgenda();
+
+  }
+  delete_Items_Existente(list_aFiltrar: any, CodMiembro: any) {
+    const list_resultante = Object.assign([], list_aFiltrar);
+    let index = list_resultante.findIndex((x: any) => x.CodMiembro == CodMiembro);
+    if (index > -1) {
+      list_resultante.splice(index, 1);
+    }
+    return list_resultante;
+  }
+
+  /* Sumit del formulario */
+  enviar(values: any, formDirective: FormGroupDirective) {
+
+    let nRegAsistencia = this.list_asistencia.length == undefined ? 0 : this.Data_PuntosAgenda.length;
+    let nRegPuntAgenda = this.list_PuntosAgenda.length == undefined ? 0 : this.Data_PuntosAgenda.length;
+        
+    if (nRegAsistencia > 0 && nRegPuntAgenda > 0) {
+      let IdUsuario: number = 1
+      values.IdUsuario = IdUsuario   
+      let enviar_Registro_Json =
+      {
+        Master_Agenda: values,
+        Detalle_Asistencia: this.list_asistencia,
+        Detalle_PuntosAgenda: this.list_PuntosAgenda
+      };     
+
+      this.srcAgenda.add_Agenda(enviar_Registro_Json).subscribe(res => {
+        if (res) {
+          this.toast.showToast('Registro Guardado correctamente ✔️ ', 'Aceptar')
+          
+        } else {
+          this.toast.showToast('Ha ocurrido un error ❌', 'Aceptar')
+        }
+      });
+      this.frmAgenda.reset();
+      formDirective.resetForm();
+      this.router.navigate(['/Agenda']);
+      
+
+    } else {
+      this.toast.showToast("Digite los Detalle de Agenda - codigo: " + this.Id_Agenda + " ⛔", "Aceptar");
+    }
+
 
   }
 
@@ -246,16 +363,19 @@ export class AddAgendaComponent implements OnInit {
 
 
 
+
+
+
+
+
   //********************************** */
   //***  METODOS ANTERIORES  ***//
   //********************************** */
   async setListaProducto() {
-    // this.id_cliente = this.AddformCotizacion.controls["id_cliente"].value;
-    // console.log('id de cliente para getTipo '+JSON.stringify(this.id_cliente));
 
-    this.lista_Producto = (await this.srcItem.getTipoItem(this.id_cliente).toPromise())[0];
+    this.lista_Producto = (await this.srcItem.getTipoItem(this.Id_Agenda).toPromise())[0];
     // SE LE RSTA EL IVA  AL PRECIO PARA  SEPARA LOS MONTOS IVA CON PRECIO ANTES DE IVA     
-    let DB_format_valores = (await this.srcItem.getTipoItem(this.id_cliente).toPromise())[0];
+    let DB_format_valores = (await this.srcItem.getTipoItem(this.Id_Agenda).toPromise())[0];
 
     DB_format_valores.map((p: any) => { p.Precio = parseFloat(p.Precio) - parseFloat(p.iva) });
     this.list_producto_term_bd = DB_format_valores;
@@ -316,12 +436,11 @@ export class AddAgendaComponent implements OnInit {
     }
     return list_productos;
   }
+
+
   getSubTotal() {
     //return this.dataSource.data.map((t: any) => t.SubTotal).reduce((acc, value) => acc + value, 0);
   }
-
-
-
 
   removeDetail(index: number) {
     this.lista_Producto_temp.splice((index - 1), 1);
@@ -342,25 +461,12 @@ export class AddAgendaComponent implements OnInit {
     this.updateTotales();
   }
 
-
-
-  /* Sumit del formulario  */
-  enviar(values: any, formDirective: FormGroupDirective) {
-    let cotizacion = { Master: values, Details: this.lista_Producto_temp }
-    this.src_Agenda.addCotizacion(cotizacion).subscribe(res => {
-      this.toast.showToast("Agregado correctamente ✔️", "Aceptar");
-      this.router.navigate(['/Cotizacion']);
-    })
-
-  }
-
-
   async Cliente_change(id: number) {
 
     //this.dataSource.data = [];
     this.lista_Producto_temp = [];
     // this.id_cliente = this.AddformCotizacion.controls["id_cliente"].value;    
-    this.lista_Producto = (await this.srcItem.getTipoItem(this.id_cliente).toPromise())[0];
+    this.lista_Producto = (await this.srcItem.getTipoItem(this.Id_Agenda).toPromise())[0];
     //  sacamos moneda del cliente
     let money: any = this.list_cliente.find(f => f.id_cliente == id);
     this.moneda_Cliente = money.MONEDA;
@@ -385,6 +491,10 @@ export class AddAgendaComponent implements OnInit {
     }
     return (list_productos);
   }
+
+
+
+
 
 }
 

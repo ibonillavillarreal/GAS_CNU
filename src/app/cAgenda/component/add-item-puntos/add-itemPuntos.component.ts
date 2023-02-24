@@ -1,15 +1,11 @@
 
 import { Component, Inject, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
-import { ItemService } from 'src/app/services/Item.service';
-import { MatTableDataSource } from '@angular/material/table';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { GlobalUtilities } from 'src/app/utils/GlobalUtilities';
-import { Toast } from 'src/app/utils/Toast';
 import { MatSnackBar } from '@angular/material/snack-bar';
-
+import { Toast } from 'src/app/utils/Toast';
+import { ItemService } from 'src/app/services/Item.service';
 
 
 @Component({
@@ -20,67 +16,55 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 
 export class AddItemSComponent implements OnInit {
   public flag_Moneda_Cordoba: boolean = true;
-  public IsProject!: boolean;
   public IsProjectEdit!: boolean;
-  list_asistencia: any[] = [];
   public UsaArea: boolean = true;
-
-  /***TABLA DE ASISTENCIA - REPRESENTANTES */
-  displayedColumns: string[] = ['Grado', 'Nombres', 'Apellidos', 'Correo', 'Tipo', 'Observacion'];
-  dataSource = new MatTableDataSource(this.list_asistencia);
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
-
-  dialog: any;
-  tools: GlobalUtilities;
-  toast: Toast
 
 
   /***CAMPOS - PARA LOS PUNTOS DE AGNDAS***/
+  /***FORMULARIO -PARA LOS PUNTOS DE AGENDAS */
+  public Id_Agenda!: any;
+  public CodMiembro_puntos = 0 ;  //controlar puntos de agenda -fila
+  public Data_List_PuntosAgenda: any[] = [];
+  dialog: any;
+  tools: GlobalUtilities;
+  toast: Toast
   registrar: FormGroup;
 
   constructor(
+    private dialogRefItems: MatDialog, private dialoRef: MatDialogRef<AddItemSComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
     private _builder: FormBuilder,
     private _snackbar: MatSnackBar,
-    @Inject(MAT_DIALOG_DATA) public data: any,
-    private dialogRefItems: MatDialog, private dialoRef: MatDialogRef<AddItemSComponent>,
     private srcItem: ItemService
   ) {
     this.toast = new Toast(_snackbar)
     this.tools = GlobalUtilities.getInstance();
-    this.IsProject = data[0];
-
+    this.Id_Agenda = data.Id_Agenda;
+    this.CodMiembro_puntos = data.CodMiembro;
+   
     this.registrar = this._builder.group({
       PuntosAgenda: ['', Validators.required],
-      NotaObservacion: ['', Validators.required]
+      NotaObservacion: ['Ninguna' ]
     });
-
-    if (data[0] === 2) {//insert en la vista de editar proyecto
-      this.IsProject = true;
-      this.IsProjectEdit = true
-    }
-
-    this.list_asistencia = data[1];
-    this.flag_Moneda_Cordoba = data[2]; //la moneda seleccionada
-
-
-
   }
 
   ngOnInit(): void {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    //this.dataSource.paginator = this.paginator;
+    //this.dataSource.sort = this.sort;
   }
 
   agregar_textos(value: any, formDirective: FormGroupDirective) {
-    //console.log(' Envio del frm: ' + JSON.stringify(value)) 
-    this.dialoRef.close(value);
+    let fila = {CodMiembro:this.CodMiembro_puntos, ...value,CodAgenda:this.Id_Agenda  }    
+   
+    this.Data_List_PuntosAgenda.push(fila)
+    this.dialoRef.close(this.Data_List_PuntosAgenda);
   }
+
 
   /***Filtrar en la tabla** */
   applyFilter(event: Event) {
     const valor = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = valor.trim().toLowerCase();
+    //this.dataSource.filter = valor.trim().toLowerCase();
   }
 
   getPaginatorData(event: any) {
@@ -90,15 +74,14 @@ export class AddItemSComponent implements OnInit {
   }
 
 
-  enviar() {
 
-  }
+
 
 
   ///////////////******************************///////////////////
   add(Articulo: any) {
 
-    if (this.IsProject) {
+    if (1) {
       let valor = (<HTMLInputElement>document.getElementById(Articulo));
 
       if (isNaN(parseInt(valor.value))) {
@@ -106,7 +89,7 @@ export class AddItemSComponent implements OnInit {
       } else {
         let DescripcionDeUso = (<HTMLInputElement>document.getElementById(Articulo + "D"));
         let Precio = (<HTMLInputElement>document.getElementById(Articulo + "P")).value;
-        let data = this.list_asistencia.find((x: any) => x.ARTICULO === Articulo);
+        let data = this.Data_List_PuntosAgenda.find((x: any) => x.ARTICULO === Articulo);
 
         let proyecto = {
           ARTICULO: Articulo,
@@ -121,7 +104,7 @@ export class AddItemSComponent implements OnInit {
 
           this.srcItem.addItemTriggerItemsEdit.emit({ dataTerminadoItems: proyecto });
         } else {
-          //console.log('====>>>   emit campos de  proyecto   : '+JSON.stringify(proyecto));
+       
           this.srcItem.addItemTriggerItems.emit({ dataTerminadoItems: proyecto });
         }
         // const index = this.lista_ArticulosBD.findIndex((x: any) => x.ARTICULO === Articulo);
@@ -131,7 +114,7 @@ export class AddItemSComponent implements OnInit {
         DescripcionDeUso.value = '';
         valor.value = '';
         this.toast.showToast("Agregado correctamente ✔️", "Aceptar");
-        this.dataSource.data = this.list_asistencia;
+        //this.dataSource.data = this.Data_List_PuntosAgenda;
       }
     } else {
       let valor = (<HTMLInputElement>document.getElementById(Articulo)).value;
@@ -139,10 +122,9 @@ export class AddItemSComponent implements OnInit {
         this.toast.showToast("⛔ Cantidad no valida ", "Aceptar")
       } else {
         // Cargar el  UsaArea
-        let data = this.list_asistencia.find((x: any) => x.ARTICULO === Articulo);
+        let data = this.Data_List_PuntosAgenda.find((x: any) => x.ARTICULO === Articulo);
         this.UsaArea = data.UsaArea;
-        console.log('dato this.UsaArea  : ', JSON.stringify(this.UsaArea));
-
+      
         let Precio = parseFloat((<HTMLInputElement>document.getElementById(Articulo + "P")).value);
         data.Cantidad = parseInt(valor);
         data.DescripcionDeUso = "";
@@ -169,12 +151,12 @@ export class AddItemSComponent implements OnInit {
 
         this.srcItem.addItemTrigger.emit({ dataTerminado: proyecto });
         // PROCEDE A ELLIMINARLO DEL OBJETO DE LISTA 
-        const index = this.list_asistencia.findIndex((x: any) => x.ARTICULO === Articulo);
+        const index = this.Data_List_PuntosAgenda.findIndex((x: any) => x.ARTICULO === Articulo);
         if (index > -1) {
-          this.list_asistencia.splice(index, 1);
+          this.Data_List_PuntosAgenda.splice(index, 1);
           this.toast.showToast("Agregado correctamente ✔️", "Aceptar");
         }
-        this.dataSource.data = this.list_asistencia;
+        //this.dataSource.data = this.Data_List_PuntosAgenda;
       }
     }
     //this.dialoRef.close();

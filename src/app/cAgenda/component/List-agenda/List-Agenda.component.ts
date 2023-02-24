@@ -11,6 +11,7 @@ import { AddAgendaComponent } from '../add-agenda/add-agenda.component';
 import { GlobalUtilities } from 'src/app/utils/GlobalUtilities';
 import { DeleteCotizacionComponent } from '../delete-agenda/delete-cotizacion.component';
 import { SubCatalogoService } from 'src/app/services/subcatalogo.service';
+import { EditCotizacionComponent } from '../editar-agenda/edit-cotizacion.component';
 
 
 @Component({
@@ -83,9 +84,15 @@ async cargando(){
   openForm(type: number, id: number) {
     let dialogRef;
     switch (type) {
-      case 1: { dialogRef = this.dialog.open(AddAgendaComponent,  { height: '780px', width: '1200px' }) } break;
-      //case 2: { dialogRef = this.dialog.open(EditCotizacionComponent, { height: '780px', width: '1200px', data: { id: id } }) } break;
-      case 3: { dialogRef = this.dialog.open(DeleteCotizacionComponent, { data: { id: id } }); } break;
+      //case 1: { dialogRef = this.dialog.open(AddAgendaComponent,  { height: '780px', width: '1200px' }) } break;
+      case 2: { dialogRef = this.dialog.open(EditCotizacionComponent, 
+        { height: '780px', width: '1200px', 
+        data: { id: id } })
+      } break;
+      case 3: { 
+        dialogRef = this.dialog.open(DeleteCotizacionComponent, 
+        { data: { id: id } });
+      } break;
       default: { dialogRef = this.dialog.open(AddAgendaComponent); } break;
     }
 

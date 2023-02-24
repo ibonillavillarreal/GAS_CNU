@@ -1,22 +1,17 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Sp_Cotizacion_GetList } from 'src/app/models/Sp_Cotizacion_GetList';
-
-
-
 import { retry, catchError } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { Sp_Cotizacion_GetID } from 'src/app/models/Sp_Cotizacion_GetID';
 import { ErrorService } from './error.service';
-import { Cliente } from '../models/Cliente';
 import { DICTIONARYKEYS } from '../utils/DICTIONARYKEYS';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AgendaService {
-  
-  url = new DICTIONARYKEYS().url + '/API/Agenda/'; 
+
+  url = new DICTIONARYKEYS().url + '/API/Agenda/';
 
   constructor(private http: HttpClient, private error: ErrorService) { }
 
@@ -27,17 +22,19 @@ export class AgendaService {
 
   }
 
-    //get-Registro-Nro Agenda
-    getNroRegAgenda(): Observable<any[]> {
-      return this.http.get<any[]>(this.url+'get/nro/')
-        .pipe(retry(1), catchError(this.error.handleError));
-  
-    }
+  //get-Registro-Nro Agenda
+  getNroRegAgenda(): Observable<any[]> {
+    return this.http.get<any[]>(this.url + 'get/nro/')
+      .pipe(retry(1), catchError(this.error.handleError));
 
-  addCotizacion(cotizacion: any): Observable<any> {
+  }
 
-    return this.http.post<any>(this.url, JSON.stringify(cotizacion))
-      .pipe(retry(1), catchError(this.error.handleError))
+  add_Agenda(RegistroCompleto_json: any): Observable<any> {
+
+    return this.http.post<any>
+      (
+        this.url, JSON.stringify(RegistroCompleto_json)
+      ).pipe(retry(1), catchError(this.error.handleError))
 
 
   }

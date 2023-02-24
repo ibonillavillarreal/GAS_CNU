@@ -1,7 +1,7 @@
 
 import { Component, Inject, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import {  FormBuilder } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 import { ItemService } from 'src/app/services/Item.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
@@ -19,13 +19,15 @@ import { ClienteService } from 'src/app/services/cliente.service';
 })
 
 export class AddItemComponent implements OnInit, OnDestroy {
-  
+
   //-- Item - AGENDA 
-  public index_fila =0;
+  public Id_Agenda = 0;
+  public index_fila = 0;
   tools: GlobalUtilities;
   toast: Toast;
   dialogItems: any;
   exit: boolean = false;
+  base_list_asistencia: any[] = [];
   list_Item_Agenda_Ckeck: any[] = [];
   Data_AgendaAsistencia: any[] = [];
   list_asistencia: any[] = [];
@@ -41,10 +43,10 @@ export class AddItemComponent implements OnInit, OnDestroy {
   constructor(private _builder: FormBuilder, private srvItem: ItemService, private src: ClienteService,
     private _snackbar: MatSnackBar, @Inject(MAT_DIALOG_DATA) public data: any,
     private dialogRefItems: MatDialog, private dialogRef: MatDialogRef<AddItemComponent>) {
-    //this.id_cliente = data.id_cliente;
+    this.Id_Agenda = data.Id_Agenda;
+    this.base_list_asistencia = data.list_asistencia;
 
     this.tools = GlobalUtilities.getInstance();
-    this.dataSourceAgendaRepresentantes.data = this.list_asistencia; //ES para la tabla grid
     this.toast = new Toast(this._snackbar);
 
     this.getData();
@@ -70,45 +72,59 @@ export class AddItemComponent implements OnInit, OnDestroy {
   async setListaAsistencia() {
     this.Data_AgendaAsistencia = await this.src.getPersonas().toPromise();
     this.list_asistencia = this.Data_AgendaAsistencia;
-    //console.log('Representantes : ' + JSON.stringify(this.list_asistencia))
+
+    // limpia antes de mostrar en mat-tabla       
+    if (this.base_list_asistencia.length !== 0) {
+      this.list_asistencia = this.removeItems_Existente(this.list_asistencia);
+    }
+
     this.dataSourceAgendaRepresentantes.data = this.list_asistencia
   }
 
-  
-  setCheckedState($event: any, index:number) {
+
+  setCheckedState($event: any, index: number) {
     if ($event.target.checked) {
-      
-      this.index_fila = this.index_fila + 1 ;     
-      let fila = {index:this.index_fila, ... this.list_asistencia.filter((e: any) => e.CodMiembro == $event.target.value)[0]};
-      
+
+      this.index_fila = this.index_fila + 1;
+      let fila = { index: this.index_fila, ... this.list_asistencia.filter((e: any) => e.CodMiembro == $event.target.value)[0], NotaObservacion: 'Ninguna', CodAgenda: this.Id_Agenda };
+
       this.list_Item_Agenda_Ckeck.push(fila)
-      //console.log(' list_Item_Agenda_Ckeck: ' + JSON.stringify(this.list_Item_Agenda_Ckeck))
     }
 
-    if (!$event.target.checked){
-      let index_Splice =this.list_Item_Agenda_Ckeck.filter((e: any) => e.CodMiembro == $event.target.value)[0].index
-      //console.log('id Index_splice :  ' + JSON.stringify(index_Splice))      
-      let reg_resultante =  this.list_Item_Agenda_Ckeck.filter((x:any)=>x.index !== index_Splice);              
+    if (!$event.target.checked) {
+      let index_Splice = this.list_Item_Agenda_Ckeck.filter((e: any) => e.CodMiembro == $event.target.value)[0].index
+
+      let reg_resultante = this.list_Item_Agenda_Ckeck.filter((x: any) => x.index !== index_Splice);
       this.list_Item_Agenda_Ckeck = reg_resultante
-      //console.log('Despues de Eliminar list_Item_Agenda_Ckeck: ' + JSON.stringify(this.list_Item_Agenda_Ckeck))
+
     }
 
   }
 
   agregar_items() {  // para cargarlo al grid padre y cerrar el modal
-    
+
     this.dialogRef.close(this.list_Item_Agenda_Ckeck);
+  }
+
+
+  removeItems_Existente(list_aFiltrar: any) {
+    const list_resultante = Object.assign([], list_aFiltrar);
+    for (let i = 0; i < this.base_list_asistencia.length; i++) {
+      let index = list_resultante.findIndex((x: any) => x.CodMiembro == this.base_list_asistencia[i].CodMiembro);
+      if (index > -1) {
+        list_resultante.splice(index, 1);
+      }
+    }
+    return list_resultante;
   }
 
 
 
 
-  
 
 
 
-
-//**  ANTERIOR  **/
+  //**  ANTERIOR  **/
   // openFrmItems() {
   //   if (1) {
   //     this.toast.showToast("Debe digitar la Base, Altura y Descripcion de Proyecto  ❌", "Aceptar");

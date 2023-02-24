@@ -20,7 +20,7 @@ import { MonedaService } from '../../../services/Moneda.service';
 import { AddItemComponent } from '../add-item/add-item.component';
 import { ItemService } from '../../../services/Item.service';
 import { AddItemSComponent } from '../add-item-puntos/add-itemPuntos.component';
-import { Cotizacion} from '../../../models/adddCotizacion';
+import { Cotizacion } from '../../../models/adddCotizacion';
 import { Items } from '../../../models/Items';
 import { flatten, identifierName } from '@angular/compiler';
 import { DataSource } from '@angular/cdk/collections';
@@ -31,12 +31,12 @@ import { JsonpClientBackend } from '@angular/common/http';
 
 @Component({
   selector: 'app-edit-cotizacion',
-  templateUrl:'./edit-cotizacion.component.html',
+  templateUrl: './edit-cotizacion.component.html',
   styleUrls: ['./edit-cotizacion.component.css']
 })
 
 
-export class EditCotizacionComponent implements  OnInit {
+export class EditCotizacionComponent implements OnInit {
 
   public id: number = 0;
   public index: number = 0;
@@ -57,7 +57,7 @@ export class EditCotizacionComponent implements  OnInit {
   public lista_Producto: Items[] = [];   //LA CONSULTA A LA BASES DE DATOS PARA EL CARRITO POPUP.
   public lista_Producto_temp: Items[] = []; //SE CARGAN AL GRID DETALLE  - VER TODOS 
   public lista_Producto_Terminados: Items[] = []; // PANTALLA  DE LOS PRODUCTOS TERMINADOS DIRECTOS
-  public lista_Proyectos_Item_Desc: any [] = []; // PANTALLA LISTA DE ITEMS con PROYECTOS  y descripcion
+  public lista_Proyectos_Item_Desc: any[] = []; // PANTALLA LISTA DE ITEMS con PROYECTOS  y descripcion
   public list_cliente!: Cliente[];
   public Lista_Monedas: Monedas[] = [];
   public subtotalDollar = 0;
@@ -72,7 +72,7 @@ export class EditCotizacionComponent implements  OnInit {
   public isDisabled: boolean = false;
   //dataSourceProducto = new MatTableDataSource(this.lista_Producto_temp);
   dataSource = new MatTableDataSource(this.lista_Producto_temp);
- // dataSourceItemsProyectos = new MatTableDataSource(this.lista_Proyectos_Item_Desc);
+  // dataSourceItemsProyectos = new MatTableDataSource(this.lista_Proyectos_Item_Desc);
 
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -132,17 +132,18 @@ export class EditCotizacionComponent implements  OnInit {
       this.id = params.id;
     })
 
-    this.route.events.subscribe(event =>{
-      if (event instanceof NavigationStart){
-        
-      }})
+    this.route.events.subscribe(event => {
+      if (event instanceof NavigationStart) {
 
-      this.getDataForm();
-      this.iniciarForm();
-    
+      }
+    })
+
+    //this.getDataForm();
+    this.iniciarForm();
 
 
-      this.loadModules();
+
+    //this.loadModules();
   }
 
   async getDataForm() {
@@ -163,7 +164,7 @@ export class EditCotizacionComponent implements  OnInit {
   }
   async escuchadorItemsProyectos() {
     let dataMaestro = (await this.srvCotizacion.getCotizacionTipo(this.id).toPromise());
-      console.log(dataMaestro.Maestro[0]);
+    console.log(dataMaestro.Maestro[0]);
     //this.lista_Proyectos_Item_Desc = dataMaestro;
   }
 
@@ -171,8 +172,8 @@ export class EditCotizacionComponent implements  OnInit {
     this.srvItem.addItemTriggerDescProyecto.subscribe(res => {
       this.lista_Producto_temp.push(res.data_filaItem);
       this.dataSource.data = this.lista_Producto_temp;
-      
-      if(this.lista_Producto_temp.length!=0){
+
+      if (this.lista_Producto_temp.length != 0) {
         this.isDisabled = true;
       }
     });
@@ -182,7 +183,7 @@ export class EditCotizacionComponent implements  OnInit {
     this.srvItem.addItemTrigger.subscribe(res => {
       this.lista_Producto_temp.push(res.dataTerminado);
       this.dataSource.data = this.lista_Producto_temp;
-      if(this.lista_Producto_temp.length!=0){
+      if (this.lista_Producto_temp.length != 0) {
         this.isDisabled = true;
       }
       // LEVANTAMOS SOLO LOS PROD TERMINADOS PARA MANDARLOS AL API
@@ -356,26 +357,26 @@ export class EditCotizacionComponent implements  OnInit {
     this.AddformCotizacion.controls['descuento'].setValue(this.DescuentoCordoba);
     this.AddformCotizacion.controls['iva'].setValue(this.IVACordoba);
     this.AddformCotizacion.controls['gran_total'].setValue(this.TOTALCordoba);
-    
-     
+
+
   }
 
   /* Sumit del formulario  */
   enviar(values: any, formDirective: FormGroupDirective) {
-    
+
     let addCotizacion = new Cotizacion(values, this.lista_Producto_Terminados, this.lista_Proyectos_Item_Desc);
-    
+
     //console.log('EL MAESTRO: ' + JSON.stringify(values));
     //console.log('DETALLE ' + JSON.stringify(this.lista_Producto_Terminados));
     //console.log('COLECCION DE ITEMS PROYECTO ' + JSON.stringify(this.lista_Proyectos_Item_Desc));
 
-   // console.log('GUARDAR OBJETO COMPLETO  :  ' + JSON.stringify(addCotizacion));
+    // console.log('GUARDAR OBJETO COMPLETO  :  ' + JSON.stringify(addCotizacion));
 
-    this.srvCotizacion.addCotizacion(addCotizacion).subscribe(res => {
+    this.srvCotizacion.add_Agenda(addCotizacion).subscribe(res => {
       if (res) {
         this.toast.showToast('Registro realizado correctamente - ✔️ ', 'Aceptar')
-       
-        
+
+
       } else {
         this.toast.showToast('Ha ocurrido un error -  ', 'Aceptar')
       }
@@ -384,9 +385,9 @@ export class EditCotizacionComponent implements  OnInit {
     //this.AddformCotizacion.reset();
     //formDirective.resetForm();
     //this.dialogRef.close();
-    
+
     this.route.navigate(['/Cotizacion']);
-    
+
 
 
   }

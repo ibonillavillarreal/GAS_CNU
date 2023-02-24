@@ -8,7 +8,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Data, NavigationStart, Params, Router, RouterLink, Routes } from '@angular/router';
 import { AgendaService } from 'src/app/services/agenda.service';
 import { GlobalUtilities } from 'src/app/utils/GlobalUtilities';
-import { DetailsCotizacionProyectoComponent } from '../details-cotizacion-proyecto/details-cotizacion-proyecto.component';
+
 
 
 @Component({
@@ -133,13 +133,7 @@ export class DetailsAgendaComponent implements OnInit {
 
   openDetailsProject(id: any) {
     console.log('parametro id : '+id)
-    let proyecto = this.Data_AgendaAsistencia.find(x => x.idDetCotizacion === id);
-    let dialog = this.dialog.open(DetailsCotizacionProyectoComponent,
-       { height: '730px', width: '720px', 
-       data:{List:1,proyecto:1},
-       //data: { list: proyecto.detalles_proyecto, proyecto: proyecto.descripcion }, 
-       autoFocus: false 
-      })
+    let proyecto = this.Data_AgendaAsistencia.find(x => x.idDetCotizacion === id);    
   }
 
 

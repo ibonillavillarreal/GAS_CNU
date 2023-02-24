@@ -17,7 +17,7 @@ import { Data } from '@angular/router';
 import { MatSelectModule } from '@angular/material/select';
 import { DepartamentoService } from '../../../services/departamento.service';
 import { filter, map } from 'rxjs/operators';
-import { EditfilaUsoCantidadComponent } from '../editFilaUso/editfila-uso-cantidad.component';
+import { EditafilaCampoComponent } from '../editFilaUso/editfila-Campo.component';
 import { AddDetailsProyectComponent } from '../add-detalles/add-detalles.component';
 
 
@@ -179,7 +179,7 @@ export class ViewItemsComponent implements OnInit {
 
   openFormEditDetalle(ARTICULO:any,Cantidad:any,DescripUso:any){
 
-    let dialog = this.dialogRefItems.open(EditfilaUsoCantidadComponent,{data:{ARTICULO:ARTICULO,Cantidad:Cantidad,DescripUso:DescripUso}})
+    let dialog = this.dialogRefItems.open(EditafilaCampoComponent,{data:{ARTICULO:ARTICULO,Cantidad:Cantidad,DescripUso:DescripUso}})
     dialog.afterClosed().subscribe(res =>{
       if(res !== undefined){
         console.log(this.list_Producto_Item);

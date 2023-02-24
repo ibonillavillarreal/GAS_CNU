@@ -4,7 +4,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { MatTableDataSource } from '@angular/material/table';
 import { ItemService } from 'src/app/services/Item.service';
 import { AddItemSComponent } from '../add-item-puntos/add-itemPuntos.component';
-import { EditfilaUsoCantidadComponent } from '../editFilaUso/editfila-uso-cantidad.component';
+import { EditafilaCampoComponent } from '../editFilaUso/editfila-Campo.component';
 
 @Component({
   selector: 'app-edit-proyecto',
@@ -74,7 +74,8 @@ export class EditProyectoComponent implements OnInit, OnDestroy {
 
 
   EditDetalle(Index: any, ARTICULO: any, Cantidad: any, DescripUso: any, Precio: any) {
-    let dialog = this.dialogRefEdit.open(EditfilaUsoCantidadComponent, { data: { ARTICULO: ARTICULO, Cantidad: Cantidad, DescripUso: DescripUso, Precio: Precio } })
+    let dialog = this.dialogRefEdit.open(EditafilaCampoComponent, 
+      { data: { ARTICULO: ARTICULO, Cantidad: Cantidad, DescripUso: DescripUso, Precio: Precio } })
     dialog.afterClosed().subscribe((res: any) => {
       if (res !== undefined) {
         let detalle = this.list_Producto_Item[Index - 1];

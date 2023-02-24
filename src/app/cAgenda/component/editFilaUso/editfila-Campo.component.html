@@ -1,0 +1,35 @@
+<div class="mat-elevation-z3">
+  <div class="card-body">
+    <h2>Edición de Campo</h2>
+  </div>
+
+  <div class="card-body">
+
+    <div class="card">
+      <form [formGroup]="form" #formDirective="ngForm">
+        <!-- <div class="row">
+            <div class="col">
+              <mat-form-field appearance="legacy">
+                <mat-label>Cantidad (*)</mat-label>
+                <input matInput placeholder="Cantidad" formControlName="Cantidad" type="number">
+              </mat-form-field>
+            </div>
+          </div> -->
+        <div class="row">
+          <div class="col">
+            <mat-form-field appearance="legacy">
+              <mat-label>Edite el Campo (*)</mat-label>
+              <input matInput placeholder="Descripción de Uso" formControlName="Descripcion">
+              <!-- <mat-hint>Hint</mat-hint> -->
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-danger" (click)="edit(form.value)">Guardar</button>
+          <button type="button" class="btn btn-outline-secondary" (click)="Cerrarfrm()">Cerrar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

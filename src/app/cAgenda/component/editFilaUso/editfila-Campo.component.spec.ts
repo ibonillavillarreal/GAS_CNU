@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EditfilaUsoCantidadComponent } from './editfila-uso-cantidad.component';
+import { EditafilaCampoComponent } from './editfila-Campo.component';
 
 describe('EditfilaUsoCantidadComponent', () => {
-  let component: EditfilaUsoCantidadComponent;
-  let fixture: ComponentFixture<EditfilaUsoCantidadComponent>;
+  let component: EditafilaCampoComponent;
+  let fixture: ComponentFixture<EditafilaCampoComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ EditfilaUsoCantidadComponent ]
+      declarations: [ EditafilaCampoComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(EditfilaUsoCantidadComponent);
+    fixture = TestBed.createComponent(EditafilaCampoComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

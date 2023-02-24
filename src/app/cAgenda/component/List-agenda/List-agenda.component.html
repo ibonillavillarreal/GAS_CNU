@@ -61,7 +61,7 @@
                                         <mat-icon routerLink="{{element.CodAgenda}}">remove_red_eye</mat-icon>
                                     </span>
                                     <span class="pointer" style="color: #198754;" matTooltip="Editar">
-                                        <mat-icon>edit</mat-icon>
+                                        <mat-icon (click)="openForm(2,element.CodAgenda)"> edit</mat-icon>
                                     </span>
                                     <span class="pointer" style="color: #dc3545;" matTooltip="Eliminar">
                                         <mat-icon>delete</mat-icon>
