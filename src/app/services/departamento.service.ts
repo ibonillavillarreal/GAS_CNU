@@ -1,17 +1,17 @@
+
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { catchError, retry } from "rxjs/operators";
 import { Cargo } from "../models/Cargo";
-import { DICTIONARYKEYS } from "../utils/DICTIONARYKEYS";
 import { ErrorService } from "./error.service";
+import { DICTIONARYKEYS } from "../utils/DICTIONARYKEYS";
 
 @Injectable({
     providedIn: 'root'
 })
 export class DepartamentoService {
-    //url = "http://172.16.23.203:3000/API/Departamento/"
-    //url  = "http://172.16.23.203:3000/api/Departamento/"
+    
     url = new DICTIONARYKEYS().url+'/api/Departamento/';
     
     constructor(private http: HttpClient, private error: ErrorService) { }

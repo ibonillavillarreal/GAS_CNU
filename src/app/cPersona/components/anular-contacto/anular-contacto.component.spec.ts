@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AnularContactoComponent } from './anular-contacto.component';
+import { AnularPersonaComponent } from './anular-contacto.component';
 
 describe('AnularContactoComponent', () => {
-  let component: AnularContactoComponent;
-  let fixture: ComponentFixture<AnularContactoComponent>;
+  let component: AnularPersonaComponent;
+  let fixture: ComponentFixture<AnularPersonaComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AnularContactoComponent ]
+      declarations: [ AnularPersonaComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AnularContactoComponent);
+    fixture = TestBed.createComponent(AnularPersonaComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

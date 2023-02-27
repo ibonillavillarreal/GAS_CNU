@@ -9,7 +9,7 @@ import { ErrorService } from "./error.service";
     providedIn: 'root'
 })
 export class SubCatalogoService {
-    //url = "http://192.168.1.180:3000/API/SubCatalogos/"
+        
     url = new DICTIONARYKEYS().url+'/API/SubCatalogos';
 
     constructor(private http: HttpClient, private error: ErrorService) { }

@@ -2,11 +2,11 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { ClienteService } from 'src/app/services/cliente.service';
+import { PersonaService } from 'src/app/services/cliente.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AddClienteComponent } from '../add-persona/add-persona.component';
-import { EditClienteComponent } from '../edit-cliente/edit-cliente.component';
-import { AnularClienteComponent } from '../anular-persona/anular-persona.component';
+import { EditPersonaComponent } from '../edit-cliente/edit-cliente.component';
+import { AnularPersonaComponent } from '../anular-persona/anular-persona.component';
 import { GlobalUtilities } from 'src/app/utils/GlobalUtilities';
 
 
@@ -15,7 +15,7 @@ import { GlobalUtilities } from 'src/app/utils/GlobalUtilities';
   templateUrl: './list-persona.component.html',
   styleUrls: ['./list-persona.component.css']
 })
-export class ListClienteComponent implements OnInit {
+export class ListPersonaComponent implements OnInit {
   /***VARIABLES PARA TABLA */
   list_Representante!: any;
   tools: GlobalUtilities
@@ -36,7 +36,7 @@ export class ListClienteComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private src: ClienteService, public dialog: MatDialog
+  constructor(private src: PersonaService, public dialog: MatDialog
   ) {
     this.tools = GlobalUtilities.getInstance();
   }
@@ -66,8 +66,8 @@ export class ListClienteComponent implements OnInit {
     let dialogRef;
     switch (type) {
       case 1: { dialogRef = this.dialog.open(AddClienteComponent, { height: '730px', width: '720px' }) } break;
-      case 2: { dialogRef = this.dialog.open(EditClienteComponent, { height: '720px', width: '720px', data: { id: id } }) } break;
-      case 3: { dialogRef = this.dialog.open(AnularClienteComponent, { data: { id: id } }); } break;
+      case 2: { dialogRef = this.dialog.open(EditPersonaComponent, { height: '720px', width: '720px', data: { id: id } }) } break;
+      case 3: { dialogRef = this.dialog.open(AnularPersonaComponent, { data: { id: id } }); } break;
       default: { dialogRef = this.dialog.open(AddClienteComponent); } break;
     }
     dialogRef.afterClosed().subscribe(result => {

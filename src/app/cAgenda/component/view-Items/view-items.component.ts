@@ -1,8 +1,8 @@
 
 
-import { Component, Inject, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { MatDialog, MatDialogClose, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { FormGroupDirective, FormGroup, FormBuilder } from '@angular/forms';
+import { Component, Inject, OnInit, ViewChild} from '@angular/core';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { FormGroup, FormBuilder } from '@angular/forms';
 import { ItemService } from 'src/app/services/Item.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
@@ -12,13 +12,8 @@ import { Items } from 'src/app/models/Items';
 import { GlobalUtilities } from 'src/app/utils/GlobalUtilities';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Toast } from 'src/app/utils/Toast';
-import { DataSource, SelectionModel } from '@angular/cdk/collections';
-import { Data } from '@angular/router';
-import { MatSelectModule } from '@angular/material/select';
-import { DepartamentoService } from '../../../services/departamento.service';
-import { filter, map } from 'rxjs/operators';
+import { SelectionModel } from '@angular/cdk/collections';
 import { EditafilaCampoComponent } from '../editFilaUso/editfila-Campo.component';
-import { AddDetailsProyectComponent } from '../add-detalles/add-detalles.component';
 
 
 @Component({
@@ -38,8 +33,7 @@ export class ViewItemsComponent implements OnInit {
   Lista_ID!: any
   Lista_NOMBRE!: any
   list_proyecto: any[] = [];
-
-  //displayedColumns: string[] = ['descripcion', 'acciones'];
+  
   displayedColumns: string[] = [
     'Descripcion',
     'Cantidad',
@@ -204,7 +198,7 @@ export class ViewItemsComponent implements OnInit {
 
     let dialogRef;
     switch (type) {
-       case 1: { dialogRef = this.dialogRefItems.open(AddDetailsProyectComponent, { height: '730px', width: '800px', data: this.list_Producto }) } break;
+       case 1: { dialogRef = this.dialogRefItems.open(AddItemSComponent, { height: '730px', width: '800px', data: this.list_Producto }) } break;
       default: { dialogRef = this.dialogRefItems.open(AddItemSComponent); } break;
     }
     dialogRef.afterClosed().subscribe(() => {

@@ -19,6 +19,6 @@ const routes: Routes =[
         RouterModule
     ]
 })
-export class CotizacionRoutingModule{
+export class AgendaRoutingModule{
 
 }

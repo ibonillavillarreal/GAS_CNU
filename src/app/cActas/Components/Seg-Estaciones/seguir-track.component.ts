@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatStepper } from '@angular/material/stepper';
-import { Factura } from 'src/app/services/Factura.service';
+import { Actas } from 'src/app/services/Factura.service';
 
 @Component({
   selector: 'app-seguir-track',
@@ -20,7 +20,7 @@ export class SeguirTrackComponent implements OnInit {
   @ViewChild('stepper') private stepper!: MatStepper;
   
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: any, private srcFactura: Factura, private dialoRef: MatDialogRef<SeguirTrackComponent>
+    @Inject(MAT_DIALOG_DATA) public data: any, private srcFactura: Actas, private dialoRef: MatDialogRef<SeguirTrackComponent>
     
   ) { 
     this.id_factura = data.id_factura;

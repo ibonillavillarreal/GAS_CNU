@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { throwIfEmpty } from 'rxjs/operators';
-import { Factura } from 'src/app/services/Factura.service';
+import { Actas } from 'src/app/services/Factura.service';
 import { Toast } from 'src/app/utils/Toast';
 
 @Component({
@@ -32,7 +32,7 @@ export class CarSelecPagosComponent implements OnInit {
   constructor(
     private dialoRef: MatDialogRef<CarSelecPagosComponent>,
     private _builder: FormBuilder,
-    private srcFactura: Factura,
+    private srcFactura: Actas,
     private _snackbar: MatSnackBar ) 
   { 
     this.toast = new Toast(this._snackbar);

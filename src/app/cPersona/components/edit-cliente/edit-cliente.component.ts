@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { Cargo } from 'src/app/models/Cargo';
 import { Claustro } from 'src/app/models/Claustro';
 import { SP_Persona_Get } from 'src/app/models/SP_Cliente_Get_W';
-import { ClienteService } from 'src/app/services/cliente.service';
+import { PersonaService } from 'src/app/services/cliente.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
 import { Toast } from 'src/app/utils/Toast';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -20,7 +20,7 @@ import { Grado } from 'src/app/models/Grado';
   styleUrls: ['./edit-cliente.component.css'],
 })
 
-export class EditClienteComponent {
+export class EditPersonaComponent {
 
   editar!: FormGroup
 
@@ -47,12 +47,12 @@ export class EditClienteComponent {
   public isParticular = true;
 
 
-  constructor(private _builder: FormBuilder, private src: ClienteService, private src_Cargo: CargoService,
+  constructor(private _builder: FormBuilder, private src: PersonaService, private src_Cargo: CargoService,
     private srcDepartamento: DepartamentoService,
     private src_Claustro: ClaustroService, public ngZone: NgZone, public rt: Router,
     @Inject(MAT_DIALOG_DATA) public data: any, private _snackbar: MatSnackBar,
     private srcSubCatalogo: SubCatalogoService,
-    private dialogRef: MatDialogRef<EditClienteComponent>
+    private dialogRef: MatDialogRef<EditPersonaComponent>
   ) {
 
     this.toast = new Toast(_snackbar)

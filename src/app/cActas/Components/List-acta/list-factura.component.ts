@@ -7,7 +7,7 @@ import { GlobalUtilities } from 'src/app/utils/GlobalUtilities';
 import { DetailFacturaComponent } from '../Detail-acta/detail-factura.component';
 import { EditFacturaComponent } from '../Edit-acta/edit-factura.component';
 import { DelEstadoFacturaComponent } from '../Del-Estado_acta/del-estado-factura.component';
-import { Factura } from 'src/app/services/Factura.service';
+import { Actas } from 'src/app/services/Factura.service';
 import { CcService } from 'src/app/services/Cc.service';
 import { SubCatalogoService } from 'src/app/services/subcatalogo.service';
 
@@ -32,7 +32,7 @@ export class ListFacturaComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort;
 
   constructor(
-    public dialog: MatDialog,private srcFactura: Factura, public srvSubCatalogos: SubCatalogoService 
+    public dialog: MatDialog,private srcFactura: Actas, public srvSubCatalogos: SubCatalogoService 
   ) { 
 
   this.tools = GlobalUtilities.getInstance();

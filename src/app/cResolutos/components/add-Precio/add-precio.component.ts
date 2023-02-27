@@ -7,11 +7,10 @@ import { GlobalUtilities } from 'src/app/utils/GlobalUtilities';
 import { MatDialog } from '@angular/material/dialog';
 import { EditPrecioComponent } from '../Edit-Campo-Precio/edit-precio.component';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { ClienteService } from 'src/app/services/cliente.service';
+import { PersonaService } from 'src/app/services/cliente.service';
 import { Toast } from 'src/app/utils/Toast';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { __values } from 'tslib';
-import { find } from 'rxjs/operators';
 
 @Component({
   selector: 'app-add-precio',
@@ -41,7 +40,7 @@ export class AddPrecioComponent implements OnInit {
     private _builder: FormBuilder,
     private src_Precios: vnPrecios,
     public dialog: MatDialog,
-    private srvCliente: ClienteService,
+    private srvCliente: PersonaService,
     private _snackbar: MatSnackBar,) 
     { 
       this.tools = GlobalUtilities.getInstance();
@@ -122,10 +121,7 @@ Json_Seleccion_click(){
   let id_Articulo =  this.frmClientePrecio.controls["Articulo"].value;     
   this.openDialog_ClientePrecio(id_cliente,razon_social,id_Articulo,'0'); 
 
-  //const json_Insert =  '{"id_cliente":"'+id_cliente+'","Articulo":"'+id_Articulo+'","Precio":"999.00"}';
-  //this.ServicioClienteInsert(JSON.stringify(json_Insert));  
-  //const jsonCadena = '{"Articulo":"'+id_Articulo+'","id_cliente":"'+id_cliente+'","flagOperacion":"4"}'   
-  //this.Cargar(JSON.stringify(jsonCadena));  
+
 }
 
 Json_click(){ 

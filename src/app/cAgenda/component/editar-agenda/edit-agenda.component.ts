@@ -14,7 +14,7 @@ import { GlobalUtilities } from 'src/app/utils/GlobalUtilities';
 
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { ClienteService } from 'src/app/services/cliente.service';
+import { PersonaService } from 'src/app/services/cliente.service';
 import { Monedas } from '../../../models/Moneda';
 import { MonedaService } from '../../../services/Moneda.service';
 import { AddItemComponent } from '../add-item/add-item.component';
@@ -22,32 +22,26 @@ import { ItemService } from '../../../services/Item.service';
 import { AddItemSComponent } from '../add-item-puntos/add-itemPuntos.component';
 import { Cotizacion } from '../../../models/adddCotizacion';
 import { Items } from '../../../models/Items';
-import { flatten, identifierName } from '@angular/compiler';
-import { DataSource } from '@angular/cdk/collections';
-import { isNull } from '@angular/compiler/src/output/output_ast';
-import { formatNumber, NumberFormatStyle } from '@angular/common';
-import { JsonpClientBackend } from '@angular/common/http';
 
 
 @Component({
-  selector: 'app-edit-cotizacion',
-  templateUrl: './edit-cotizacion.component.html',
-  styleUrls: ['./edit-cotizacion.component.css']
+  selector: 'app-edit-agenda',
+  templateUrl: './edit-agenda.component.html',
+  styleUrls: ['./edit-agenda.component.css']
 })
 
 
-export class EditCotizacionComponent implements OnInit {
+export class EditAgendaComponent implements OnInit {
 
   public id: number = 0;
   public index: number = 0;
   public monedaSeleccionadaC$ = true;
   public monedaSeleccionada$ = false;
 
-
   public datos: any;
   public tools: GlobalUtilities;
   public toast: Toast;
-  public url = "http://localhost:3000/API";
+  
 
   public AddformCotizacion!: FormGroup;
   public dialogRef!: MatDialogRef<AddItemComponent>;
@@ -115,7 +109,7 @@ export class EditCotizacionComponent implements OnInit {
     private Aroute: ActivatedRoute, private route: Router,
     public rt: Router,
     private _snackbar: MatSnackBar,
-    private srvCliente: ClienteService,
+    private srvCliente: PersonaService,
     private srvCotizacion: AgendaService, public ngZone: NgZone,
     private srvMonedas: MonedaService,
     private srvItem: ItemService,

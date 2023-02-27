@@ -2,11 +2,11 @@ import { NgModule } from "@angular/core";
 import { Routes,RouterModule } from "@angular/router";
 
 import { DetailsClienteComponent } from "./components/details-persona/details-cliente.component";
-import { ListClienteComponent } from "./components/list-persona/list-persona.component";
+import { ListPersonaComponent } from "./components/list-persona/list-persona.component";
 const routes: Routes =[
     {
         path:'',
-        component:ListClienteComponent,
+        component:ListPersonaComponent,
     },
     {
         path:'/:id',

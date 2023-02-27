@@ -1,7 +1,7 @@
 import { Component, OnInit, NgZone, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
-import { ClienteService } from 'src/app/services/cliente.service';
+import { PersonaService } from 'src/app/services/cliente.service';
 import { Cargo } from 'src/app/models/Pais';
 import { Claustro } from 'src/app/models/Claustro';
 import { Toast } from 'src/app/utils/Toast';
@@ -32,7 +32,7 @@ export class AddClienteComponent implements OnInit {
   list_Claustro!: Claustro[]
   list_Grado!: Cargo[]
 
-  constructor(private _builder: FormBuilder, private src: ClienteService,
+  constructor(private _builder: FormBuilder, private src: PersonaService,
     private _snackBar: MatSnackBar, public ngZone: NgZone,
     public rt: Router, private src_Cargo: CargoService,
     private dialogRef: MatDialogRef<AddClienteComponent>

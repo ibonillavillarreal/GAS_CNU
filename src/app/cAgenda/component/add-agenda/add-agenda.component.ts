@@ -14,8 +14,8 @@ import { FormBuilder, FormGroup, FormGroupDirective, Validators } from '@angular
 import { GlobalUtilities } from 'src/app/utils/GlobalUtilities';
 import { Toast } from 'src/app/utils/Toast';
 import { Cliente } from 'src/app/models/Cliente';
-import { ClienteService } from 'src/app/services/cliente.service';
-import { Factura } from 'src/app/services/Factura.service';
+import { PersonaService } from 'src/app/services/cliente.service';
+import { Actas } from 'src/app/services/Factura.service';
 import { Monedas } from '../../../models/Moneda';
 import { MonedaService } from '../../../services/Moneda.service';
 import { AddItemComponent } from '../add-item/add-item.component';
@@ -94,7 +94,7 @@ export class AddAgendaComponent implements OnInit {
   // CONSTRUCTOR - INJECTOR 
   constructor(
     private _builder: FormBuilder, private _snackbar: MatSnackBar,
-    private srvCliente: ClienteService, public ngZone: NgZone,
+    private srvCliente: PersonaService, public ngZone: NgZone,
     private srvMonedas: MonedaService, public dialog: MatDialog,
     public dialog2: MatDialog, private srcItem: ItemService,
     private src_Agenda: AgendaService, private router: Router,

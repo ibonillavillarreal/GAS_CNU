@@ -1,10 +1,10 @@
-import { Component, ComponentRef, NgModule } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
 import { Router, RouterModule, Routes } from '@angular/router';
 import { PreloadAllModules } from '@angular/router';
 import { DetailsClienteComponent } from './cPersona/components/details-persona/details-cliente.component';
 import { AddAgendaComponent } from './cAgenda/component/add-agenda/add-agenda.component';
 import { DetailsAgendaComponent } from './cAgenda/component/detalles-agenda/details-agenda.component';
-import { EditCotizacionComponent } from './cAgenda/component/editar-agenda/edit-cotizacion.component';
+import { EditAgendaComponent } from './cAgenda/component/editar-agenda/edit-agenda.component';
 import { ImprimirComponent } from './cAgenda/component/imprimir/imprimir.component';
 
 import { AddPrecioComponent } from './cResolutos/components/add-Precio/add-precio.component';
@@ -34,7 +34,7 @@ const routes: Routes = [
   {
     path: 'Personas',
     pathMatch: 'full',
-    loadChildren: () => import('./cPersona/persona.module').then(m => m.ClienteModule)
+    loadChildren: () => import('./cPersona/persona.module').then(m => m.PersonaModule)
   },
 
 
@@ -48,7 +48,7 @@ const routes: Routes = [
   {
     path: 'Agenda',
     pathMatch: 'full',
-    loadChildren: () => import('./cAgenda/agenda.module').then(m => m.CotizacionModule)
+    loadChildren: () => import('./cAgenda/agenda.module').then(m => m.AgendaModule)
   },
 
   {
@@ -68,7 +68,7 @@ const routes: Routes = [
 
  {
   path:'Agenda/VistaDetalle/:id', 
-  component:EditCotizacionComponent
+  component:EditAgendaComponent
 
  },
 

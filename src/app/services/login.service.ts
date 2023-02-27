@@ -1,11 +1,11 @@
+
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { User } from 'src/app/models/User';
-
-import { Observable, throwError } from 'rxjs';
-import { expressionType } from '@angular/compiler/src/output/output_ast';
+import { Observable} from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
 import { ErrorService } from './error.service';
+import { DICTIONARYKEYS } from '../utils/DICTIONARYKEYS';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +14,7 @@ export class LoginService {
 
   constructor(private http:HttpClient,private error:ErrorService) { }
 
-  url:string = 'http://192.168.1.zzz:3000';
+  url:string = new DICTIONARYKEYS().url;
    httpOptions={
      headers: new HttpHeaders({
        'Content-Type': 'application/json'

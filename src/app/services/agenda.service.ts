@@ -1,4 +1,5 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+
+import { HttpClient} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { retry, catchError } from 'rxjs/operators';
 import { Observable } from 'rxjs';
@@ -63,8 +64,7 @@ export class AgendaService {
       (this.url + i).pipe(retry(1), catchError(this.error.handleError))
   }
 
-
-  //leer det cotizacion / tipo : proyecto o terminado  con origen M:1 maestro y D:0 detalle
+  
   getCotizacionTipo(idCot: number): Observable<any> {
     return this.http.get<any>(this.url + 'ProyectoTipo/' + idCot).
       pipe(retry(1), catchError(this.error.handleError));

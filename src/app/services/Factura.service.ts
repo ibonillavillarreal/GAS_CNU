@@ -1,19 +1,19 @@
+
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { EventEmitter, Injectable, Output } from '@angular/core';
 import { retry, catchError } from 'rxjs/operators';
 import { Observable} from 'rxjs';
-import { Sp_Cotizacion_GetID } from 'src/app/models/Sp_Cotizacion_GetID';
 import { ErrorService } from './error.service';
 import { DICTIONARYKEYS } from '../utils/DICTIONARYKEYS';
-import { Params } from '@angular/router';
+
 
 @Injectable({
   providedIn: 'root'
 })
-export class Factura {  
+export class Actas {  
 
   url_local = new DICTIONARYKEYS().url+'/API';
-  url = 'http://192.168.1.11:3000/API/Factura/';  
+  url = new DICTIONARYKEYS().url+'/API/Factura/';  
   
 
   constructor(private http:HttpClient,private error:ErrorService) 

@@ -3,7 +3,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { DataSource } from '@angular/cdk/collections';
 import { ActivatedRoute, Data, Params } from '@angular/router';
-import { ClienteService } from 'src/app/services/cliente.service';
+import { PersonaService } from 'src/app/services/cliente.service';
 import { Items } from '../../../models/Items';
 import { filter, find, first } from 'rxjs/operators';
 import { analyzeAndValidateNgModules } from '@angular/compiler';
@@ -65,7 +65,7 @@ export class ImprimirComponent implements OnInit {
     private Aroute: ActivatedRoute,
     //public dialogRef_Imprimir: MatDialogRef<ImprimirComponent>,
     //@Inject(MAT_DIALOG_DATA) public Obj_Print: any,
-    private srvCliente: ClienteService,
+    private srvCliente: PersonaService,
     private srvCotizacion: AgendaService  
   ) {     
     this.Aroute.params.subscribe((params: Params) => {

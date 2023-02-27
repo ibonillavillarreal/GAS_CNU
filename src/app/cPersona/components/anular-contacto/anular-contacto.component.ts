@@ -9,7 +9,7 @@ import { Toast } from 'src/app/utils/Toast';
   templateUrl: './anular-contacto.component.html',
   styleUrls: ['./anular-contacto.component.css']
 })
-export class AnularContactoComponent implements OnInit {
+export class AnularPersonaComponent implements OnInit {
   private id:number
   private toast:Toast
   constructor(private src:ContactoService,@Inject(MAT_DIALOG_DATA) public data: any, private _snackBar: MatSnackBar) {

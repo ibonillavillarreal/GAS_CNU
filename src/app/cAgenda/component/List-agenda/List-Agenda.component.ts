@@ -9,9 +9,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { AddAgendaComponent } from '../add-agenda/add-agenda.component';
 //import { AnularClienteComponent } from '../anular-cliente/anular-cliente.component';
 import { GlobalUtilities } from 'src/app/utils/GlobalUtilities';
-import { DeleteCotizacionComponent } from '../delete-agenda/delete-cotizacion.component';
 import { SubCatalogoService } from 'src/app/services/subcatalogo.service';
-import { EditCotizacionComponent } from '../editar-agenda/edit-cotizacion.component';
+import { EditAgendaComponent } from '../editar-agenda/edit-agenda.component';
 
 
 @Component({
@@ -85,12 +84,12 @@ async cargando(){
     let dialogRef;
     switch (type) {
       //case 1: { dialogRef = this.dialog.open(AddAgendaComponent,  { height: '780px', width: '1200px' }) } break;
-      case 2: { dialogRef = this.dialog.open(EditCotizacionComponent, 
+      case 2: { dialogRef = this.dialog.open(EditAgendaComponent, 
         { height: '780px', width: '1200px', 
         data: { id: id } })
       } break;
       case 3: { 
-        dialogRef = this.dialog.open(DeleteCotizacionComponent, 
+        dialogRef = this.dialog.open(EditAgendaComponent, 
         { data: { id: id } });
       } break;
       default: { dialogRef = this.dialog.open(AddAgendaComponent); } break;

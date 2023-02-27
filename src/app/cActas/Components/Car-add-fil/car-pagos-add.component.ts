@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
-import { Factura } from 'src/app/services/Factura.service';
+import { Actas } from 'src/app/services/Factura.service';
 import { Toast } from 'src/app/utils/Toast';
 import { CarSelecPagosComponent } from '../Car-Selec_acta/car-selec-pagos.component';
 
@@ -36,7 +36,7 @@ export class CarPagosAddComponent implements OnInit {
 
   constructor(
     private dialoRef: MatDialogRef<CarPagosAddComponent>,@Inject(MAT_DIALOG_DATA) public data:any,
-    public dialog: MatDialog,private _snackbar: MatSnackBar,private srcFactura: Factura ) 
+    public dialog: MatDialog,private _snackbar: MatSnackBar,private srcFactura: Actas ) 
   { 
     this.toast = new Toast(this._snackbar);
     //data = {TOTAL_NIO:this.TOTAL_NIO,TOTAL_USD:this.TOTAL_USD}

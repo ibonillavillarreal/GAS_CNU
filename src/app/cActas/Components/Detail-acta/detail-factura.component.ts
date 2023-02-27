@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
-import { Factura } from 'src/app/services/Factura.service';
+import { Actas } from 'src/app/services/Factura.service';
 import { GlobalUtilities } from 'src/app/utils/GlobalUtilities';
 import { Data } from '@angular/router';
 import { VerItemDetalleComponent } from '../Ver-ItemDetail/ver-item-detalle.component';
@@ -32,7 +32,7 @@ export class DetailFacturaComponent implements OnInit {
   @ViewChild(MatSort) sortArticulos!: MatSort;
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: any, private srcFactura: Factura, private dialoRef: MatDialogRef<DetailFacturaComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any, private srcFactura: Actas, private dialoRef: MatDialogRef<DetailFacturaComponent>,
     public dialog: MatDialog,private srcCotizacion: AgendaService,
   ) {
     this.facturaMaestro = data.facturaMaestro;    

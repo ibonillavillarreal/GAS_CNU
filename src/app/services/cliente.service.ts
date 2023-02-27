@@ -1,3 +1,4 @@
+
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Cliente } from 'src/app/models/Cliente';
@@ -10,7 +11,7 @@ import { DICTIONARYKEYS } from '../utils/DICTIONARYKEYS';
 @Injectable({
   providedIn: 'root'
 })
-export class ClienteService {
+export class PersonaService {
   url = new DICTIONARYKEYS().url + '/api/Persona/';
   url_Eliminar = new DICTIONARYKEYS().url + '/api/Persona/Eliminar/';
 

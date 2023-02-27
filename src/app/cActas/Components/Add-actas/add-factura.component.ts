@@ -5,7 +5,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Factura } from 'src/app/services/Factura.service';
+import { Actas } from 'src/app/services/Factura.service';
 import { MonedaService } from 'src/app/services/Moneda.service';
 import { GlobalUtilities } from 'src/app/utils/GlobalUtilities';
 import { Toast } from 'src/app/utils/Toast';
@@ -61,7 +61,7 @@ export class AddFacturaComponent implements OnInit {
   public json_factura_detalle: any;
     
   constructor(
-    private _builder: FormBuilder, public dialog: MatDialog, private srvMonedas: MonedaService, private srcFactura: Factura, 
+    private _builder: FormBuilder, public dialog: MatDialog, private srvMonedas: MonedaService, private srcFactura: Actas, 
     private srcCc: CcService, private _snackbar: MatSnackBar,private router: Router) {
     this.toast = new Toast(this._snackbar);
     this.tools = GlobalUtilities.getInstance();

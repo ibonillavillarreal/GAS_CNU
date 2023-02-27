@@ -9,7 +9,7 @@ import { MatSort } from '@angular/material/sort';
 import { GlobalUtilities } from 'src/app/utils/GlobalUtilities';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Toast } from 'src/app/utils/Toast';
-import { ClienteService } from 'src/app/services/cliente.service';
+import { PersonaService } from 'src/app/services/cliente.service';
 
 
 @Component({
@@ -40,7 +40,7 @@ export class AddItemComponent implements OnInit, OnDestroy {
   @ViewChild(MatSort) sort!: MatSort;
 
 
-  constructor(private _builder: FormBuilder, private srvItem: ItemService, private src: ClienteService,
+  constructor(private _builder: FormBuilder, private srvItem: ItemService, private src: PersonaService,
     private _snackbar: MatSnackBar, @Inject(MAT_DIALOG_DATA) public data: any,
     private dialogRefItems: MatDialog, private dialogRef: MatDialogRef<AddItemComponent>) {
     this.Id_Agenda = data.Id_Agenda;

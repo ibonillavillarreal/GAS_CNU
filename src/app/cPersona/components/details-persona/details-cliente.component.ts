@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { ClienteService } from 'src/app/services/cliente.service';
+import { PersonaService } from 'src/app/services/cliente.service';
 import { DepartamentoService } from 'src/app/services/departamento.service';
 import { ClaustroService } from 'src/app/services/municipio.service';
 import { CargoService } from 'src/app/services/Cargo.service';
@@ -21,7 +21,7 @@ export class DetailsClienteComponent implements OnInit {
   tools: GlobalUtilities
   
 
-  constructor(private Aroute: ActivatedRoute, private src: ClienteService, private route: Router,
+  constructor(private Aroute: ActivatedRoute, private src: PersonaService, private route: Router,
     private srcDepartamento: DepartamentoService, private srcMunicipio: ClaustroService,
     private srcPais: CargoService) {
     this.tools = GlobalUtilities.getInstance();

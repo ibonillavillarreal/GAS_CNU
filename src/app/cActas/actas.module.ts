@@ -1,7 +1,6 @@
+
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-import { FacturaRoutingModule } from './Actas-routing.module';
 import { ListFacturaComponent } from './Components/List-acta/list-factura.component';
 import { DetailFacturaComponent } from './Components/Detail-acta/detail-factura.component';
 import { SharedModule } from '../shared/Material.module';
@@ -33,8 +32,7 @@ import { SeguirTrackComponent } from './Components/Seg-Estaciones/seguir-track.c
     SeguirTrackComponent,    
 
   ],
-  imports: [
-    FacturaRoutingModule,
+  imports: [    
     CommonModule,    
     SharedModule
     

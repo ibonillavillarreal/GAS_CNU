@@ -1,16 +1,17 @@
+
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable, throwError } from "rxjs";
+import { Observable } from "rxjs";
 import { catchError, retry } from "rxjs/operators";
 import { Contacto } from "src/app/models/Contacto";
-import { DICTIONARYKEYS } from "../utils/DICTIONARYKEYS";
 import { ErrorService } from "./error.service";
+import { DICTIONARYKEYS } from "../utils/DICTIONARYKEYS";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ContactoService {
-  //url = "http://192.168.1.180:3000/API/Contacto/"
+
   url = new DICTIONARYKEYS().url+'/API/Contacto/';
 
   constructor(private http:HttpClient,private error:ErrorService){  }

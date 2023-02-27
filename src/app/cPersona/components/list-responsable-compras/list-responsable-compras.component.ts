@@ -8,8 +8,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { Contacto } from 'src/app/models/Contacto';
 import { ContactoService } from 'src/app/services/contacto.service';
 import { GlobalUtilities } from 'src/app/utils/GlobalUtilities';
-import { AddResponsableComprasComponent } from '../add-responsable-compras/add-responsable-compras.component';
-import { AnularContactoComponent } from '../anular-contacto/anular-contacto.component';
+import { AnularPersonaComponent } from '../anular-contacto/anular-contacto.component';
 import { EditContactoComponent } from '../edit-contacto/edit-contacto.component';
 
 
@@ -51,11 +50,11 @@ export class ListResponsableComprasComponent implements OnInit {
   openForm(type:number,id:number) {
     let dialogRef;
     switch(type){
-      case 1:{dialogRef =this.dialog.open(AddResponsableComprasComponent,{height: '520px',width: '720px',
-           data:{id:this.id,tipo:this.tipo}})}break;
+      //case 1:{dialogRef =this.dialog.open(AddPersonaComponent,{height: '520px',width: '720px',
+      //   data:{id:this.id,tipo:this.tipo}})}break;
       case 2:{dialogRef =this.dialog.open(EditContactoComponent,{height: '520px',width: '720px',data:{id:id}})}break;  
-       case 3:{dialogRef = this.dialog.open(AnularContactoComponent,{data:{id:id}})}break;
-       default:{dialogRef =this.dialog.open(AddResponsableComprasComponent);}break;
+      case 3:{dialogRef = this.dialog.open(AnularPersonaComponent,{data:{id:id}})}break;
+      default:{dialogRef =this.dialog.open(EditContactoComponent);}break;
     }
     dialogRef.afterClosed().subscribe(result => {
       this.getContactos(this.id,this.tipo);

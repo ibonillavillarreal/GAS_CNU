@@ -1,16 +1,15 @@
+
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { catchError, retry } from "rxjs/operators";
-import { Orden } from "../models/Orden";
 import { ErrorService } from "./error.service";
 import { DICTIONARYKEYS } from "../utils/DICTIONARYKEYS";
 
 @Injectable({
     providedIn: 'root'
 })
-export class OrdenService {
-    //url = "http://192.168.1.91:3000/API/Orden"
+export class OrdenService {    
     url = new DICTIONARYKEYS().url+'/API/Orden'
     
     constructor(private http: HttpClient, private error: ErrorService) { }

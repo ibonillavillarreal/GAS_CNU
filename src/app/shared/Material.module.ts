@@ -1,7 +1,7 @@
 
+
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import {MatSidenavModule} from '@angular/material/sidenav'
 import {MatToolbarModule} from '@angular/material/toolbar'
 import {MatDividerModule} from '@angular/material/divider'
@@ -27,13 +27,6 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule, MatRippleModule} from '@angular/material/core';
 import {MatListModule} from '@angular/material/list';
-//
-import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FormsModule } from '@angular/forms';
-//
-
-
 
 
 @NgModule({

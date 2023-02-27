@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
-import { Factura } from 'src/app/services/Factura.service';
+import { Actas } from 'src/app/services/Factura.service';
 import { map, find } from 'rxjs/operators';
 import { EditarCantidadComponent } from '../Edit-Cantidad/editar-cantidad.component';
 
@@ -27,7 +27,7 @@ export class CarItemAddComponent implements OnInit {
   displayedColumns: string[] = ['NumeroCotizacion', 'ARTICULO', 'Descripcion', 'Cantidad', 'Precio', 'iva', 'subTotal', 'acciones'];
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: any, private srcFactura: Factura, 
+    @Inject(MAT_DIALOG_DATA) public data: any, private srcFactura: Actas, 
     public dialog: MatDialog, private dialoRef: MatDialogRef<CarItemAddComponent>) {
     this.idCliente = data.id_cliente;
     this.tsCambio = data.tsCambio;
