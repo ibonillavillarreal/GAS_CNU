@@ -8,9 +8,10 @@ const { database } = require('../config/conexion')
 
 
 const add_Agenda = async (json_Agenda) => {
-  try {
+  try {    
 
     let MasterAgenda = json_Agenda.Master_Agenda;
+
     let mssql = await sql.connect(conexion);
     let retorno_CodAgenda = await mssql.request()
       .input('CodAgenda', sql.Int, 0)
@@ -45,15 +46,12 @@ const add_Agenda = async (json_Agenda) => {
       ultimoRetorno = retorno_DetalleAsistencia.returnValue
     });
 
-
     // - - - 
     let DetallePuntosAgenda = json_Agenda.Detalle_PuntosAgenda;
     let ultimoRetornoPuntos;
 
     DetallePuntosAgenda.forEach(reg_DetPuntos => {
-
-      console.log('Detalles Puntos : '+ JSON.stringify(reg_DetPuntos));
-
+      
       let retorno_DetalleAsistencia = mssql.request()
         .input('CodAgendaDetalles', sql.Int, 0)
         .input('CodAgenda', sql.Int, CodAgenda)
@@ -75,6 +73,78 @@ const add_Agenda = async (json_Agenda) => {
     console.log(err);
   }
 }
+
+const editAgenda = async (json_Agenda) => {
+
+  try {
+    
+    console.log(' EDITAR Agenda : '+ JSON.stringify(json_Agenda));
+
+    let MasterAgenda = json_Agenda.Master_Agenda;
+
+    let mssql = await sql.connect(conexion);
+    let retorno_CodAgenda = await mssql.request()
+      .input('CodAgenda', sql.Int, MasterAgenda.CodAgenda)
+      .input('IdAgenda', sql.NVarChar, MasterAgenda.IdAgenda)
+      .input('DescripcionAgenda', sql.NVarChar, MasterAgenda.DescripcionAgenda)
+      .input('EstadoAgenda', sql.Int, 1)
+      .input('FechaRegristro', sql.Date, MasterAgenda.FechaRegristro)
+      .input('FechaRegSistema', sql.Date, Date(new Date()))
+      .input('EstadoRegsistro', sql.Int, 1)
+      .input('IdUsuario', sql.Int, MasterAgenda.IdUsuario)
+      .input('Operacion', sql.Int, 4)    
+      .execute('Legales.p_SavetbAgendas')         
+    let CodAgenda = retorno_CodAgenda.returnValue;
+
+    //- - -
+    let DetalleAsistencia = json_Agenda.Detalle_Asistencia;
+    let ultimoRetorno;
+
+    DetalleAsistencia.forEach(registro => {
+      let retorno_DetalleAsistencia = mssql.request()
+        .input('CodCuorum', sql.Int, registro.CodCuorum)
+        .input('CodAgenda', sql.Int, MasterAgenda.CodAgenda)
+        .input('CodTipo', sql.Int, registro.CodClaustro)
+        .input('CodMiembro', sql.Int, registro.CodMiembro)
+        .input('NotaObservacion', sql.NVarChar, registro.NotaObservacion)
+        .input('FechaRegistro', sql.Date, Date(new Date()))
+        .input('EstadoRegistro', sql.Int, 1)
+        .input('IdUsuario', sql.Int, MasterAgenda.IdUsuario)
+        .input('Operacion', sql.Int, 2)
+        .execute('Legales.p_SavetbRepresentantes')
+      ultimoRetorno = retorno_DetalleAsistencia.returnValue
+    });
+
+    // - - - 
+    let DetallePuntosAgenda = json_Agenda.Detalle_PuntosAgenda;
+    let ultimoRetornoPuntos;
+
+    DetallePuntosAgenda.forEach(reg_DetPuntos => {
+      
+      let retorno_DetalleAsistencia = mssql.request()
+        .input('CodAgendaDetalles', sql.Int, reg_DetPuntos.CodAgendaDetalles)
+        .input('CodAgenda', sql.Int, MasterAgenda.CodAgenda)
+        .input('PuntosAgenda', sql.NVarChar, reg_DetPuntos.PuntosAgenda)
+        .input('NotaObservacion', sql.NVarChar, reg_DetPuntos.NotaObservacion)
+        .input('EstadoPunto', sql.Int, 1)
+        .input('FechaRegistro', sql.Date, Date(new Date()))
+        .input('EstadoRegistro', sql.Int, 1)
+        .input('IdUsuario', sql.Int, MasterAgenda.IdUsuario)
+        .input('Operacion', sql.Int, 4)
+        .execute('Legales.p_SavetbAgendaDetalles')
+      ultimoRetornoPuntos = retorno_DetalleAsistencia.returnValue
+    });
+
+    // - - - 
+      return 1;
+
+  } catch (edit_err) {
+    console.log(edit_err);
+  }
+}
+
+
+
 
 
 const getAgenda = async () => {
@@ -195,43 +265,6 @@ const getCotizacionEdit = async (id) => {
   }
 }
 
-// const addCotizacion = async (ObjCotizacion) => {
-//   let moneda; 
-//   if(ObjCotizacion.Maestro.simbolo=='C$'){
-//                                 moneda=1}
-//                            else{moneda=0}
-//   try {
-//     let pool = await sql.connect(conexion);
-//     let insertCotizacion = await pool.request()
-//       .input('idCotizacion', sql.Int, ObjCotizacion.Maestro.id_cotizacion)
-//       .input('id_cliente', sql.Int, ObjCotizacion.Maestro.id_cliente)
-//       .input('FechaRige', sql.Date, ObjCotizacion.Maestro.fecha_rige)
-//       .input('DiasDPlazo', sql.Int, ObjCotizacion.Maestro.dias_plazo)
-//       .input('FechaCotizacion', sql.Date, ObjCotizacion.Maestro.fecha_cotizacion)
-//       .input('FechaEntrega', sql.Date, ObjCotizacion.Maestro.fecha_entrega)
-//       .input('DescripcionCotizacion', sql.NVarChar, ObjCotizacion.Maestro.descripcion_cotizacion)
-//       .input('Observaciones', sql.NVarChar, ObjCotizacion.Maestro.observaciones)
-//       .input('idMoneda', sql.Int, moneda)
-//       .input('TipoDCambio', sql.Decimal, ObjCotizacion.Maestro.tipo_cambio)
-//       .input('SubTotal', sql.Decimal, ObjCotizacion.Maestro.sub_total)
-//       .input('Descuento', sql.Decimal, ObjCotizacion.Maestro.descuento)
-//       .input('IVA', sql.Decimal, ObjCotizacion.Maestro.iva)
-//       .input('GranTotal', sql.Decimal, ObjCotizacion.Maestro.gran_total)
-//       .output('idCotizacionOut', sql.Int, 0)
-//       .execute('sp_cpmCotizacion_Add');
-
-//       let IDDCotizacion = insertCotizacion.returnValue;
-
-//       //console.log('id Maestro : '+IDDCotizacion)
-//      await  addCotizacionDetalleTerminados(IDDCotizacion, ObjCotizacion);
-//      await  addCotizacionDetalleProyectos(IDDCotizacion, ObjCotizacion);     
-//      return insertCotizacion.returnValue;
-//   }
-//   catch (err) {
-//     console.log(err);
-//     return 0;
-//   }
-// }
 
 const addCotizacionDetalleTerminados = async (idCotMaestra, ObjCotizacion) => {
   try {
@@ -364,46 +397,6 @@ const addItemsTerminados = async (idDetalleCotizacion, ItemsArticulos) => {
 
 
 
-
-const editCotizacion = async (Cotizacion) => {
-
-  try {
-    let pool = await sql.connect(conexion);
-    let edtCotizacion = await pool.request()
-      /***CLIENTE***/
-      .input('id_cliente', sql.Int, Cotizacion.id_cliente)
-      .input('cliente', sql.NVarChar, Cotizacion.cliente)
-      .input('razon_social', sql.NVarChar, Cotizacion.razon_social)
-      .input('ruc', sql.NVarChar, Cotizacion.ruc)
-      .input('odc', sql.Int, Cotizacion.odc)
-      .input('email', sql.NVarChar, Cotizacion.email)
-      .input('telefono1', sql.NVarChar, Cotizacion.telefono1)
-      .input('fecha_cotizacion', sql.Date, Cotizacion.fecha_cotizacion)
-      .input('fecha_rige', sql.Date, Cotizacion.fecha_rige)
-      .input('fecha_orden', sql.Date, Cotizacion.fecha_orden)
-      .input('fecha_entrega', sql.Date, Cotizacion.fecha_entrega)
-      .input('dias_plazo', sql.Int, Cotizacion.dias_plazo)
-      .input('codigo_cotizacion', sql.Int, Cotizacion.codigo_cotizacion)
-      .input('descripcion_cotizacion', sql.NVarChar, Cotizacion.descripcion_cotizacion)
-      .input('observaciones', sql.NVarChar, Cotizacion.observaciones)
-      .input('moneda', sql.NVarChar, Cotizacion.moneda)
-      .input('tipo_cambio', sql.Decimal, Cotizacion.tipo_cambio)
-      .input('sub_total', sql.Decimal, Cotizacion.sub_total)
-      .input('descuento', sql.Decimal, Cotizacion.descuento)
-      .input('iva', sql.Decimal, Cotizacion.iva)
-      .input('gran_total', sql.Decimal, Cotizacion.gran_total)
-      .input('esta_facturada', sql.NVarChar, Cotizacion.esta_facturada)
-      .execute('sp_Cotizacion_Update_Edt');
-    return edtCotizacion.rowsAffected;
-  }
-  catch (err) {
-    console.log(err);
-    return 0;
-
-  }
-}
-
-
 const anularCotizacion = async (id) => {
   try {
     let pool = await sql.connect(conexion);
@@ -423,7 +416,7 @@ module.exports = {
   getAgenda: getAgenda,
   getNroAgenda: getNroAgenda,
   add_Agenda: add_Agenda,
-  editCotizacion,
+  editAgenda: editAgenda,
   anularCotizacion,
   getCotizacionEdit,
   getCotizacionTipo

@@ -1,5 +1,5 @@
 const routerPersona = require('./PersonaRuta');
-const routerAgenda = require('./CotizacionRuta');
+const routerAgenda = require('./AgendaRuta');
 const routerUsuarioRuta = require('./UsuarioRuta');
 const routerCargo = require('./CargoRuta');
 const routerDepartamento = require('./DepartamentoRuta');

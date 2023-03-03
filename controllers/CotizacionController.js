@@ -75,13 +75,11 @@ const add_Agenda = async (request, response, next) => {
   }
 }
 
-const editCotizacion = async (request, response, next) => {
+const EditAgenda = async (request, response, next) => {
   try {
-    const Cotizacion = { ...request.body }
-    //console.log(Cotizacion)
-    DBAgendas.editCotizacion(Cotizacion).then(data => {
-      response.json(data[0]);
-    })
+    let Agenda = { ...request.body }    
+    let data = await DBAgendas.editAgenda(Agenda)
+    return response.json(data);
   } catch (error) {
     next(error)
   }
@@ -104,7 +102,7 @@ module.exports = {
   getAgenda: getAgenda,
   getNroAgenda: getNroAgenda,
   add_Agenda: add_Agenda,
-  editCotizacion,
+  EditAgenda: EditAgenda,
   anularCotizacion,
   getCotizacionEdit,
   getCotizacionTipo

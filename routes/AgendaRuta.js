@@ -9,6 +9,6 @@ router.get('/edit/:id',AgendaController.getCotizacionEdit);
 router.get('/:id',AgendaController.getAgendaId); 
 router.get('/get/nro/',AgendaController.getNroAgenda); 
 router.post('/',AgendaController.add_Agenda);  
-router.put('/',AgendaController.editCotizacion);
+router.put('/',AgendaController.EditAgenda);
 
 module.exports = router;
