@@ -5,7 +5,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { vnPrecios } from 'src/app/services/vnPrecios.service';
 import { GlobalUtilities } from 'src/app/utils/GlobalUtilities';
 import { MatDialog } from '@angular/material/dialog';
-import { EditPrecioComponent } from '../Edit-Campo-Precio/edit-precio.component';
+import { EditResolutoComponent } from '../Edit-Campo-Resoluto/edit-resoluto.component';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { PersonaService } from 'src/app/services/cliente.service';
 import { Toast } from 'src/app/utils/Toast';
@@ -14,11 +14,11 @@ import { __values } from 'tslib';
 
 @Component({
   selector: 'app-add-precio',
-  templateUrl: './add-precio.component.html',
-  styleUrls: ['./add-precio.component.css']
+  templateUrl: './add-resoluto.component.html',
+  styleUrls: ['./add-resoluto.component.css']
 })
   
-export class AddPrecioComponent implements OnInit {
+export class AddResolutoComponent implements OnInit {
   private firstLoad: boolean = true;
   private permission: boolean = true;
   public listado_Precios_por_Cliente_DB: any[] = [];  
@@ -92,7 +92,7 @@ ngAfterViewInit() {
 
 openDialog_ClientePrecio(id_cliente:any,razon_social:any,Articulo:any,ventana:any){  //ventana:0 viene del lapiz - ventana: 1 viene del boton
   let dialogRef;  
-  dialogRef = this.dialog.open(EditPrecioComponent, {data: {id_cliente:id_cliente,razon_social:razon_social,Articulo:Articulo,ventana:ventana}});
+  dialogRef = this.dialog.open(EditResolutoComponent, {data: {id_cliente:id_cliente,razon_social:razon_social,Articulo:Articulo,ventana:ventana}});
    
   dialogRef.afterClosed().subscribe(result =>{               
     const jsonCadena = '{"Articulo":0,"id_cliente":0,"flagOperacion":"3"}'  //llamada sin filtro - lista todos

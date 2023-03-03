@@ -1,4 +1,5 @@
 
+import { formatDate } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
@@ -85,12 +86,18 @@ export class DetailsAgendaComponent implements OnInit {
     
     this.frmAgenda.controls['IdAgenda'].setValue(this.Data_AgendaMaestro[0].IdAgenda);
     this.frmAgenda.controls['DescripcionAgenda'].setValue(this.Data_AgendaMaestro[0].DescripcionAgenda);
-    this.frmAgenda.controls['FechaRegristro'].setValue(this.Data_AgendaMaestro[0].FechaRegristro);
+    const fechaBaseGet:  Date  =(new Date(this.Data_AgendaMaestro[0].FechaRegristro));
+    
+    //console.log(' fecha base Detail  ' +JSON.stringify(fechaBaseGet)); 
+    const FechaCorta = JSON.stringify(fechaBaseGet).substring(1,11);     
+    this.frmAgenda.controls['FechaRegristro'].setValue(FechaCorta);
+    //console.log(' fecha base Detail  ' +JSON.stringify(fechaBaseGet)) 
+    
     //
     this.Data_AgendaAsistencia = this.Data_AgendaCompleta.Asistencia;
     this.Data_PuntosAgenda = this.Data_AgendaCompleta.PuntosDeAgenda;
     
-    //console.log(' Tabla Asistencia ' +JSON.stringify(this.Data_AgendaAsistencia)) 
+    //
     this.dataSourceAgendaAsitencia.data = this.Data_AgendaAsistencia;
     this.dataSourceAgendaPuntosAgenda.data = this.Data_PuntosAgenda;
 

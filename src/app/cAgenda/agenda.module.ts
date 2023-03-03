@@ -9,7 +9,7 @@ import { EditAgendaComponent } from './component/editar-agenda/edit-agenda.compo
 import { DetailsAgendaComponent } from './component/detalles-agenda/details-agenda.component';
 import { AddItemComponent } from './component/add-item/add-item.component';
 import { AddItemSComponent } from './component/add-item-puntos/add-itemPuntos.component';
-import { ViewItemsComponent } from './component/view-Items/view-items.component';
+import { EliminarAgenda } from './component/Eliminar-Agenda/eliminar-agenda.component';
 import { EditafilaCampoComponent } from './component/editFilaUso/editfila-Campo.component';
 import { ImprimirComponent } from "./component/imprimir/imprimir.component";
 import { NgxPrintModule } from "ngx-print";
@@ -24,7 +24,7 @@ import { NgxPrintModule } from "ngx-print";
         DetailsAgendaComponent,
         AddItemComponent,
         AddItemSComponent,
-        ViewItemsComponent,
+        EliminarAgenda,
         EditafilaCampoComponent,                
         ImprimirComponent
   ],

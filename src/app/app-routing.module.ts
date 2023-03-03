@@ -1,16 +1,15 @@
+
 import { Component, NgModule } from '@angular/core';
-import { Router, RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { PreloadAllModules } from '@angular/router';
-import { DetailsClienteComponent } from './cPersona/components/details-persona/details-cliente.component';
+import { DetailsPersonaComponent } from './cPersona/components/details-persona/details-cliente.component';
 import { AddAgendaComponent } from './cAgenda/component/add-agenda/add-agenda.component';
 import { DetailsAgendaComponent } from './cAgenda/component/detalles-agenda/details-agenda.component';
 import { EditAgendaComponent } from './cAgenda/component/editar-agenda/edit-agenda.component';
 import { ImprimirComponent } from './cAgenda/component/imprimir/imprimir.component';
-
-import { AddPrecioComponent } from './cResolutos/components/add-Precio/add-precio.component';
+import { AddResolutoComponent } from './cResolutos/components/add-Resoluto/add-resoluto.component';
 import { ListFacturaComponent } from './cActas/Components/List-acta/list-factura.component';
-import { AddFacturaComponent } from './cActas/Components/Add-actas/add-factura.component';
-
+import { Add_ActasComponent } from './cActas/Components/Add-actas/add-actas.component';
 
 
 const routes: Routes = [
@@ -30,7 +29,7 @@ const routes: Routes = [
     
   },
 
-  /*Clientes*/
+  /*Personas*/
   {
     path: 'Personas',
     pathMatch: 'full',
@@ -40,11 +39,11 @@ const routes: Routes = [
 
   {
     path:'Personas/:id',
-    component:DetailsClienteComponent
+    component:DetailsPersonaComponent
   },
  
   
-  /*Agenda*/
+  /*Agendas*/
   {
     path: 'Agenda',
     pathMatch: 'full',
@@ -73,42 +72,45 @@ const routes: Routes = [
  },
 
 
- 
-
-  
-
-
-
- /*Niveles de Precio*/
+ /**** RESOLUCIONES  - alias:  Resolutos  ******/
  {
   path:'Precio',
   pathMatch: 'full',
-  loadChildren: () => import('./cResolutos/precios.module').then(O => O.PreciosModule)
+  loadChildren: () => import('./cResolutos/Resoluto.module').then(O => O.Resolutos_Module)
 },
 {
   path:'Precio/add', 
-  component:AddPrecioComponent
+  component:AddResolutoComponent
   
 },
 
-/* Facturacion */
+
+
+
+
+/******* MODULO DE ACTAS ******/
 {
-  path:'Factura',
+  //path:'Factura',
+  path:'Acta',
   pathMatch: 'full',
-  loadChildren: () => import('./cActas/actas.module').then(O => O.FacturaModule)
+  loadChildren: () => import('./cActas/actas.module').then(O => O.Acta_Module)
 },
 {
-  path:'ListFactura', 
+  //path:'ListFactura', 
+  path:'ListActa', 
   component:ListFacturaComponent
   
 },
+
 {
-  path:'ListFactura/Add', 
-  component:AddFacturaComponent
+  //path:'ListFactura/Add', 
+  path:'ListActa/Add', 
+  component:Add_ActasComponent
   
 },
-
 ];
+
+
 
 @NgModule({
   imports: [RouterModule.forRoot(routes, {

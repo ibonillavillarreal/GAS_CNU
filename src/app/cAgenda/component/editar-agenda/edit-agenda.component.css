@@ -131,9 +131,9 @@ input.example-right-align::-webkit-inner-spin-button {
   display: none;
 }
 
-input.example-right-align {
+/* input.example-right-align {
   -moz-appearance: textfield;
-}
+} */
 
 .mat-column-Descripcion{
   width: 20% !important;
@@ -179,3 +179,58 @@ color: black;
 }
 
 
+
+
+
+
+/* ESTILOS DE TABLA : Asistencia*/
+.mat-column-Grado{
+  width:10% !important;
+  text-align: left;
+  color: black;
+}
+.mat-column-Nombres{
+  width: 15% !important;
+  text-align: left;
+  color: black;
+}
+.mat-column-Apellidos{
+  width: 15% !important;
+  text-align: left;
+  color: black;
+}
+.mat-column-Correo{
+  width: 15% !important;
+  text-align: left;
+  color: black;
+}
+.mat-column-Tipo{
+  width: 20% !important;
+  text-align: left;
+  color: black;
+}
+.mat-column-Observacion{
+  width: 25% !important;
+  text-align: left;
+  color: black;
+}
+
+
+/** Estilos de tabla: Puntos de Agendas */
+.mat-column-PuntosAgenda{  
+  width: 60% !important;
+  text-align: left;
+  color: black;
+  padding: 5px;
+}
+
+.mat-column-Observacion{
+  width: 35% !important;
+  text-align: left;
+  color: black;
+}
+
+  /*****/
+  mat-form-field {
+    width: 100%;
+  }

@@ -1,4 +1,5 @@
 
+
 import { Router } from '@angular/router';
 import {
   Component, OnInit,
@@ -13,19 +14,13 @@ import { MatSort } from '@angular/material/sort';
 import { FormBuilder, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { GlobalUtilities } from 'src/app/utils/GlobalUtilities';
 import { Toast } from 'src/app/utils/Toast';
-import { Cliente } from 'src/app/models/Cliente';
 import { PersonaService } from 'src/app/services/cliente.service';
-import { Actas } from 'src/app/services/Factura.service';
-import { Monedas } from '../../../models/Moneda';
 import { MonedaService } from '../../../services/Moneda.service';
 import { AddItemComponent } from '../add-item/add-item.component';
 import { ItemService } from '../../../services/Item.service';
-import { AddItemSComponent as AddPuntosItemComponent } from '../add-item-puntos/add-itemPuntos.component';
-import { Items } from '../../../models/Items';
 import { AgendaService } from 'src/app/services/agenda.service';
-import { isNull } from '@angular/compiler/src/output/output_ast';
 import { EditafilaCampoComponent } from '../editFilaUso/editfila-Campo.component';
-import { CdkAccordion } from '@angular/cdk/accordion';
+import { AddItemSComponent } from '../add-item-puntos/add-itemPuntos.component';
 
 @Component({
   selector: 'app-add-cotizacion',
@@ -37,25 +32,6 @@ import { CdkAccordion } from '@angular/cdk/accordion';
 
 
 export class AddAgendaComponent implements OnInit {
-
-
-  public flag_Moneda_Cordoba: boolean = false;
-  public flag_ts_Cambio: any;
-  public fecha_ts = new Date(Date.now()).toISOString().substring(0, 10);
-  public index: number = 0;
-  public tsIVA: number = 0.15;
-  public usaArea: boolean = false;
-
-
-
-  public lista_Producto: Items[] = [];   //LA CONSULTA A LA BASES DE DATOS PARA EL CARRITO POPUP.
-  public list_producto_term_bd: Items[] = [];   //LA CONSULTA A LA BASES DE DATOS PARA EL CARRITO POPUP.
-  public lista_Producto_temp: any[] = []; //SE CARGAN AL GRID DETALLE  - VER TODOS 
-  public list_cliente!: Cliente[];
-  public Lista_Monedas: Monedas[] = [];
-  public Moneda_simbol: any = 'USD';
-  public moneda_Cliente: any;
-
 
 
   // AGENDA - ALISTANDO CAMPOS   
@@ -98,7 +74,7 @@ export class AddAgendaComponent implements OnInit {
     private srvMonedas: MonedaService, public dialog: MatDialog,
     public dialog2: MatDialog, private srcItem: ItemService,
     private src_Agenda: AgendaService, private router: Router,
-    public srcAgenda: AgendaService      
+    public srcAgenda: AgendaService
   ) {
     this.tools = GlobalUtilities.getInstance();
     this.toast = new Toast(this._snackbar);
@@ -121,8 +97,6 @@ export class AddAgendaComponent implements OnInit {
 
   }
 
-
-  //eventos OnInit
   async eventAdd() {
 
   }
@@ -200,6 +174,8 @@ export class AddAgendaComponent implements OnInit {
 
             if (res !== undefined) {
 
+              console.log('Registro de retorno -Nuevo '+JSON.stringify(res));
+
               res.forEach((reg: any) => {
                 this.Data_AgendaAsistencia.push(reg);
               });
@@ -216,7 +192,7 @@ export class AddAgendaComponent implements OnInit {
         if (this.frmAgenda.controls['DescripcionAgenda'].value !== "") {
 
           this.CodMiembro = this.list_PuntosAgenda.length == undefined ? 0 : this.list_PuntosAgenda.length;
-          dialogRef2 = this.dialog.open(AddPuntosItemComponent,
+          dialogRef2 = this.dialog.open(AddItemSComponent,
             {
               height: '500px', width: '1000px',
               data: { Id_Agenda: this.Id_Agenda, CodMiembro: this.CodMiembro },
@@ -315,21 +291,24 @@ export class AddAgendaComponent implements OnInit {
 
     let nRegAsistencia = this.list_asistencia.length == undefined ? 0 : this.Data_PuntosAgenda.length;
     let nRegPuntAgenda = this.list_PuntosAgenda.length == undefined ? 0 : this.Data_PuntosAgenda.length;
-        
+
     if (nRegAsistencia > 0 && nRegPuntAgenda > 0) {
       let IdUsuario: number = 1
-      values.IdUsuario = IdUsuario   
+      values.IdUsuario = IdUsuario
       let enviar_Registro_Json =
       {
         Master_Agenda: values,
         Detalle_Asistencia: this.list_asistencia,
         Detalle_PuntosAgenda: this.list_PuntosAgenda
-      };     
+      };
+
+
+      console.log('registro agenda : '+ JSON.stringify(enviar_Registro_Json.Master_Agenda));
 
       this.srcAgenda.add_Agenda(enviar_Registro_Json).subscribe(res => {
         if (res) {
           this.toast.showToast('Registro Guardado correctamente ✔️ ', 'Aceptar')
-          
+
         } else {
           this.toast.showToast('Ha ocurrido un error ❌', 'Aceptar')
         }
@@ -337,7 +316,7 @@ export class AddAgendaComponent implements OnInit {
       this.frmAgenda.reset();
       formDirective.resetForm();
       this.router.navigate(['/Agenda']);
-      
+
 
     } else {
       this.toast.showToast("Digite los Detalle de Agenda - codigo: " + this.Id_Agenda + " ⛔", "Aceptar");
@@ -356,144 +335,6 @@ export class AddAgendaComponent implements OnInit {
     console.log("TAMAÑO " + this.paginatorPuntosAgenda.hidePageSize)
 
   }
-
-
-
-
-
-
-
-
-
-
-
-
-  //********************************** */
-  //***  METODOS ANTERIORES  ***//
-  //********************************** */
-  async setListaProducto() {
-
-    this.lista_Producto = (await this.srcItem.getTipoItem(this.Id_Agenda).toPromise())[0];
-    // SE LE RSTA EL IVA  AL PRECIO PARA  SEPARA LOS MONTOS IVA CON PRECIO ANTES DE IVA     
-    let DB_format_valores = (await this.srcItem.getTipoItem(this.Id_Agenda).toPromise())[0];
-
-    DB_format_valores.map((p: any) => { p.Precio = parseFloat(p.Precio) - parseFloat(p.iva) });
-    this.list_producto_term_bd = DB_format_valores;
-  }
-
-  async setListCliente() {
-    this.list_cliente = await this.srvCliente.getPersonas().toPromise();
-    //console.log('datos this.list_cliente : ',JSON.stringify(this.list_cliente));
-  }
-  async setListMonedas() {
-    this.Lista_Monedas = await this.srvMonedas.getMonedas().toPromise();
-  }
-
-  cambiarMoneda(id: any) {
-    // 0:USD ,  NIO : 1
-    if (id === 'NIO') {
-
-      this.Moneda_simbol = 'NIO';
-      this.flag_Moneda_Cordoba = true;
-
-      let DB_format_valores = this.list_producto_term_bd;
-      DB_format_valores.map((p: any) => { p.Precio = parseFloat(p.Precio) * this.flag_ts_Cambio });
-      DB_format_valores.map((p: any) => { p.iva = parseFloat(p.iva) * this.flag_ts_Cambio });
-      this.list_producto_term_bd = DB_format_valores;    //actualizar la tabla 
-      //console.log('====>>>   esta en cordobas  : '+JSON.stringify(DB_format_valores));
-
-      //recalcular el grid : this.lista_Producto_temp;
-      let grid_Producto_temp = this.lista_Producto_temp;
-      grid_Producto_temp.map((p: any) => { p.Precio = parseFloat(p.Precio) * this.flag_ts_Cambio });
-      this.updateTotales();
-
-    }
-    else {
-      this.Moneda_simbol = 'USD';
-      this.flag_Moneda_Cordoba = false;
-
-      let DB_format_valores = this.list_producto_term_bd;
-      DB_format_valores.map((p: any) => { p.Precio = parseFloat(p.Precio) / this.flag_ts_Cambio });
-      DB_format_valores.map((p: any) => { p.iva = parseFloat(p.iva) / this.flag_ts_Cambio });
-      this.list_producto_term_bd = DB_format_valores;    //actualizar la tabla 
-      //console.log('====>>>   esta en dolares  : '+JSON.stringify(DB_format_valores));
-
-      //recalcular el grid : this.lista_Producto_temp;
-      let grid_Producto_temp = this.lista_Producto_temp;
-      grid_Producto_temp.map((p: any) => { p.Precio = parseFloat(p.Precio) / this.flag_ts_Cambio });
-      this.updateTotales();
-
-    }
-  }
-
-  removeExistingItems(list: any) {
-    const list_productos = Object.assign([], list);
-    for (let i = 0; i < this.lista_Producto_temp.length; i++) {
-      let index = list_productos.findIndex((x: any) => x.ARTICULO == this.lista_Producto_temp[i].ARTICULO);
-      if (index > -1) {
-        list_productos.splice(index, 1);
-      }
-    }
-    return list_productos;
-  }
-
-
-  getSubTotal() {
-    //return this.dataSource.data.map((t: any) => t.SubTotal).reduce((acc, value) => acc + value, 0);
-  }
-
-  removeDetail(index: number) {
-    this.lista_Producto_temp.splice((index - 1), 1);
-    //this.dataSource.data = this.lista_Producto_temp
-    this.toast.showToast("Eliminado correctamente ❌", "Aceptar");
-  }
-
-
-  updateTotales() {
-    let IVATERMINADO = this.lista_Producto_temp.filter(x => x.TIPO === 'T' || x.TIPO === 'V').map((x: any) => parseFloat(x.Cantidad) * parseFloat(x.iva)).reduce((acc, value) => acc + value, 0)
-    let IVAPROYECTO = this.lista_Producto_temp.filter(x => x.TIPO === 'P').map((x: any) => parseFloat(x.iva)).reduce((acc, value) => acc + value, 0)
-
-    let SubTotalProyectos = this.lista_Producto_temp.filter(x => x.TIPO === 'P').map((x: any) => (parseFloat(x.Precio))).reduce((acc, value) => acc + value, 0);
-    let SubTotalTerminado: number = this.lista_Producto_temp.filter(x => x.TIPO === 'T' || x.TIPO === 'V').map((x: any) => (parseFloat(x.Precio)) * parseFloat(x.Cantidad)).reduce((acc, value) => acc + value, 0);
-
-  }
-  async Descuento_kyUp() {
-    this.updateTotales();
-  }
-
-  async Cliente_change(id: number) {
-
-    //this.dataSource.data = [];
-    this.lista_Producto_temp = [];
-    // this.id_cliente = this.AddformCotizacion.controls["id_cliente"].value;    
-    this.lista_Producto = (await this.srcItem.getTipoItem(this.Id_Agenda).toPromise())[0];
-    //  sacamos moneda del cliente
-    let money: any = this.list_cliente.find(f => f.id_cliente == id);
-    this.moneda_Cliente = money.MONEDA;
-
-
-    if (this.moneda_Cliente !== this.Moneda_simbol) {
-      this.Moneda_simbol = this.moneda_Cliente;
-      if (this.Moneda_simbol === 'NIO') { this.cambiarMoneda('NIO') } else { this.cambiarMoneda('USD') }
-
-    }
-  }
-
-  limpiarTodoelGrid() {
-    const lst_articulo: any[] = this.lista_Producto_temp.map(t => { return t.ARTICULO })
-
-    const list_productos = Object.assign([], this.lista_Producto_temp);
-    for (let i = 0; i < this.lista_Producto_temp.length; i++) {
-      let index = list_productos.findIndex((x: any) => x.ARTICULO == lst_articulo[i].ARTICULO);
-      if (index > -1) {
-        list_productos.splice(index, 1);
-      }
-    }
-    return (list_productos);
-  }
-
-
-
 
 
 }

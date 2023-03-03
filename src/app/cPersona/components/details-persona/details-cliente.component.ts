@@ -7,11 +7,11 @@ import { CargoService } from 'src/app/services/Cargo.service';
 import { GlobalUtilities } from 'src/app/utils/GlobalUtilities';
 
 @Component({
-  selector: 'app-details-cliente',
+  selector: 'app-details-persona',
   templateUrl: './details-persona.component.html',
   styleUrls: ['./details-persona.component.css']
 })
-export class DetailsClienteComponent implements OnInit {
+export class DetailsPersonaComponent implements OnInit {
 
   id!: number;
   public Persona: any;

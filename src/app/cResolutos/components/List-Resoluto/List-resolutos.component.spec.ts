@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { VerPrecioComponent } from './ver-precio.component';
+import { List_ResolutoComponent} from './List-precios.component';
 
-describe('VerPrecioComponent', () => {
-  let component: VerPrecioComponent;
-  let fixture: ComponentFixture<VerPrecioComponent>;
+describe('PreciosComponent', () => {
+  let component: List_ResolutoComponent;
+  let fixture: ComponentFixture<List_ResolutoComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ VerPrecioComponent ]
+      declarations: [ List_ResolutoComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(VerPrecioComponent);
+    fixture = TestBed.createComponent(List_ResolutoComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

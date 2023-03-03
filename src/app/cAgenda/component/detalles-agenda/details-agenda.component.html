@@ -84,8 +84,9 @@
 
                             <ng-container matColumnDef="Tipo">
                                 <th mat-header-cell *matHeaderCellDef mat-sort-header>Representante</th>
-                                <td mat-cell *matCellDef="let element"> {{element.Tipo_Representante}} </td>
-                            </ng-container>
+                                <td mat-cell *matCellDef="let element"> {{element.TxtCodClaustro}} </td>
+                            </ng-container> 
+                                                                        <!-- Tipo_Representante -->
 
                             <ng-container matColumnDef="Observacion">
                                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Observación</th>
@@ -127,7 +128,7 @@
 
             </div>
             <div class="modal-footer">
-              <button routerLink="" type="submit" class="btn btn-liosa">🖨️Imprimir</button>              
+              <button routerLink="/Agenda" type="submit" class="btn btn-liosa">🖨️Imprimir</button>              
             </div>
 
         </div>

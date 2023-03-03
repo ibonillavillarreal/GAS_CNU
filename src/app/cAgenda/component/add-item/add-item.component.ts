@@ -104,6 +104,7 @@ export class AddItemComponent implements OnInit, OnDestroy {
   agregar_items() {  // para cargarlo al grid padre y cerrar el modal
 
     this.dialogRef.close(this.list_Item_Agenda_Ckeck);
+    
   }
 
 

@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EditPrecioComponent } from './edit-precio.component';
+import { EliminarAgenda } from './eliminar-agenda.component';
 
-describe('EditPrecioComponent', () => {
-  let component: EditPrecioComponent;
-  let fixture: ComponentFixture<EditPrecioComponent>;
+describe('ViewItemsComponent', () => {
+  let component: EliminarAgenda;
+  let fixture: ComponentFixture<EliminarAgenda>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ EditPrecioComponent ]
+      declarations: [ EliminarAgenda ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(EditPrecioComponent);
+    fixture = TestBed.createComponent(EliminarAgenda);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

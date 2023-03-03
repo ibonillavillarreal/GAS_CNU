@@ -40,11 +40,11 @@ export class AgendaService {
 
   }
 
-  edtCotizacion(i: any): Observable<any> {
+  editAgenda(RegistroCompleto_json: any): Observable<any> {
 
-    return this.http.put<number>
+    return this.http.put<any>
       (
-        this.url, JSON.stringify(i)
+        this.url, JSON.stringify(RegistroCompleto_json)
       ).pipe(retry(1), catchError(this.error.handleError))
   }
 

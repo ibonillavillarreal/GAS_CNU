@@ -1,7 +1,7 @@
 
 import { NgModule } from "@angular/core";
 import { ListPersonaComponent } from "./components/list-persona/list-persona.component";
-import { DetailsClienteComponent } from "./components/details-persona/details-cliente.component";
+import { DetailsPersonaComponent } from "./components/details-persona/details-cliente.component";
 import { EditPersonaComponent } from "./components/edit-cliente/edit-cliente.component";
 import { AddClienteComponent } from "./components/add-persona/add-persona.component";
 import { ClienteRoutingModule } from "./persona-routing.module";
@@ -14,7 +14,7 @@ import { ListResponsableComprasComponent } from './components/list-responsable-c
 @NgModule({
     declarations:[
         ListPersonaComponent,
-        DetailsClienteComponent,
+        DetailsPersonaComponent,
         EditPersonaComponent,
         AddClienteComponent,
         EditContactoComponent,        

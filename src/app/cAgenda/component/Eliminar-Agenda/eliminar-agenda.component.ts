@@ -17,11 +17,11 @@ import { EditafilaCampoComponent } from '../editFilaUso/editfila-Campo.component
 
 
 @Component({
-  selector: 'app-view-items',
-  templateUrl: './view-items.component.html',
-  styleUrls: ['./view-items.component.css']
+  selector: 'app-eliminar-agenda',
+  templateUrl:'./eliminar-agenda.component.html',  
+  styleUrls: ['./eliminar-agenda.component.css']
 })
-export class ViewItemsComponent implements OnInit {
+export class EliminarAgenda implements OnInit {
 
  
   firstLoad: boolean = true;
@@ -62,7 +62,7 @@ export class ViewItemsComponent implements OnInit {
     private _snackbar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialogRefItems: MatDialog,
-    private dialogRef: MatDialogRef<ViewItemsComponent>
+    private dialogRef: MatDialogRef<EliminarAgenda>
   ) {
     this.tools = GlobalUtilities.getInstance();
     this.toast = new Toast(this._snackbar);

@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DeletPrecioComponent } from './delet-precio.component';
+import { EditResolutoComponent } from './edit-resoluto.component';
 
-describe('DeletPrecioComponent', () => {
-  let component: DeletPrecioComponent;
-  let fixture: ComponentFixture<DeletPrecioComponent>;
+describe('EditPrecioComponent', () => {
+  let component: EditResolutoComponent;
+  let fixture: ComponentFixture<EditResolutoComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DeletPrecioComponent ]
+      declarations: [ EditResolutoComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DeletPrecioComponent);
+    fixture = TestBed.createComponent(EditResolutoComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -5,17 +5,17 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { vnPrecios } from 'src/app/services/vnPrecios.service';
 
 @Component({
-  selector: 'app-edit-precio',
-  templateUrl:'./edit-precio.component.html',
-  styleUrls: ['./edit-precio.component.css']
+  selector: 'app-edit-resoluto',
+  templateUrl:'./edit-resoluto.component.html',
+  styleUrls: ['./edit-resoluto.component.css']
 })
-export class EditPrecioComponent implements OnInit {
+export class EditResolutoComponent implements OnInit {
 
 public form!: FormGroup;
 public ventana!: any;
     constructor(private _formBuilder: FormBuilder, private srcPrecio:vnPrecios, 
         @Inject(MAT_DIALOG_DATA) public data: any, private _snackBar: MatSnackBar,
-        private dialogRef: MatDialogRef<EditPrecioComponent>) {
+        private dialogRef: MatDialogRef<EditResolutoComponent>) {
                     
             this.form = this._formBuilder.group({
                 id_cliente: [], razon_social: [], Articulo: [],  Precio: []

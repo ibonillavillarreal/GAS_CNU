@@ -18,11 +18,11 @@ import { DICTIONARYKEYS } from 'src/app/utils/DICTIONARYKEYS';
 
 
 @Component({
-  selector: 'app-add-factura',
-  templateUrl: './add-factura.component.html',
-  styleUrls: ['./add-factura.component.css']
+  selector: 'app-add-actas',
+  templateUrl: './add-actas.component.html',
+  styleUrls: ['./add-actas.component.css']
 })
-export class AddFacturaComponent implements OnInit {
+export class Add_ActasComponent implements OnInit {
 
   public tools: GlobalUtilities
   public permission: boolean = true;

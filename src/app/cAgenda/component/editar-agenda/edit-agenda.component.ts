@@ -1,330 +1,126 @@
 
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { ElementRef, NgZone, Inject } from '@angular/core';
 
+
+
+import { Component, Inject, OnInit, ViewChild,ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
-import { ActivatedRoute, Data, NavigationStart, Params, Router, RouterLink, Routes } from '@angular/router';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { AgendaService } from 'src/app/services/agenda.service';
-import { Toast } from 'src/app/utils/Toast';
-import { Cliente } from 'src/app/models/Cliente';
-import { GlobalUtilities } from 'src/app/utils/GlobalUtilities';
-
-
 import { MatPaginator } from '@angular/material/paginator';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { PersonaService } from 'src/app/services/cliente.service';
-import { Monedas } from '../../../models/Moneda';
-import { MonedaService } from '../../../services/Moneda.service';
-import { AddItemComponent } from '../add-item/add-item.component';
-import { ItemService } from '../../../services/Item.service';
+import { GlobalUtilities } from 'src/app/utils/GlobalUtilities';
+import { Toast } from 'src/app/utils/Toast';
+import { AgendaService } from 'src/app/services/agenda.service';
 import { AddItemSComponent } from '../add-item-puntos/add-itemPuntos.component';
-import { Cotizacion } from '../../../models/adddCotizacion';
-import { Items } from '../../../models/Items';
+import { AddItemComponent } from '../add-item/add-item.component';
+import { EditafilaCampoComponent } from '../editFilaUso/editfila-Campo.component';
+import { Router} from '@angular/router';
 
 
 @Component({
   selector: 'app-edit-agenda',
   templateUrl: './edit-agenda.component.html',
-  styleUrls: ['./edit-agenda.component.css']
+  styleUrls: ['./edit-agenda.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 
 
 export class EditAgendaComponent implements OnInit {
 
-  public id: number = 0;
-  public index: number = 0;
-  public monedaSeleccionadaC$ = true;
-  public monedaSeleccionada$ = false;
+  public Id_Agenda: number = 0;
+  public CodMiembro = 0;
+  Data_AgendaCompleta: any
+  Data_AgendaMaestro: any
+  Data_AgendaAsistencia: any[] = [];
+  list_asistencia: any[] = [];
+  Data_PuntosAgenda: any[] = [];
+  list_PuntosAgenda: any[] = [];
 
-  public datos: any;
-  public tools: GlobalUtilities;
+  frmAgenda!: FormGroup
+  tools: GlobalUtilities
   public toast: Toast;
-  
-
-  public AddformCotizacion!: FormGroup;
-  public dialogRef!: MatDialogRef<AddItemComponent>;
-
-  public panelOpenState = true;
-  public list_Cotizacion!: any;
-  public lista_Producto: Items[] = [];   //LA CONSULTA A LA BASES DE DATOS PARA EL CARRITO POPUP.
-  public lista_Producto_temp: Items[] = []; //SE CARGAN AL GRID DETALLE  - VER TODOS 
-  public lista_Producto_Terminados: Items[] = []; // PANTALLA  DE LOS PRODUCTOS TERMINADOS DIRECTOS
-  public lista_Proyectos_Item_Desc: any[] = []; // PANTALLA LISTA DE ITEMS con PROYECTOS  y descripcion
-  public list_cliente!: Cliente[];
-  public Lista_Monedas: Monedas[] = [];
-  public subtotalDollar = 0;
-  public subtotalCordoba = 0;
-  public DescuentoDollar = 0;
-  public DescuentoCordoba = 0;
-  public IVADollar = 0;
-  public IVACordoba = 0;
-  public TOTALDollar = 0;
-  public TOTALCordoba = 0;
-  public firstLoad: boolean = true;
-  public isDisabled: boolean = false;
-  //dataSourceProducto = new MatTableDataSource(this.lista_Producto_temp);
-  dataSource = new MatTableDataSource(this.lista_Producto_temp);
-  // dataSourceItemsProyectos = new MatTableDataSource(this.lista_Proyectos_Item_Desc);
-
-
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild('selectpais') select_pais!: ElementRef
-  @ViewChild('selectdepartamento') select_departamento!: ElementRef
-  @ViewChild('selectpais_repL') select_pais_repL!: ElementRef
-  @ViewChild('selectdepartamento_repL') select_departamento_repL!: ElementRef
-  @ViewChild('selectpais_repP') select_pais_repP!: ElementRef
-  @ViewChild('selectdepartamento_repP') select_departamento_repP!: ElementRef
-  @ViewChild('edtmodal') edt_modal!: ElementRef;
-  @ViewChild('cedula') cedula!: ElementRef
-
-
-  /*  id Det detalle de cotizacion para  la tabla */
-  displayedColumns: string[] = [
-    //'idDetCotizacion',
-    //'idCotizacion',
-    //'IDComponente',
-    //'IDArticulo',
-    //'IDItem',
-    'Descripcion',
-    'Cantidad',
-    'Precio',
-    'PrecioDollar',
-    'Iva',
-    'subTotal',
-    'subTotalDollar',
-    //'FechaInicio',
-    //'FechaEntrega',
-    //'IDEstadoItem',
-    //'userID',
-    //'Anulado'
-    'Acciones'
-  ];
+  firstLoad: boolean = true;
 
 
 
-  constructor(
+  /***TABLA DE ASISTENCIA - REPRESENTANTES */
+  displayedColumnsAsistencia: string[] = ['Grado', 'Nombres', 'Apellidos', 'Correo', 'Tipo', 'Observacion','acciones'];
+  dataSourceAgendaAsitencia = new MatTableDataSource(this.list_asistencia);
+  @ViewChild(MatPaginator) paginatorAsistencia!: MatPaginator;
+  @ViewChild(MatSort) sortAsistencia!: MatSort;
+
+  /***TABLA DE LOS PUNTOS DE AGENDAS  */
+  displayedColumnsPuntosAgenda: string[] = ['PuntosAgenda', 'Observacion','punto-acciones'];
+  dataSourceAgendaPuntosAgenda = new MatTableDataSource(this.list_PuntosAgenda);
+  @ViewChild(MatPaginator) paginatorPuntosAgenda!: MatPaginator;
+  @ViewChild(MatSort) sortPuntosAgenda!: MatSort;
+
+  /* CONSTRUCTOR */
+  constructor(private router: Router, private _snackbar: MatSnackBar,
+    private srcAgenda: AgendaService, private dialog: MatDialog,private dialog2: MatDialog,
     private _builder: FormBuilder,
-    private Aroute: ActivatedRoute, private route: Router,
-    public rt: Router,
-    private _snackbar: MatSnackBar,
-    private srvCliente: PersonaService,
-    private srvCotizacion: AgendaService, public ngZone: NgZone,
-    private srvMonedas: MonedaService,
-    private srvItem: ItemService,
-    public dialog: MatDialog,
-    private srcItem: ItemService) {
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private dialogRef: MatDialogRef<EditAgendaComponent>,
+  ) {
+
     this.tools = GlobalUtilities.getInstance();
     this.toast = new Toast(this._snackbar);
-
+    this.Id_Agenda = data.CodAgenda;
+    this.iniciar_FormAgenda();
+    
   }
 
   ngOnInit(): void {
-
-    this.Aroute.params.subscribe((params: Params) => {
-      this.id = params.id;
-    })
-
-    this.route.events.subscribe(event => {
-      if (event instanceof NavigationStart) {
-
-      }
-    })
-
-    //this.getDataForm();
-    this.iniciarForm();
-
-
-
-    //this.loadModules();
+    this.getData();
   }
 
-  async getDataForm() {
+  ngAfterViewInit() {
 
-    this.escuchadorTerminados();
-    this.escuchadorFilaItemsProyectos();
-    this.escuchadorItemsProyectos();
+    this.dataSourceAgendaAsitencia.paginator = this.paginatorAsistencia;
+    this.dataSourceAgendaAsitencia.sort = this.sortAsistencia;
 
-    this.setListaProducto();
-    this.setListCliente();
-    this.setListMonedas();
-    this.monedaSeleccionadaC$ = true;
-    this.monedaSeleccionada$ = false;
-    this.AddformCotizacion.controls['simbolo'].setValue('C$');
-    this.AddformCotizacion.controls['tipo_cambio'].setValue(1);
-
-
-  }
-  async escuchadorItemsProyectos() {
-    let dataMaestro = (await this.srvCotizacion.getCotizacionTipo(this.id).toPromise());
-    console.log(dataMaestro.Maestro[0]);
-    //this.lista_Proyectos_Item_Desc = dataMaestro;
+    this.dataSourceAgendaPuntosAgenda.paginator = this.paginatorPuntosAgenda;
+    this.dataSourceAgendaPuntosAgenda.sort = this.sortPuntosAgenda;
   }
 
-  async escuchadorFilaItemsProyectos() {
-    this.srvItem.addItemTriggerDescProyecto.subscribe(res => {
-      this.lista_Producto_temp.push(res.data_filaItem);
-      this.dataSource.data = this.lista_Producto_temp;
-
-      if (this.lista_Producto_temp.length != 0) {
-        this.isDisabled = true;
-      }
+  async iniciar_FormAgenda() {
+    this.frmAgenda = this._builder.group({
+      IdAgenda: ['', Validators.required],
+      DescripcionAgenda: ['', Validators.required],
+      FechaRegristro: ['', Validators.required]
     });
   }
 
-  async escuchadorTerminados() {
-    this.srvItem.addItemTrigger.subscribe(res => {
-      this.lista_Producto_temp.push(res.dataTerminado);
-      this.dataSource.data = this.lista_Producto_temp;
-      if (this.lista_Producto_temp.length != 0) {
-        this.isDisabled = true;
-      }
-      // LEVANTAMOS SOLO LOS PROD TERMINADOS PARA MANDARLOS AL API
-      this.lista_Producto_Terminados.push(res.dataTerminado);
-    });
-  }
+  async getData() {
+    //this.tools.setisLoadingDetails(true)
+
+    this.Data_AgendaCompleta = await this.srcAgenda.getVerAgenda(this.Id_Agenda).toPromise();
+
+    this.Data_AgendaMaestro = this.Data_AgendaCompleta.Maestro //Maestro Agenda    
+
+    this.frmAgenda.controls['IdAgenda'].setValue(this.Data_AgendaMaestro[0].IdAgenda);
+    this.frmAgenda.controls['DescripcionAgenda'].setValue(this.Data_AgendaMaestro[0].DescripcionAgenda);
+
+   
+    // Convert Ctrl de fechas  
+    const fecha_Splite 
+    =(JSON.stringify(this.Data_AgendaMaestro[0].FechaRegristro).substring(1,11)).split('-');  // yyyy-mm-dd
+    const fecha_Edit  = fecha_Splite[1]+'-'+fecha_Splite[2]+'-'+fecha_Splite[0];  /// mm-dd-yyyy
+    this.frmAgenda.controls['FechaRegristro'].setValue(new Date(fecha_Edit)); // MM-DD-YYYY
+     
+    /////
+    this.Data_AgendaAsistencia = this.Data_AgendaCompleta.Asistencia;    
+    this.list_asistencia = this.Data_AgendaAsistencia;
+    console.log('CARGA ASISTENCIA : '+JSON.stringify(this.list_asistencia))
+    this.dataSourceAgendaAsitencia.data = this.Data_AgendaAsistencia;
 
 
-  async setListaProducto() {
-    this.srcItem.getTipoItem(0).subscribe((ItemData: any) => {
-      this.lista_Producto = ItemData[0];
-    });
-  }
+    this.Data_PuntosAgenda = this.Data_AgendaCompleta.PuntosDeAgenda;
+    this.Data_PuntosAgenda.map((reg: any, cont: number = 0) => { reg.CodMiembro = cont }); //reordenar los index    
+    this.list_PuntosAgenda = this.Data_PuntosAgenda;
+    this.dataSourceAgendaPuntosAgenda.data = this.Data_PuntosAgenda;
 
-
-  load_SubIvaNeto(listado: Items[], cordoba: boolean) {
-    if (cordoba) {
-      let sumaIva: number = 0
-      listado.forEach(campo => {
-        console.log('Campo IVA CORDOBAS : ' + parseFloat(campo.IvaC$));
-        sumaIva = parseFloat(campo.IvaC$) + sumaIva;
-      })
-      return sumaIva;
-    } else {
-      let sumaIva$: number = 0
-      listado.forEach(campo => {
-        console.log('Campo IVA $_DOLLAR : ' + parseFloat(campo.Iva$));
-        sumaIva$ = parseFloat(campo.Iva$) + sumaIva$;
-      })
-      return sumaIva$;
-    }
-
-  }
-
-  load_SubTotalNeto(listado: Items[], cordobas: boolean) {
-
-    if (cordobas) {
-      let sumatotal: number = 0
-      listado.forEach(campo => {
-        sumatotal = parseFloat(campo.subTotal) + sumatotal;
-      })
-      return sumatotal;
-    } else {
-      let sumatotal$: number = 0
-      listado.forEach(campo => {
-        console.log('Campo de subTotales $_dollar: ' + parseFloat(campo.subTotal$));
-        sumatotal$ = parseFloat(campo.subTotal$) + sumatotal$;
-      })
-      return sumatotal$;
-    }
-
-
-  }
-
-  $$_Updated(event: any) {
-    this.DescuentoDollar = parseFloat(event.target.value);
-    //console.log('en Dollars '+event.target.value);
-    this.TOTALDollar = (this.subtotalDollar - this.DescuentoDollar + this.IVADollar);
-
-
-  }
-  C$_Updated(event: any) {
-    this.DescuentoCordoba = parseFloat(event.target.value);
-    //console.log('en Cordobas  '+event.target.value);
-    this.TOTALCordoba = (this.subtotalCordoba - this.DescuentoCordoba + this.IVACordoba);
-  }
-
-  iniciarForm() {
-    this.AddformCotizacion = this._builder.group({
-      id_cotizacion: [0, Validators.required],
-      id_cliente: [0, Validators.required],
-      fecha_cotizacion: [Date.now(), Validators.required],
-      fecha_rige: [Date.now(), Validators.required],
-      fecha_orden: [Date.now(), Validators.required],
-      fecha_entrega: [Date.now(), Validators.required],
-      dias_plazo: [0, Validators.required],
-      descripcion_cotizacion: ['', Validators.required],
-      observaciones: ['', Validators.required],
-      tipo_cambio: [0.0, Validators.required],
-      sub_total: [0.0, Validators.required],
-      descuento: [0.0, Validators.required],
-      iva: [0.0, Validators.required],
-      gran_total: [0.0, Validators.required],
-      simbolo: ['', Validators.required]
-    });
-  }
-
-
-  async setListCliente() {
-    this.list_cliente = await this.srvCliente.getPersonas().toPromise();
-  }
-  async setListMonedas() {
-    this.Lista_Monedas = await this.srvMonedas.getMonedas().toPromise();
-
-
-  }
-
-
-  agregarElemnto(elemnt: any) {
-
-  }
-
-  getSubTotal() {
-    return this.dataSource.data.map((t: any) => t.SubTotal).reduce((acc, value) => acc + value, 0);
-  }
-
-
-  evento(i: number) {
-    //console.log(i);
-  }
-
-
-  evento_Moneda(i: string) {
-
-    if (i == '$') {
-
-      this.AddformCotizacion.controls['tipo_cambio'].setValue(this.Lista_Monedas[0].TasaCapitalizacion);
-      this.AddformCotizacion.controls['simbolo'].setValue('$');
-      this.monedaSeleccionada$ = true;
-      this.monedaSeleccionadaC$ = false;
-
-
-    } else {
-
-      this.AddformCotizacion.controls['tipo_cambio'].setValue(this.Lista_Monedas[1].TasaCapitalizacion);
-      this.AddformCotizacion.controls['simbolo'].setValue('C$');
-      this.monedaSeleccionadaC$ = true;
-      this.monedaSeleccionada$ = false;
-    }
-
-
-  }
-
-  openForm(type: number, id: number) {
-    let datoCompuesto: any[] = [0, this.lista_Producto];
-    let dialogRef;
-    switch (type) {   //1 - Proyecto y 2// producto
-      case 1: { dialogRef = this.dialog.open(AddItemComponent, { height: '730px', width: '1000px', data: this.lista_Producto }) } break;
-      case 2: { dialogRef = this.dialog.open(AddItemSComponent, { height: '730px', width: '1000px', data: datoCompuesto }) } break;
-      default: { dialogRef = this.dialog.open(AddItemComponent); } break;
-    }
-    dialogRef.afterClosed().subscribe(() => {
-      this.loadModules();
-    });
-  }
-
-  loadModules() {
 
     if (this.firstLoad) {
       setTimeout(() => {
@@ -332,59 +128,256 @@ export class EditAgendaComponent implements OnInit {
       }, 450);
       this.firstLoad = false;
     }
-
-    this.subtotalCordoba = this.load_SubTotalNeto(this.lista_Producto_temp, true);
-    this.DescuentoCordoba = 0;
-    this.IVACordoba = this.load_SubIvaNeto(this.lista_Producto_temp, true);
-    this.TOTALCordoba = (this.subtotalCordoba - this.DescuentoCordoba + this.IVACordoba);
-    // Subtotales en Dollares
-    this.subtotalDollar = Math.round(this.load_SubTotalNeto(this.lista_Producto_temp, false));
-    this.DescuentoDollar = 0;
-    this.IVADollar = Math.round(this.load_SubIvaNeto(this.lista_Producto_temp, false));
-
-    this.TOTALDollar = Math.round(((this.subtotalDollar - this.DescuentoDollar + this.IVADollar)));
-
-    this.dataSource.paginator = this.paginator;
-
-    //solo los cordobas  - faltan los dolares
-    this.AddformCotizacion.controls['sub_total'].setValue(this.subtotalCordoba);
-    this.AddformCotizacion.controls['descuento'].setValue(this.DescuentoCordoba);
-    this.AddformCotizacion.controls['iva'].setValue(this.IVACordoba);
-    this.AddformCotizacion.controls['gran_total'].setValue(this.TOTALCordoba);
-
-
   }
 
-  /* Sumit del formulario  */
-  enviar(values: any, formDirective: FormGroupDirective) {
-
-    let addCotizacion = new Cotizacion(values, this.lista_Producto_Terminados, this.lista_Proyectos_Item_Desc);
-
-    //console.log('EL MAESTRO: ' + JSON.stringify(values));
-    //console.log('DETALLE ' + JSON.stringify(this.lista_Producto_Terminados));
-    //console.log('COLECCION DE ITEMS PROYECTO ' + JSON.stringify(this.lista_Proyectos_Item_Desc));
-
-    // console.log('GUARDAR OBJETO COMPLETO  :  ' + JSON.stringify(addCotizacion));
-
-    this.srvCotizacion.add_Agenda(addCotizacion).subscribe(res => {
-      if (res) {
-        this.toast.showToast('Registro realizado correctamente - ✔️ ', 'Aceptar')
+  getPaginatorData(event: any) {
+    // console.log("INDICE Asistencia" + this.paginatorAsistencia.pageIndex);
+    // console.log("REGISTROS POR PAGINA " + this.paginatorAsistencia.pageSize)
+    // console.log("TAMAÑO " + this.paginatorAsistencia.hidePageSize)
+    // console.log("INDICE Puntos Agenda" + this.paginatorPuntosAgenda.pageIndex);
+    // console.log("REGISTROS POR PAGINA " + this.paginatorPuntosAgenda.pageSize)
+    // console.log("TAMAÑO " + this.paginatorPuntosAgenda.hidePageSize)
+  }
 
 
-      } else {
-        this.toast.showToast('Ha ocurrido un error -  ', 'Aceptar')
+  joinProyectDetails() {
+    if (this.Data_AgendaAsistencia) {
+      for (let i = 0; i < this.Data_AgendaAsistencia.length; i++) {
+        let Terminado = this.Data_PuntosAgenda.filter(x => x.idDetCotizacion === this.Data_AgendaAsistencia[i].idDetCotizacion)
+        this.Data_AgendaAsistencia[i].detalles_proyecto = Terminado
       }
-    })
+    }
+  }
 
-    //this.AddformCotizacion.reset();
-    //formDirective.resetForm();
-    //this.dialogRef.close();
+  removeTermProyect() {
+    if (this.Data_AgendaAsistencia) {
+      for (let i = 0; i < this.Data_AgendaAsistencia.length; i++) {
+        for (let j = 0; j < this.Data_AgendaAsistencia[i].detalles_proyecto.length; j++) {
+          let index = this.Data_PuntosAgenda.findIndex(x => x.idDetCotizacion === this.Data_AgendaAsistencia[i].detalles_proyecto[j].idDetCotizacion);
+          if (index > -1) {
+            this.Data_PuntosAgenda.splice(index, 1);
+          }
+        }
+      }
+    }
+  }
 
-    this.route.navigate(['/Cotizacion']);
 
+  async loadModules_Asistencias() {
+    this.firstLoad = true;
+    this.tools.setisLoadingDetails(true)
+    this.list_asistencia = this.Data_AgendaAsistencia;
+    this.dataSourceAgendaAsitencia.data = this.list_asistencia;
+
+    if (this.firstLoad) {
+      setTimeout(() => {
+        this.tools.setisLoadingDetails(false)
+      }, 450);
+      this.firstLoad = false;
+    }
+  }
+
+  async loadModules_PuntosAgenda() {
+    this.firstLoad = true;
+    this.tools.setisLoadingDetails(true)
+
+    this.list_PuntosAgenda = this.Data_PuntosAgenda;
+    this.dataSourceAgendaPuntosAgenda.data = this.list_PuntosAgenda;
+
+    if (this.firstLoad) {
+      setTimeout(() => {
+        this.tools.setisLoadingDetails(false)
+      }, 450);
+      this.firstLoad = false;
+    }
+  }
+
+
+  openForm(type: number, id: number) {   // FRM DIALOGOS SHOW  
+    let dialogRef;
+    let dialogRef2;
+
+    switch (type) {
+      case 1: {  // 1 - Representantes            
+        if (this.frmAgenda.controls['DescripcionAgenda'].value !== "") {
+
+          dialogRef = this.dialog.open(AddItemComponent,
+            {
+              height: '700px', width: '1000px',
+              data: {
+                Id_Agenda: this.Id_Agenda,
+                list_asistencia: this.list_asistencia
+              }
+            });
+          dialogRef.afterClosed().subscribe((res) => {
+
+            if (res !== undefined) {
+                  
+              console.log('Registro de retorno '+JSON.stringify(res));
+
+              res.forEach((reg: any) => {
+                this.Data_AgendaAsistencia.push(reg);
+              });
+              this.loadModules_Asistencias();
+
+            }
+          });
+        } else {
+          this.toast.showToast("Digite una descripción de Agenda - codigo: " + this.Id_Agenda + " ⛔", "Aceptar");
+        }
+      } break;
+
+      case 2: { //Puntos de Agenda
+        if (this.frmAgenda.controls['DescripcionAgenda'].value !== "") {
+
+          this.CodMiembro = this.list_PuntosAgenda.length == undefined ? 0 : this.list_PuntosAgenda.length;
+          dialogRef2 = this.dialog.open(AddItemSComponent,
+            {
+              height: '500px', width: '1000px',
+              data: { Id_Agenda: this.Id_Agenda, CodMiembro: this.CodMiembro },
+              disableClose: false, autoFocus: true
+            });
+
+          dialogRef2.afterClosed().subscribe((res) => {
+            if (res !== undefined) {
+              this.Data_PuntosAgenda.push(res[0]);
+              this.loadModules_PuntosAgenda();
+
+            }
+          });
+
+        } else {
+          this.toast.showToast("Digite una descripción de Agenda - codigo: " + this.Id_Agenda + " ⛔", "Aceptar");
+        }
+      } break;
+      default: { } break;
+    }
+
+  }
+
+
+  EditaCampo(key: number, CodMiembro: any, Descripcion: any) {
+
+    switch (key) {
+      case 1: {
+        let dialog_asistencia = this.dialog.open(EditafilaCampoComponent,
+          {
+            height: '290px', width: '500px',
+            data: { CodMiembro: CodMiembro, Descripcion: Descripcion },
+            disableClose: true, autoFocus: true
+          });
+
+        dialog_asistencia.afterClosed().subscribe((asistencia_res: any) => {
+          if (asistencia_res !== undefined) {
+            let Index = this.list_asistencia.findIndex((reg: any) => reg.CodMiembro == CodMiembro);
+            let fila = this.list_asistencia[Index];
+            fila.NotaObservacion = asistencia_res.Descripcion;
+          }
+        });
+
+      } break;
+
+
+      case 2: {
+        let dialog_Puntos = this.dialog2.open(EditafilaCampoComponent,
+          {
+            height: '290px', width: '500px',
+            data: { CodMiembro: CodMiembro, Descripcion: Descripcion },
+            disableClose: true, autoFocus: true
+          });
+
+        dialog_Puntos.afterClosed().subscribe((res_puntos: any) => {
+
+          if (res_puntos !== undefined) {
+            let IndexPuntos = this.list_PuntosAgenda.findIndex((reg_puntos: any) => reg_puntos.CodMiembro == CodMiembro);
+            let filaPuntos = this.list_PuntosAgenda[IndexPuntos];
+            filaPuntos.NotaObservacion = res_puntos.Descripcion;
+          }
+
+        });
+      } break;
+
+      default: { } break;
+    }
 
 
   }
+
+  delete_filaGrid_Asistencia(CodMiembro: any) {
+    this.Data_AgendaAsistencia = this.delete_Items_Existente(this.list_asistencia, CodMiembro);
+    this.loadModules_Asistencias();
+  }
+  delete_filaGrid_PuntosAgenda(CodMiembro: any) {
+    this.Data_PuntosAgenda = this.delete_Items_Existente(this.list_PuntosAgenda, CodMiembro);
+
+    this.Data_PuntosAgenda.map((reg: any, cont: number = 0) => { reg.CodMiembro = cont }); //reordenar los index    
+    this.CodMiembro = this.Data_PuntosAgenda.length == undefined ? 0 : this.Data_PuntosAgenda.length;
+    this.loadModules_PuntosAgenda();
+
+  }
+  delete_Items_Existente(list_aFiltrar: any, CodMiembro: any) {
+    const list_resultante = Object.assign([], list_aFiltrar);
+    let index = list_resultante.findIndex((x: any) => x.CodMiembro == CodMiembro);
+    if (index > -1) {
+      list_resultante.splice(index, 1);
+    }
+    return list_resultante;
+  }
+
+
+  /* Sumit del formulario */
+  enviar(values: any, formDirective: FormGroupDirective) {
+    
+    let nRegAsistencia = this.list_asistencia.length == undefined ? 0 : this.Data_AgendaAsistencia.length;
+    let nRegPuntAgenda = this.list_PuntosAgenda.length == undefined ? 0 : this.Data_PuntosAgenda.length;
+
+    if (nRegAsistencia > 0 && nRegPuntAgenda > 0) 
+    {
+      let IdUsuario: number = 1
+      values.IdUsuario = IdUsuario
+      values.CodAgenda = this.Data_AgendaMaestro[0].CodAgenda
+      let enviar_Registro_Json =
+      {
+        Master_Agenda: values,
+        Detalle_Asistencia: this.list_asistencia,
+        Detalle_PuntosAgenda: this.list_PuntosAgenda
+      };
+
+
+      console.log('EDITANDO AGENDA  : ' + JSON.stringify(enviar_Registro_Json));
+
+      this.srcAgenda.editAgenda(enviar_Registro_Json).subscribe(res => {
+        if (res) {
+          this.toast.showToast('Registro Editado correctamente ✔️ ', 'Aceptar')
+
+        } else {
+          this.toast.showToast('Ha ocurrido un error de Edición ❌', 'Aceptar')
+        }
+      });
+
+      this.frmAgenda.reset();
+      formDirective.resetForm();      
+      this.cerrar();
+
+
+    } else {
+      this.toast.showToast("Digite los Detalle de Agenda - codigo: " + this.Id_Agenda + " ⛔", "Aceptar");
+    }
+
+
+  }
+
+  cerrar() {
+    this.frmAgenda.reset();
+    this.dialogRef.close();
+  }
+
+
+  openDetailsProject(id: any) {
+    // console.log('parametro id : ' + id)
+    // let proyecto = this.Data_AgendaAsistencia.find(x => x.idDetCotizacion === id);
+  }
+  
 
 
 
@@ -393,3 +386,21 @@ export class EditAgendaComponent implements OnInit {
 
 } // fin de la clase
 
+
+
+export interface reg_asistencia {
+  CodMiembro: number,
+  CodGradoAcademico: string,   //Grado
+  Nombres: string,
+  Apellidos: string,
+  Email: string,
+  Id_Representante: number,
+  Tipo_Representante: string,
+  NotaObservacion: string
+
+}
+
+export interface puntos_agenda {
+  PuntosAgenda: string,
+  NotaObservacion: string
+}
