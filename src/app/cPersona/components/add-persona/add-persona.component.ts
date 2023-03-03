@@ -6,10 +6,7 @@ import { Cargo } from 'src/app/models/Pais';
 import { Claustro } from 'src/app/models/Claustro';
 import { Toast } from 'src/app/utils/Toast';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ClaustroService } from 'src/app/services/municipio.service';
-import { DepartamentoService } from 'src/app/services/departamento.service';
 import { CargoService } from 'src/app/services/Cargo.service';
-import { SubCatalogoService } from 'src/app/services/subcatalogo.service';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Grado } from 'src/app/models/Grado';
 @Component({

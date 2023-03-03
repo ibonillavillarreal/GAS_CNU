@@ -1,11 +1,11 @@
 
-import { HttpClient} from '@angular/common/http';
+
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { retry, catchError } from 'rxjs/operators';
-import { Observable } from 'rxjs';
-import { Sp_Cotizacion_GetID } from 'src/app/models/Sp_Cotizacion_GetID';
 import { ErrorService } from './error.service';
 import { DICTIONARYKEYS } from '../utils/DICTIONARYKEYS';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +13,9 @@ import { DICTIONARYKEYS } from '../utils/DICTIONARYKEYS';
 export class AgendaService {
 
   url = new DICTIONARYKEYS().url + '/API/Agenda/';
+  url_DelMiembro = new DICTIONARYKEYS().url + '/API/Agenda/';
+  
+  
 
   constructor(private http: HttpClient, private error: ErrorService) { }
 
@@ -53,20 +56,21 @@ export class AgendaService {
       pipe(retry(1), catchError(this.error.handleError));
   }
 
-  getCotizacionEdit(id: number): Observable<Sp_Cotizacion_GetID[]> {
-
-    return this.http.get<Sp_Cotizacion_GetID[]>(this.url + 'edit/' + id)
-      .pipe(retry(1), catchError(this.error.handleError));
+  DelEditMiembroAgenda(id:number): Observable<any> {        
+    return this.http.delete<any>(this.url_DelMiembro+id)
+    .pipe(retry(1), catchError(this.error.handleError))
   }
 
-  anularCotizacion(i: number): Observable<any> {
-    return this.http.delete<any>
-      (this.url + i).pipe(retry(1), catchError(this.error.handleError))
-  }
 
-  
-  getCotizacionTipo(idCot: number): Observable<any> {
-    return this.http.get<any>(this.url + 'ProyectoTipo/' + idCot).
-      pipe(retry(1), catchError(this.error.handleError));
-  }
+  // getCotizacionEdit(id: number): Observable<Sp_Cotizacion_GetID[]> {
+
+  //   return this.http.get<Sp_Cotizacion_GetID[]>(this.url + 'edit/' + id)
+  //     .pipe(retry(1), catchError(this.error.handleError));
+  // }
+
+
+  // getCotizacionTipo(idCot: number): Observable<any> {
+  //   return this.http.get<any>(this.url + 'ProyectoTipo/' + idCot).
+  //     pipe(retry(1), catchError(this.error.handleError));
+  // }
 }

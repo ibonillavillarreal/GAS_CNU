@@ -2,7 +2,7 @@
 
 
 
-import { Component, Inject, OnInit, ViewChild,ChangeDetectionStrategy } from '@angular/core';
+import { Component, Inject, OnInit, NgZone,ViewChild,ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
 import { MatPaginator } from '@angular/material/paginator';
@@ -57,7 +57,7 @@ export class EditAgendaComponent implements OnInit {
   @ViewChild(MatSort) sortPuntosAgenda!: MatSort;
 
   /* CONSTRUCTOR */
-  constructor(private router: Router, private _snackbar: MatSnackBar,
+  constructor(private router: Router, private _snackbar: MatSnackBar,public NgZone: NgZone,
     private srcAgenda: AgendaService, private dialog: MatDialog,private dialog2: MatDialog,
     private _builder: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -303,27 +303,40 @@ export class EditAgendaComponent implements OnInit {
 
   }
 
-  delete_filaGrid_Asistencia(CodMiembro: any) {
-    this.Data_AgendaAsistencia = this.delete_Items_Existente(this.list_asistencia, CodMiembro);
-    this.loadModules_Asistencias();
+  delete_filaGrid_Asistencia(CodMiembro: any,id_CodCuorum:number) {
+    //this.Data_AgendaAsistencia = this.delete_Items_Existente_Asitencia(this.list_asistencia, CodMiembro);
+    //eliminamos Representante fisico
+    console.log('antes ')    
+    this.srcAgenda.DelEditMiembroAgenda(id_CodCuorum);
+    console.log('Despues ');
+    //Recargamos
+    //this.loadModules_Asistencias();
   }
   delete_filaGrid_PuntosAgenda(CodMiembro: any) {
-    this.Data_PuntosAgenda = this.delete_Items_Existente(this.list_PuntosAgenda, CodMiembro);
+    this.Data_PuntosAgenda = this.delete_Items_Existente_Puntos(this.list_PuntosAgenda, CodMiembro);
 
     this.Data_PuntosAgenda.map((reg: any, cont: number = 0) => { reg.CodMiembro = cont }); //reordenar los index    
     this.CodMiembro = this.Data_PuntosAgenda.length == undefined ? 0 : this.Data_PuntosAgenda.length;
     this.loadModules_PuntosAgenda();
 
   }
-  delete_Items_Existente(list_aFiltrar: any, CodMiembro: any) {
+  delete_Items_Existente_Asitencia(list_aFiltrar: any, CodMiembro: any) {
+    const list_resultante = Object.assign([], list_aFiltrar);
+    let index = list_resultante.findIndex((x: any) => x.CodMiembro == CodMiembro);
+    if (index > -1) {      
+      //eliminamos Representante en girdTabla
+      list_resultante.splice(index, 1);      
+    }
+    return list_resultante;
+  }  
+  delete_Items_Existente_Puntos(list_aFiltrar: any, CodMiembro: any) {
     const list_resultante = Object.assign([], list_aFiltrar);
     let index = list_resultante.findIndex((x: any) => x.CodMiembro == CodMiembro);
     if (index > -1) {
-      list_resultante.splice(index, 1);
+      list_resultante.splice(index, 1);    
     }
     return list_resultante;
   }
-
 
   /* Sumit del formulario */
   enviar(values: any, formDirective: FormGroupDirective) {
